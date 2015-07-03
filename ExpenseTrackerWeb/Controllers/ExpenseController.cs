@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace ExpenseTrackerWeb.Controllers
 {
     public class ExpenseController : ApiController
-    {
+    { 
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
