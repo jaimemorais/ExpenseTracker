@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace ExpenseTrackerWeb.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "ExpenseTracker";
 
             
             return View();

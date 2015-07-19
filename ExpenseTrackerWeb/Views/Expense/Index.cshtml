@@ -1,0 +1,16 @@
+﻿
+@using (Html.BeginForm("Create", "Expense"))
+{
+    <div class="form-group">
+        <p>
+            Value
+            @Html.TextBox("txtValue", null, new { @class = "input-medium" })
+        </p>
+        <p>
+            Description
+            @Html.TextBox("txtDescription", null, new { @class = "input-medium" })
+        </p>
+    </div>  
+      
+    <button type="submit" name="btnNewExpense" class="btn btn-default">Add Expense</button>
+}
