@@ -41,7 +41,7 @@ namespace ExpenseTrackerWeb.Controllers
 
 
 
-                string url = string.Format("http://localhost:59277/api/ExpenseApi");
+                string url = base.GetApiServiceURL();
 
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");

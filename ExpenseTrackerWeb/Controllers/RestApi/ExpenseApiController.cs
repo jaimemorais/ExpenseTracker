@@ -17,6 +17,7 @@ using System.Web.Http;
 
 namespace ExpenseTrackerWeb.Controllers.RestApi
 {
+
     public class ExpenseApiController : ApiController
     {
         // GET api/ExpenseApi
@@ -49,7 +50,7 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
         }
 
         // POST api/ExpenseApi
-        public async Task Post(Expense expensePosted)
+        public async Task PostAsync(Expense expensePosted)
         {
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
