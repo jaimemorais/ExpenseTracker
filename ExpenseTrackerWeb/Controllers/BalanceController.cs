@@ -11,6 +11,7 @@ using ExpenseTrackerWeb.Models;
 using Newtonsoft.Json;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using System.Diagnostics;
 
 namespace ExpenseTrackerWeb.Controllers
 {
@@ -18,30 +19,37 @@ namespace ExpenseTrackerWeb.Controllers
     {
         public async Task<ActionResult> Index()
         {
-
-            string url = base.GetApiServiceURL();
-
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            var response = await httpClient.GetAsync(url);
-            var content = await response.Content.ReadAsStringAsync();
-
-            JArray json = JArray.Parse(content);
-
-            var expenseItems = new List<Expense>();
-
-            foreach (JToken item in json)
+            try
             {
-                MongoDB.Bson.BsonDocument document
-                    = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
-                Expense e = BsonSerializer.Deserialize<Expense>(document);
+                string url = base.GetApiServiceURL();
 
-                expenseItems.Add(e);
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                var response = await httpClient.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+
+                JArray json = JArray.Parse(content);
+
+                var expenseItems = new List<Expense>();
+
+                foreach (JToken item in json)
+                {
+                    MongoDB.Bson.BsonDocument document
+                        = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
+                    Expense e = BsonSerializer.Deserialize<Expense>(document);
+
+                    expenseItems.Add(e);
+                }
+
+                return View(expenseItems);
             }
-                    
+            catch (Exception e)
+            {
+                Trace.TraceError("BalanceController Index Error : " + e.Message);
+                ShowMessage("Error getting expense list.", EnumMessageType.ERROR);
+                return View();
+            }
 
-
-            return View(expenseItems);
         }
     }
 }

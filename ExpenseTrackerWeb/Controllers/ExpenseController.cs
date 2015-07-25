@@ -26,40 +26,47 @@ namespace ExpenseTrackerWeb.Controllers
         // GET: Expense/Create
         public ActionResult Create()
         {
-            return View();
+            Expense exp = new Expense();
+            exp.Date = DateTime.Now;
+            return View(exp);
         }
 
         // POST: Expense/Create
-        [HttpPost]
-        public async Task<ActionResult> Create(FormCollection formCollection)
+        [HttpPost]        
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Expense expense)
         {
             try
             {
-                Expense exp = new Expense();
-                exp.Value = Double.Parse(formCollection["txtValue"].ToString());
-                exp.Description = formCollection["txtDescription"].ToString();
-
-
-
-                string url = base.GetApiServiceURL();
-
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                var response = await httpClient.PostAsJsonAsync(url, exp);
-
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    ShowMessage("Expense added.", EnumMessageType.INFO);
+                    string url = base.GetApiServiceURL();
+
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                    var response = await httpClient.PostAsJsonAsync(url, expense);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ShowMessage("Expense added.", EnumMessageType.INFO);
+                    }
+                    else
+                    {
+                        ShowMessage("An unexpected error has occurred.", EnumMessageType.ERROR);
+                    }
+
+                    return View(expense);
                 }
                 else
                 {
-                    ShowMessage("An unexpected error has occurred.", EnumMessageType.ERROR);
+                    return View();
                 }
+                                
                 
-                return RedirectToAction("Index");
             }
             catch
             {
+                ShowMessage("Error creating new expense.", EnumMessageType.ERROR);
                 return View();
             }
         }

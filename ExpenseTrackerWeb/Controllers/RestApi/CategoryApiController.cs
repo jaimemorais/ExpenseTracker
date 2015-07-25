@@ -18,29 +18,25 @@ using System.Web.Http;
 namespace ExpenseTrackerWeb.Controllers.RestApi
 {
 
-    public class ExpenseApiController : ApiController
+    public class CategoryApiController : ApiController
     {
-        // GET api/ExpenseApi
+        // GET api/CategoryApi
         public async Task<IEnumerable<string>> GetAsync()
-        {            
-            // Initial playing with mongodb
-            // http://mongodb.github.io/mongo-csharp-driver/2.0/getting_started/quick_tour/
+        {
 
-            MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
+            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
                 
             IList<string> returnList = new List<string>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-            await expenseHelper.Collection.Find(e => e.Value > 0)
+            await categoryHelper.Collection.Find(e => e.Name != null)
                 .ForEachAsync(expenseDocument => 
                 {
                     string docJson = expenseDocument.ToJson(jsonWriterSettings);
                     returnList.Add(docJson);
                 }
             );
-                    
 
             return returnList.ToArray();
-
         }
 
         // GET api/ExpenseApi/5
@@ -51,23 +47,19 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
         }
 
         // POST api/ExpenseApi
-        public async Task PostAsync(Expense expensePosted)
+        public async Task PostAsync(Category categoryPosted)
         {
-            MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
+            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
 
-            Expense exp = new Expense();
-            exp.Date = DateTime.Now;
-            exp.PaymentType = expensePosted.PaymentType;
-            exp.Value = expensePosted.Value;
-            exp.Category = expensePosted.Category;
-            exp.Description = expensePosted.Description;
+            Category category = new Category();
+            category.Name = categoryPosted.Name;
 
-            await expenseHelper.Collection.InsertOneAsync(exp);
+            await categoryHelper.Collection.InsertOneAsync(category);
         }
 
         // PUT api/ExpenseApi/5
         public void Put(int id, [FromBody]string value)
-        {
+        {            
             // TODO update
         }
 

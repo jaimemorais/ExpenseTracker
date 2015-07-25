@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -123,6 +124,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -159,13 +161,16 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BalanceController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RestApi\CategoryApiController.cs" />
     <Compile Include="Controllers\RestApi\ExpenseApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MongoHelper.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -220,7 +225,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Balance\Index.cshtml" />
-    <Content Include="Views\Expense\Index.cshtml" />
+    <Content Include="Views\Expense\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
