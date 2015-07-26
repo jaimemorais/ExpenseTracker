@@ -1,6 +1,10 @@
 ﻿using ExpenseTrackerWeb.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -24,24 +28,50 @@ namespace ExpenseTrackerWeb.Controllers
         }
 
         // GET: Expense/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             Expense exp = new Expense();
             exp.Date = DateTime.Now;
+
+            await GetCategorySelectListAsync();
+
             return View(exp);
         }
+
+
+        private async Task GetCategorySelectListAsync()
+        {
+            List<SelectListItem> categoriesSelectList = new List<SelectListItem>();
+
+            List<Category> categories = await GetCategoriesAsync();
+            foreach (Category category in categories)
+            {
+                categoriesSelectList.Add(new SelectListItem() { Text = category.Name, Value = category.Id.ToString() });
+            }
+
+            ViewBag.Categories = categoriesSelectList;
+        }
+
+
 
         // POST: Expense/Create
         [HttpPost]        
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Expense expense)
+        public async Task<ActionResult> Create(Expense expense, FormCollection form)
         {
+            await GetCategorySelectListAsync();
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    string url = base.GetApiServiceURL();
 
+                    // TODO
+                    //string selectedCategoryId = form["SelectedCategory"];
+                    //expense.CategoryId = new ObjectId(selectedCategoryId);
+
+
+                    string url = base.GetApiServiceURL("ExpenseApi");
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                     var response = await httpClient.PostAsJsonAsync(url, expense);
@@ -52,10 +82,10 @@ namespace ExpenseTrackerWeb.Controllers
                     }
                     else
                     {
-                        ShowMessage("An unexpected error has occurred.", EnumMessageType.ERROR);
+                        ShowMessage("Expense Create : Server error.", EnumMessageType.ERROR);
                     }
 
-                    return View(expense);
+                    return RedirectToAction("Create");
                 }
                 else
                 {

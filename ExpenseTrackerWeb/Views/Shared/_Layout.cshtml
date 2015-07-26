@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>ExpenseTracker - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <meta name="description" content="ExpenseTracker" />
@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("New Expense", "Create", "Expense", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Categories", "Index", "Category", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Accounts", "Index", "Account", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Payment Types", "Index", "PaymentType", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Balance", "Index", "Balance", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                 </ul>

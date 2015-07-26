@@ -23,12 +23,11 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
         // GET api/CategoryApi
         public async Task<IEnumerable<string>> GetAsync()
         {
-
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
                 
             IList<string> returnList = new List<string>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-            await categoryHelper.Collection.Find(e => e.Name != null)
+            await categoryHelper.Collection.Find(e => e.Name != null) // TODO filter by userId
                 .ForEachAsync(expenseDocument => 
                 {
                     string docJson = expenseDocument.ToJson(jsonWriterSettings);
@@ -49,12 +48,18 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
         // POST api/ExpenseApi
         public async Task PostAsync(Category categoryPosted)
         {
-            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
+            MongoHelper<Category> expenseHelper = new MongoHelper<Category>();
 
-            Category category = new Category();
-            category.Name = categoryPosted.Name;
+            try
+            {
+                await expenseHelper.Collection.InsertOneAsync(categoryPosted);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("CategoryApi PostAsync error : " + e.Message);
+                throw;
+            }
 
-            await categoryHelper.Collection.InsertOneAsync(category);
         }
 
         // PUT api/ExpenseApi/5

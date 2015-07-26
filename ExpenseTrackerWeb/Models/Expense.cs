@@ -10,16 +10,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTrackerWeb.Models
 {
-    public class Expense
-    {
-        
-        [BsonId]
-        public ObjectId ExpenseId { get; set; }
+    public class Expense : MongoEntity
+    {        
 
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage="Date is required")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [BsonDateTimeOptions(DateOnly = true)]
         public DateTime Date { get; set; }
 
         [Display(Name = "Value")]
@@ -29,7 +27,7 @@ namespace ExpenseTrackerWeb.Models
 
         [Display(Name = "Category")]
         [Required(ErrorMessage = "Select a category")]
-        public string Category { get; set; }
+        public ObjectId CategoryId { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
@@ -37,5 +35,8 @@ namespace ExpenseTrackerWeb.Models
         [Display(Name = "PaymentType")]
         [Required(ErrorMessage = "Select a payment type")]
         public string PaymentType { get; set; }
+
+
+        public ObjectId UserId;
     }
 }

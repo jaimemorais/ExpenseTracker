@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Categories";
+}
+  
+<p>Your defined categories : </p>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <ul class="list-group">
+            @foreach (var category in Model)
+            {
+                <li class="list-group-item-text">@category.Name</li>
+            }
+        </ul>
+    </div>
+
+
+
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

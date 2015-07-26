@@ -10,13 +10,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTrackerWeb.Models
 {
-    public class Category : MongoEntity
-    {
+    public class User : MongoEntity
+    {        
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-
-
-        public ObjectId UserId;
     }
 }

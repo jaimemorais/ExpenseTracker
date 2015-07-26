@@ -1,18 +1,28 @@
-﻿using System;
+﻿using ExpenseTrackerWeb.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace ExpenseTrackerWeb.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         // GET: Category
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            List<Category> categories = await base.GetCategoriesAsync();
+
+            return View(categories);
         }
+
 
         // GET: Category/Details/5
         public ActionResult Details(int id)
@@ -28,16 +38,37 @@ namespace ExpenseTrackerWeb.Controllers
 
         // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(Category category)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    string url = base.GetApiServiceURL("CategoryApi");
 
-                return RedirectToAction("Index");
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                    var response = await httpClient.PostAsJsonAsync(url, category);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ShowMessage("Category '" + category.Name + "' added.", EnumMessageType.INFO);
+                    }
+                    else
+                    {
+                        ShowMessage("Error contacting server.", EnumMessageType.ERROR);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
+                ShowMessage("Error creating new category.", EnumMessageType.ERROR);
                 return View();
             }
         }
