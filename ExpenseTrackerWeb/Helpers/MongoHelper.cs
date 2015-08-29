@@ -11,7 +11,9 @@ namespace ExpenseTrackerWeb.Helpers
 
         public MongoHelper()
         {
-            var client = new MongoClient(ConfigurationManager.ConnectionStrings["MongoDBConnectionString"].ConnectionString);
+            string uriMongo = ConfigurationManager.AppSettings.Get("MONGOLAB_URI");
+
+            var client = new MongoClient(uriMongo);
 
             var database = client.GetDatabase("ExpenseTracker");
 
