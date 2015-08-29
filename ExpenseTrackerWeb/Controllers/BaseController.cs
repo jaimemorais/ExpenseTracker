@@ -68,5 +68,39 @@ namespace ExpenseTrackerWeb.Controllers
                 return null;
             }
         }
+
+
+        protected async Task<List<PaymentType>> GetPaymentTypesAsync()
+        {
+            try
+            {
+                string url = this.GetApiServiceURL("PaymentTypeApi");
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                var response = await httpClient.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+
+                JArray json = JArray.Parse(content);
+
+                var paymentTypes = new List<PaymentType>();
+
+                foreach (JToken item in json)
+                {
+                    BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
+                    PaymentType c = BsonSerializer.Deserialize<PaymentType>(document);
+
+                    paymentTypes.Add(c);
+                }
+
+                return paymentTypes;
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("BaseController.GetPaymentTypesAsync Error : " + e.Message);
+                ShowMessage("Error getting Payment Types list.", EnumMessageType.ERROR);
+                return null;
+            }
+        }
+
     }
 }

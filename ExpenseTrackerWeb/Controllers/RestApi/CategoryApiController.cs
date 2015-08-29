@@ -28,9 +28,9 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
             IList<string> returnList = new List<string>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             await categoryHelper.Collection.Find(e => e.Name != null) // TODO filter by userId
-                .ForEachAsync(expenseDocument => 
+                .ForEachAsync(categoryDocument => 
                 {
-                    string docJson = expenseDocument.ToJson(jsonWriterSettings);
+                    string docJson = categoryDocument.ToJson(jsonWriterSettings);
                     returnList.Add(docJson);
                 }
             );
@@ -38,21 +38,21 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
             return returnList.ToArray();
         }
 
-        // GET api/ExpenseApi/5
+        // GET api/CategoryApi/5
         public string Get(int id)
         {
             // TODO get one
             return "value";
         }
 
-        // POST api/ExpenseApi
+        // POST api/CategoryApi
         public async Task PostAsync(Category categoryPosted)
         {
-            MongoHelper<Category> expenseHelper = new MongoHelper<Category>();
+            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
 
             try
             {
-                await expenseHelper.Collection.InsertOneAsync(categoryPosted);
+                await categoryHelper.Collection.InsertOneAsync(categoryPosted);
             }
             catch (Exception e)
             {
@@ -62,13 +62,13 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
 
         }
 
-        // PUT api/ExpenseApi/5
+        // PUT api/CategoryApi/5
         public void Put(int id, [FromBody]string value)
         {            
             // TODO update
         }
 
-        // DELETE api/ExpenseApi/5
+        // DELETE api/CategoryApi/5
         public void Delete(int id)
         {
             // TODO delete

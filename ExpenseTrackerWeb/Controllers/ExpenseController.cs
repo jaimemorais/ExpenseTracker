@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -33,8 +34,8 @@ namespace ExpenseTrackerWeb.Controllers
             Expense exp = new Expense();
             exp.Date = DateTime.Now;
 
-            // TODO : cache
             await GetCategorySelectListAsync();
+            await GetPaymentTypesSelectListAsync();
 
             return View(exp);
         }
@@ -42,6 +43,8 @@ namespace ExpenseTrackerWeb.Controllers
 
         private async Task GetCategorySelectListAsync()
         {
+            // TODO : cache
+
             List<SelectListItem> categoriesSelectList = new List<SelectListItem>();
 
             List<Category> categories = await GetCategoriesAsync();
@@ -53,6 +56,21 @@ namespace ExpenseTrackerWeb.Controllers
             ViewBag.Categories = categoriesSelectList;
         }
 
+        private async Task GetPaymentTypesSelectListAsync()
+        {
+            // TODO : cache
+
+            List<SelectListItem> paymentTypesSelectList = new List<SelectListItem>();
+
+            List<PaymentType> paymentTypes = await GetPaymentTypesAsync();
+            foreach (PaymentType paymentType in paymentTypes)
+            {
+                paymentTypesSelectList.Add(new SelectListItem() { Text = paymentType.Name, Value = paymentType.Name });
+            }
+
+            ViewBag.PaymentTypes = paymentTypesSelectList;
+        }
+
 
 
         // POST: Expense/Create
@@ -61,6 +79,7 @@ namespace ExpenseTrackerWeb.Controllers
         public async Task<ActionResult> Create(Expense expense, FormCollection form)
         {
             await GetCategorySelectListAsync();
+            await GetPaymentTypesSelectListAsync();
             
             try
             {
@@ -80,7 +99,7 @@ namespace ExpenseTrackerWeb.Controllers
                         ShowMessage("Expense Create : Server error.", EnumMessageType.ERROR);
                     }
 
-                    return RedirectToAction("Create");
+                    return RedirectToAction("Index", "Balance");
                 }
                 else
                 {
@@ -97,23 +116,70 @@ namespace ExpenseTrackerWeb.Controllers
         }
 
         // GET: Expense/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Expense expense = await GetExpenseById(id);
+
+            if (expense == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(expense);
         }
+
+        private async Task<Expense> GetExpenseById(string id)
+        {
+            string url = base.GetApiServiceURL("ExpenseApi");
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            var response = await httpClient.GetAsync(id);
+
+            // TODO Expense expense = response.Content;           
+
+            return null;
+        }
+
 
         // POST: Expense/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit(Expense expense, FormCollection collection)
         {
+            await GetCategorySelectListAsync();            
+            await GetPaymentTypesSelectListAsync();
+
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    string url = base.GetApiServiceURL("ExpenseApi");
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                    var response = await httpClient.PutAsJsonAsync(url, expense);
 
-                return RedirectToAction("Index");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ShowMessage("Expense changed.", EnumMessageType.INFO);
+                    }
+                    else
+                    {
+                        ShowMessage("Expense Edit : Server error.", EnumMessageType.ERROR);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
+                ShowMessage("Error changing expense.", EnumMessageType.ERROR);
                 return View();
             }
         }
@@ -126,16 +192,40 @@ namespace ExpenseTrackerWeb.Controllers
 
         // POST: Expense/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> Delete(Expense expense, FormCollection collection)
         {
+            await GetCategorySelectListAsync();
+            await GetPaymentTypesSelectListAsync();
+
             try
             {
-                // TODO: Add delete logic here
+                if (ModelState.IsValid)
+                {
+                    string url = base.GetApiServiceURL("ExpenseApi");
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                    var response = await httpClient.DeleteAsync(url);//TODO expense                  
 
-                return RedirectToAction("Index");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ShowMessage("Expense deleted.", EnumMessageType.INFO);
+                    }
+                    else
+                    {
+                        ShowMessage("Expense Delete : Server error.", EnumMessageType.ERROR);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
+                ShowMessage("Error deleting expense.", EnumMessageType.ERROR);
                 return View();
             }
         }

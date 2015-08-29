@@ -27,7 +27,7 @@
         @Html.LabelFor(Model => Model.Category)
         <div class="col-md-12">
             <div class="dropdown">
-                @Html.DropDownList("Category", ViewBag.Categories as List<SelectListItem>, "Select a category", new { @class = "form-control"})
+                @Html.DropDownList("Category", ViewBag.Categories as List<SelectListItem>, "Select a Category", new { @class = "form-control"})
             </div>
             <br />
             @Html.ValidationMessageFor(model => model.Category)
@@ -35,7 +35,9 @@
 
         @Html.LabelFor(Model => Model.PaymentType)
         <div class="col-md-12">
-            @Html.EditorFor(Model => Model.PaymentType, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="dropdown">
+                @Html.DropDownList("PaymentType", ViewBag.PaymentTypes as List<SelectListItem>, "Select a Payment Type", new { @class = "form-control" })
+            </div>
             <br />
             @Html.ValidationMessageFor(model => model.PaymentType)
         </div>

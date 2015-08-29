@@ -1,9 +1,44 @@
-﻿
-<div class="col-md-12">
-    <ul class="list-group">
-        @foreach (var exp in Model)
-        {
-            <li class="list-group-item">@exp.Description - @exp.Value</li>
-        }
-    </ul>
-</div>  
+﻿@model System.Collections.Generic.IEnumerable<ExpenseTrackerWeb.Models.Expense>
+
+<h2>Your Balance</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentType)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Expense", new { id = item.Id }, new object { }) |
+                @Html.ActionLink("Delete", "Delete", "Expense", new { id = item.Id }, new object { })
+            </td>
+        </tr>
+    }
+
+</table>
