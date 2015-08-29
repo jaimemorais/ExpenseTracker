@@ -42,6 +42,10 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
         public string Get(int id)
         {
             // TODO get one
+            if (id != null)
+            {
+                // test
+            }
             return "value";
         }
 
