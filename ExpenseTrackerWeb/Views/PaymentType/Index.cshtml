@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Payment Types";
+}
+  
+<h2>Your Payment Types : </h2>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <ul class="list-group">
+            @foreach (var paymentType in Model)
+            {
+                <li class="list-group-item-text">@paymentType.Name</li>
+            }
+        </ul>
+    </div>
+
+
+
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
