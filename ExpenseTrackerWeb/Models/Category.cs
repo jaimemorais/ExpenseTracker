@@ -16,7 +16,7 @@ namespace ExpenseTrackerWeb.Models
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
-
+        //TODO [BsonId]
         public ObjectId UserId;
     }
 }

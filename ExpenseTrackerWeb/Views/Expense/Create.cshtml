@@ -24,13 +24,13 @@
             @Html.ValidationMessageFor(model => model.Value)
         </div>
 
-        @Html.LabelFor(Model => Model.CategoryId)
+        @Html.LabelFor(Model => Model.Category)
         <div class="col-md-12">
             <div class="dropdown">
-                @Html.DropDownList("SelectedCategory", ViewBag.Categories as List<SelectListItem>, "Select a category")
+                @Html.DropDownList("Category", ViewBag.Categories as List<SelectListItem>, "Select a category", new { @class = "form-control"})
             </div>
             <br />
-            @Html.ValidationMessageFor(model => model.CategoryId)
+            @Html.ValidationMessageFor(model => model.Category)
         </div>
 
         @Html.LabelFor(Model => Model.PaymentType)

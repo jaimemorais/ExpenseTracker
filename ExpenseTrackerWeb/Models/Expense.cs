@@ -24,10 +24,10 @@ namespace ExpenseTrackerWeb.Models
         [DataType(DataType.Currency)]
         [Required(ErrorMessage = "Value is required")]
         public double Value { get; set; }
-
+                
         [Display(Name = "Category")]
         [Required(ErrorMessage = "Select a category")]
-        public ObjectId CategoryId { get; set; }
+        public string Category { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
@@ -36,7 +36,7 @@ namespace ExpenseTrackerWeb.Models
         [Required(ErrorMessage = "Select a payment type")]
         public string PaymentType { get; set; }
 
-
+        //TODO [BsonId]
         public ObjectId UserId;
     }
 }

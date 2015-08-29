@@ -33,6 +33,7 @@ namespace ExpenseTrackerWeb.Controllers
             Expense exp = new Expense();
             exp.Date = DateTime.Now;
 
+            // TODO : cache
             await GetCategorySelectListAsync();
 
             return View(exp);
@@ -46,7 +47,7 @@ namespace ExpenseTrackerWeb.Controllers
             List<Category> categories = await GetCategoriesAsync();
             foreach (Category category in categories)
             {
-                categoriesSelectList.Add(new SelectListItem() { Text = category.Name, Value = category.Id.ToString() });
+                categoriesSelectList.Add(new SelectListItem() { Text = category.Name, Value = category.Name });
             }
 
             ViewBag.Categories = categoriesSelectList;
@@ -60,17 +61,11 @@ namespace ExpenseTrackerWeb.Controllers
         public async Task<ActionResult> Create(Expense expense, FormCollection form)
         {
             await GetCategorySelectListAsync();
-
+            
             try
             {
                 if (ModelState.IsValid)
                 {
-
-                    // TODO
-                    //string selectedCategoryId = form["SelectedCategory"];
-                    //expense.CategoryId = new ObjectId(selectedCategoryId);
-
-
                     string url = base.GetApiServiceURL("ExpenseApi");
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
