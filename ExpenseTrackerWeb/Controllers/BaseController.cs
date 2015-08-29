@@ -45,6 +45,9 @@ namespace ExpenseTrackerWeb.Controllers
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                 var response = await httpClient.GetAsync(url);
+
+                Trace.TraceError("Api Service Url : " + url);
+
                 var content = await response.Content.ReadAsStringAsync();
 
                 JArray json = JArray.Parse(content);
