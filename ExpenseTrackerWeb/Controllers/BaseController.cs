@@ -25,8 +25,14 @@ namespace ExpenseTrackerWeb.Controllers
     {
         protected string GetApiServiceURL(string apiId) 
         {
-            return ConfigurationManager.AppSettings["WebApiServiceURL"] + apiId;
-
+            try
+            {
+                return ConfigurationManager.AppSettings["WebApiServiceURL"] + apiId;
+            }
+            catch
+            {
+                throw new Exception("WebApiServiceURL not set.");
+            }
         }
 
         protected void ShowMessage(string msgText, EnumMessageType msgType)
@@ -42,12 +48,11 @@ namespace ExpenseTrackerWeb.Controllers
             try
             {
                 string url = this.GetApiServiceURL("CategoryApi");
+                Trace.TraceError("Api Service Url : " + url);
+
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                 var response = await httpClient.GetAsync(url);
-
-                Trace.TraceError("Api Service Url : " + url);
-
                 var content = await response.Content.ReadAsStringAsync();
 
                 JArray json = JArray.Parse(content);
