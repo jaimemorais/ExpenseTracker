@@ -50,7 +50,7 @@ namespace ExpenseTrackerWeb.Controllers.RestApi
         {
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
-            try
+            try 
             {
                 await paymentTypeHelper.Collection.InsertOneAsync(paymentTypePosted);
             }
