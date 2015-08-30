@@ -48,14 +48,12 @@ namespace ExpenseTrackerWeb.Controllers
 
             List<SelectListItem> categoriesSelectList = new List<SelectListItem>();
 
-            /*List<Category> categories = await base.GetItemListAsync<Category>("CategoryApi");
+            List<Category> categories = await base.GetItemListAsync<Category>("CategoryApi");
             foreach (Category category in categories)
             {
                 categoriesSelectList.Add(new SelectListItem() { Text = category.Name, Value = category.Name });
-            }*/
-
-            categoriesSelectList.Add(new SelectListItem() { Text = "test", Value = "test" });
-
+            }
+            
             ViewBag.Categories = categoriesSelectList;
         }
 
@@ -65,11 +63,11 @@ namespace ExpenseTrackerWeb.Controllers
 
             List<SelectListItem> paymentTypesSelectList = new List<SelectListItem>();
 
-            /*List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypeApi");
+            List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypeApi");
             foreach (PaymentType paymentType in paymentTypes)
             {
                 paymentTypesSelectList.Add(new SelectListItem() { Text = paymentType.Name, Value = paymentType.Name });
-            }*/
+            }
             paymentTypesSelectList.Add(new SelectListItem() { Text = "test2", Value = "test2" });
 
             ViewBag.PaymentTypes = paymentTypesSelectList;
