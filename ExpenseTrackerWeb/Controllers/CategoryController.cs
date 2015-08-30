@@ -18,7 +18,7 @@ namespace ExpenseTrackerWeb.Controllers
         // GET: Category
         public async Task<ActionResult> Index()
         {
-            List<Category> categories = await base.GetCategoriesAsync();
+            List<Category> categories = await base.GetItemListAsync<Category>("CategoryApi");
 
             return View(categories);
         }

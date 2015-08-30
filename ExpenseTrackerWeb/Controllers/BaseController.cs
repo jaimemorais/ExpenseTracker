@@ -43,11 +43,11 @@ namespace ExpenseTrackerWeb.Controllers
 
 
 
-        protected async Task<List<Category>> GetCategoriesAsync()
+        protected async Task<List<T>> GetItemListAsync<T>(string api) where T : MongoEntity
         {
             try
             {
-                string url = this.GetApiServiceURL("CategoryApi");
+                string url = this.GetApiServiceURL(api);
                 Trace.TraceError("Api Service Url : " + url);
 
                 var httpClient = new HttpClient();
@@ -57,55 +57,22 @@ namespace ExpenseTrackerWeb.Controllers
 
                 JArray json = JArray.Parse(content);
 
-                var categories = new List<Category>();
+                var items = new List<T>();
 
                 foreach (JToken item in json)
                 {
                     BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
-                    Category c = BsonSerializer.Deserialize<Category>(document);
+                    T c = BsonSerializer.Deserialize<T>(document);
 
-                    categories.Add(c);
+                    items.Add(c);
                 }
 
-                return categories;
+                return items;
             }
             catch (Exception e)
             {
-                Trace.TraceError("BaseController.GetCategoriesAsync Error : " + e.Message);
-                ShowMessage("Error getting categories list.", EnumMessageType.ERROR);
-                return null;
-            }
-        }
-
-
-        protected async Task<List<PaymentType>> GetPaymentTypesAsync()
-        {
-            try
-            {
-                string url = this.GetApiServiceURL("PaymentTypeApi");
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                var response = await httpClient.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
-
-                JArray json = JArray.Parse(content);
-
-                var paymentTypes = new List<PaymentType>();
-
-                foreach (JToken item in json)
-                {
-                    BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
-                    PaymentType c = BsonSerializer.Deserialize<PaymentType>(document);
-
-                    paymentTypes.Add(c);
-                }
-
-                return paymentTypes;
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError("BaseController.GetPaymentTypesAsync Error : " + e.Message);
-                ShowMessage("Error getting Payment Types list.", EnumMessageType.ERROR);
+                Trace.TraceError("BaseController.GetItemListAsync. (" + api + ") Error : " + e.Message);
+                ShowMessage("Error getting list.", EnumMessageType.ERROR);
                 return null;
             }
         }

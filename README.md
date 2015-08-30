@@ -1,2 +1,2 @@
-A simple expense tracker in C#
+A simple expense tracker - C# / MongoDB
 
