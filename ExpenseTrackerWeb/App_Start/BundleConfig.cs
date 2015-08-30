@@ -21,6 +21,14 @@ namespace ExpenseTrackerWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+            // Pikaday
+            bundles.Add(new StyleBundle("~/Content/pikaday").Include("~/Content/pikaday.css", new CssRewriteUrlTransform()));
+
+            bundles.Add(new ScriptBundle("~/bundles/pikaday")
+                    .Include("~/Scripts/moment-with-locales.js")
+                    .Include("~/Scripts/pikaday.js"));
         }
     }
 }

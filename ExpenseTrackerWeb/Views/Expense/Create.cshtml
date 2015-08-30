@@ -4,6 +4,10 @@
     ViewBag.Title = "New Expense";
 }
 
+@Scripts.Render("~/bundles/pikaday")
+@Styles.Render("~/Content/pikaday")
+
+
 @using (Html.BeginForm("Create", "Expense"))
 {
     @Html.AntiForgeryToken()
@@ -12,7 +16,7 @@
 
         @Html.LabelFor(Model => Model.Date, htmlAttributes: new { @class = "control-label" })
         <div class="col-md-12">        
-            @Html.EditorFor(Model => Model.Date, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextBox("Date", (string)ViewBag.dateInit, new { @class = "form-control", @maxlength="10"} )
             <br />
             @Html.ValidationMessageFor(model => model.Date)            
         </div>
@@ -56,4 +60,30 @@
         <input type="submit" name="btnNewExpense" value="Add Expense" class="btn btn-primary" />
     </div>
 }
+
+
+<input type="hidden" id="initialDateValue" value="@ViewBag.dateInit" />
+
+@section Scripts {
+    <script>
+
+         // Datepicker inicio
+         var $txtDate = document.getElementById("Date");
+         var pickerIni = new Pikaday(
+         {
+             format: 'DD/MM/YYYY',
+             field: $txtDate,
+             onSelect: function () {
+                 var date = document.createTextNode(this.getMoment().format('DD/MM/YYYY'));
+                 document.getElementById('Date').value = date.nodeValue;
+             }
+         });
+         pickerIni.setMoment(moment());
+         var initialDateValue = document.getElementById('initialDateValue').value;
+         document.getElementById('Date').value = initialDateValue;
+
+    </script>
+}
+
+   
 
