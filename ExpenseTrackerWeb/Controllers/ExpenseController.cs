@@ -68,7 +68,6 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 paymentTypesSelectList.Add(new SelectListItem() { Text = paymentType.Name, Value = paymentType.Name });
             }
-            paymentTypesSelectList.Add(new SelectListItem() { Text = "test2", Value = "test2" });
 
             ViewBag.PaymentTypes = paymentTypesSelectList;
         }
