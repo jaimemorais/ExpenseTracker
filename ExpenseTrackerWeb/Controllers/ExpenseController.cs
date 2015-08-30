@@ -47,7 +47,7 @@ namespace ExpenseTrackerWeb.Controllers
             // TODO : cache
 
             List<SelectListItem> categoriesSelectList = new List<SelectListItem>();
-
+             
             List<Category> categories = await base.GetItemListAsync<Category>("CategoryApi");
             foreach (Category category in categories)
             {
@@ -62,7 +62,7 @@ namespace ExpenseTrackerWeb.Controllers
             // TODO : cache
 
             List<SelectListItem> paymentTypesSelectList = new List<SelectListItem>();
-
+             
             List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypeApi");
             foreach (PaymentType paymentType in paymentTypes)
             {
