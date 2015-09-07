@@ -1,4 +1,4 @@
-﻿using ExpenseTrackerWeb.Models;
+﻿using ExpenseTrackerDomain.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using Newtonsoft.Json.Linq;

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Threading;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using ExpenseTrackerWeb.Models;
+using ExpenseTrackerDomain.Models;
 using Newtonsoft.Json;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;

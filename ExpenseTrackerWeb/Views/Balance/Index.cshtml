@@ -1,4 +1,8 @@
-﻿@model System.Collections.Generic.IEnumerable<ExpenseTrackerWeb.Models.Expense>
+﻿@model System.Collections.Generic.IEnumerable<ExpenseTrackerDomain.Models.Expense>
+
+@{
+    ViewBag.Title = "Balance";
+}
 
 <h2>Your Balance</h2>
 
@@ -19,26 +23,29 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @if (Model != null)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentType)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "Expense", new { id = item.Id }, new object { }) |
-                @Html.ActionLink("Delete", "Delete", "Expense", new { id = item.Id }, new object { })
-            </td>
-        </tr>
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentType)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Expense", new { id = item.Id }, new object { }) |
+                    @Html.ActionLink("Delete", "Delete", "Expense", new { id = item.Id }, new object { })
+                </td>
+            </tr>
+        }
     }
 
 </table>
