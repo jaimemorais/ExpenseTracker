@@ -13,12 +13,14 @@ namespace ExpenseTrackerApi
         {
             // Web API configuration and services
             
+            // Web API routes
+            config.MapHttpAttributeRoutes();
+
+
             // Jaime - Web api to return JSON
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
