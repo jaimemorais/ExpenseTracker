@@ -62,9 +62,9 @@ namespace ExpenseTrackerWeb.Controllers
                 foreach (JToken item in json)
                 {
                     BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
-                    T c = BsonSerializer.Deserialize<T>(document);
+                    T itemDeserialized = BsonSerializer.Deserialize<T>(document);
 
-                    items.Add(c);
+                    items.Add(itemDeserialized);
                 }
 
                 return items;
