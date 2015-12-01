@@ -20,6 +20,7 @@ namespace ExpenseTrackerWeb.Controllers
         ERROR
     }
 
+
     public abstract class BaseController : Controller
     {
         protected string GetApiServiceURL(string apiId) 
