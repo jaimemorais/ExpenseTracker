@@ -11,7 +11,7 @@ namespace AppAndroid
     public static class Configuration
     {
         #if DEBUG
-            public const string WebApiServiceURL = "http://localhost:50805/api/";
+            public const string WebApiServiceURL = "http://10.0.2.2:50805/api/";  // 10.0.2.2 = localhost - emulator
         #else
             public const string WebApiServiceURL = "release string";
         #endif
