@@ -11,7 +11,7 @@ namespace AppAndroid
     public static class Configuration
     {
         #if DEBUG
-            public const string WebApiServiceURL = "http://10.0.2.2:50805/api/";  // 10.0.2.2 = localhost - emulator
+            public const string WebApiServiceURL = "http://10.0.2.2:80/expensetrackerapi/api/";  // 10.0.2.2 = localhost - emulator
         #else
             public const string WebApiServiceURL = "release string";
         #endif
@@ -35,7 +35,7 @@ namespace AppAndroid
         }
 
 
-        protected static JArray GetJsonData(string url)
+        protected static string GetJson(string url)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
@@ -45,11 +45,9 @@ namespace AppAndroid
             {
                 var responseContent = response.Result.Content;
 
-                string responseString = responseContent.ReadAsStringAsync().Result;
-
-                JArray jArray = JArray.Parse(responseString);
-
-                return jArray;
+                string json = responseContent.ReadAsStringAsync().Result;
+                
+                return json;
             }
 
             return null;

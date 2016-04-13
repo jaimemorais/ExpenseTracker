@@ -9,6 +9,7 @@ using AppAndroid.DTO;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace AppAndroid
 {
@@ -45,16 +46,26 @@ namespace AppAndroid
             try
             {
                 string url = this.GetApiServiceURL(api);
-                JArray jArray = GetJsonData(url);
+                string json = GetJson(url);
+                                               
+                JArray jArray = JArray.Parse(json);
 
+                List<Category> categoryList = new List<Category>();
 
-                List<Category> categoryList = jArray.Select(c => new Category
+                foreach (JToken item in jArray)
                 {
-                    Id = (string)c["Id"],
-                    Name = (string)c["Name"]
-                }).ToList();
 
+                    JObject o = JObject.Parse(item.ToString());
+
+                    Category cat = new Category();
+                    cat.Id = (string)o["_id"]["$oid"];
+                    cat.Name = (string)o["Name"];
+
+                    categoryList.Add(cat);
+                }
+                
                 return categoryList;
+                
             }
             catch (Exception e)
             {
