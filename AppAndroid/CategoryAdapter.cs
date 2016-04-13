@@ -15,11 +15,11 @@ namespace AppAndroid
 {
     public class CategoryAdapter : BaseAdapter<String>
     {
-        List<Category> CategoryList;
+        List<CategoryDTO> CategoryList;
         Activity CurrActivity;
 
 
-        public CategoryAdapter(List<Category> itemList, Activity c)
+        public CategoryAdapter(List<CategoryDTO> itemList, Activity c)
         {
             CategoryList = itemList;
             CurrActivity = c;

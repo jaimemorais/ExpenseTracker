@@ -18,57 +18,59 @@ using System.Web.Http;
 namespace ExpenseTrackerApi.Controllers.RestApi
 {
 
-    public class CategoryApiController : ApiController
+    public class ExpensesController : ApiController
     {
-        // GET api/CategoryApi
+        // GET api/Expenses
         public async Task<IEnumerable<string>> GetAsync()
-        {
-            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
+        {            
+            MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
                 
             IList<string> returnList = new List<string>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-            await categoryHelper.Collection.Find(e => e.Name != null) // TODO filter by userId
-                .ForEachAsync(categoryDocument => 
+            await expenseHelper.Collection.Find(e => e.Value > 0) // TODO filter by userId
+                .ForEachAsync(expenseDocument => 
                 {
-                    string docJson = categoryDocument.ToJson(jsonWriterSettings);
+                    string docJson = expenseDocument.ToJson(jsonWriterSettings);
                     returnList.Add(docJson);
                 }
-            );
+            );                    
 
             return returnList.ToArray();
         }
 
-        // GET api/CategoryApi/5
+        // GET api/Expenses/5
         public string Get(int id)
         {
             // TODO get one
             return "value";
         }
 
-        // POST api/CategoryApi
-        public async Task PostAsync(Category categoryPosted)
+        // POST api/Expenses
+        public async Task PostAsync(Expense expensePosted)
         {
-            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
+            MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
             try
             {
-                await categoryHelper.Collection.InsertOneAsync(categoryPosted);
+                await expenseHelper.Collection.InsertOneAsync(expensePosted);
+
+                // return 201 
             }
             catch (Exception e)
             {
-                Trace.TraceError("CategoryApi PostAsync error : " + e.Message);
+                Trace.TraceError("Expenses PostAsync error : " + e.Message);
                 throw;
             }
-
+            
         }
 
-        // PUT api/CategoryApi/5
+        // PUT api/Expenses/5
         public void Put(int id, [FromBody]string value)
-        {            
+        {
             // TODO update
         }
 
-        // DELETE api/CategoryApi/5
+        // DELETE api/Expenses/5
         public void Delete(int id)
         {
             // TODO delete

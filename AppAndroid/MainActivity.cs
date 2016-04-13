@@ -33,7 +33,7 @@ namespace AppAndroid
         {
             ListView listViewCategory = FindViewById<ListView>(Resource.Id.ListViewCategory);
             
-            List<Category> categories = GetCategoryList("CategoryApi");
+            List<CategoryDTO> categories = GetCategoryList("Categories");
 
             CategoryAdapter ca = new CategoryAdapter(categories, this);
             listViewCategory.Adapter = ca;
@@ -41,7 +41,7 @@ namespace AppAndroid
         }
 
 
-        protected List<Category> GetCategoryList(string api)
+        protected List<CategoryDTO> GetCategoryList(string api)
         {
             try
             {
@@ -50,14 +50,14 @@ namespace AppAndroid
                                                
                 JArray jArray = JArray.Parse(json);
 
-                List<Category> categoryList = new List<Category>();
+                List<CategoryDTO> categoryList = new List<CategoryDTO>();
 
                 foreach (JToken item in jArray)
                 {
 
                     JObject o = JObject.Parse(item.ToString());
 
-                    Category cat = new Category();
+                    CategoryDTO cat = new CategoryDTO();
                     cat.Id = (string)o["_id"]["$oid"];
                     cat.Name = (string)o["Name"];
 

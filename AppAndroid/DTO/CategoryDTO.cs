@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace AppAndroid.DTO
 {
-    public class Category
+    public class CategoryDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }
