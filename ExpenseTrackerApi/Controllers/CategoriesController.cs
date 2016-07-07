@@ -27,7 +27,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
                 
             IList<string> returnList = new List<string>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-            await categoryHelper.Collection.Find(e => e.Name != null) // TODO filter by userId
+            await categoryHelper.Collection.Find(c => c.Name != null) // TODO filter by userId
                 .ForEachAsync(categoryDocument => 
                 {
                     string docJson = categoryDocument.ToJson(jsonWriterSettings);
@@ -39,10 +39,17 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         }
 
         // GET api/Categories/5
-        public string Get(int id)
+        public async Task<string> Get(string id)
         {
-            // TODO get one
-            return "value";
+            MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
+            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+            
+            Category cat = await categoryHelper.Collection
+                .Find(c => c.Id.Equals(ObjectId.Parse(id)))
+                .FirstAsync(); // TODO filter by userId
+
+            return cat.ToJson(jsonWriterSettings);
+            
         }
 
         // POST api/Categories

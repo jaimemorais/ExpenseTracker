@@ -48,7 +48,7 @@ namespace ExpenseTrackerWeb.Controllers
 
             List<SelectListItem> categoriesSelectList = new List<SelectListItem>();
              
-            List<Category> categories = await base.GetItemListAsync<Category>("CategoryApi");
+            List<Category> categories = await base.GetItemListAsync<Category>("Categories");
             foreach (Category category in categories)
             {
                 categoriesSelectList.Add(new SelectListItem() { Text = category.Name, Value = category.Name });
@@ -63,7 +63,7 @@ namespace ExpenseTrackerWeb.Controllers
 
             List<SelectListItem> paymentTypesSelectList = new List<SelectListItem>();
              
-            List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypeApi");
+            List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypes");
             foreach (PaymentType paymentType in paymentTypes)
             {
                 paymentTypesSelectList.Add(new SelectListItem() { Text = paymentType.Name, Value = paymentType.Name });
@@ -86,7 +86,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string url = base.GetApiServiceURL("ExpenseApi");
+                    string url = base.GetApiServiceURL("Expenses");
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                     var response = await httpClient.PostAsJsonAsync(url, expense);
@@ -135,7 +135,7 @@ namespace ExpenseTrackerWeb.Controllers
 
         private async Task<Expense> GetExpenseById(string id)
         {
-            string url = base.GetApiServiceURL("ExpenseApi");
+            string url = base.GetApiServiceURL("Expenses");
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
             var response = await httpClient.GetAsync(id);
@@ -157,7 +157,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string url = base.GetApiServiceURL("ExpenseApi");
+                    string url = base.GetApiServiceURL("Expenses");
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                     var response = await httpClient.PutAsJsonAsync(url, expense);
@@ -202,7 +202,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string url = base.GetApiServiceURL("ExpenseApi");
+                    string url = base.GetApiServiceURL("Expenses");
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                     var response = await httpClient.DeleteAsync(url);//TODO expense                  

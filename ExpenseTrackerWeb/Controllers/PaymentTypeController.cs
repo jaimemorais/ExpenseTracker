@@ -18,7 +18,7 @@ namespace ExpenseTrackerWeb.Controllers
         // GET: PaymentType
         public async Task<ActionResult> Index()
         {
-            List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypeApi");
+            List<PaymentType> paymentTypes = await base.GetItemListAsync<PaymentType>("PaymentTypes");
 
             return View(paymentTypes);
         }
@@ -44,7 +44,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string url = base.GetApiServiceURL("PaymentTypeApi");
+                    string url = base.GetApiServiceURL("PaymentTypes");
 
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,7 +19,7 @@ namespace ExpenseTrackerWeb.Controllers
         // GET: Category
         public async Task<ActionResult> Index()
         {
-            List<Category> categories = await base.GetItemListAsync<Category>("CategoryApi");
+            List<Category> categories = await base.GetItemListAsync<Category>("Categories");
 
             return View(categories);
         }
@@ -74,9 +75,39 @@ namespace ExpenseTrackerWeb.Controllers
         }
 
         // GET: Category/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Category cat = await base.GetItemByIdAsync<Category>("Categories", id);
+
+            if (cat == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cat);
+        }
+
+        private async Task<Category> GetCategoryById(string id)
+        {
+            //Category category = BsonSerializer.Deserialize<Category>(document);
+
+            /*
+            string url = base.GetApiServiceURL("Categories");
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            var response = await httpClient.GetAsync(url + "/" + id);
+            
+            MongoDB.Bson.BsonDocument document
+                = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(response.ToString());
+            Category category = BsonSerializer.Deserialize<Category>(document);
+            */
+
+            return null;
         }
 
         // POST: Category/Edit/5

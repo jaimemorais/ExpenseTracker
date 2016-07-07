@@ -21,7 +21,7 @@ namespace ExpenseTrackerWeb.Controllers
         {
             try
             {
-                string url = base.GetApiServiceURL("ExpenseApi");
+                string url = base.GetApiServiceURL("Expenses");
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
                 var response = await httpClient.GetAsync(url);

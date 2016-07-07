@@ -48,12 +48,7 @@ namespace ExpenseTrackerWeb.Controllers
             try
             {
                 string url = this.GetApiServiceURL(api);
-                Trace.TraceError("Api Service Url : " + url);
-
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                var response = await httpClient.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                string content = await GetJsonResult(url);
 
                 JArray json = JArray.Parse(content);
 
@@ -77,5 +72,39 @@ namespace ExpenseTrackerWeb.Controllers
             }
         }
 
+
+        protected async Task<T> GetItemByIdAsync<T>(string api, string id) where T : MongoEntity
+        {
+            try
+            {
+                string url = this.GetApiServiceURL(api) + "/" + id;
+                string content = await GetJsonResult(url);
+
+                BsonSerializer.Deserialize<BsonDocument>(content);
+
+                BsonDocument document = BsonDocument.Parse(content);
+                T itemDeserialized = BsonSerializer.Deserialize<T>(document);
+
+                return itemDeserialized;
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("BaseController.GetItemByIdAsync. (" + api + ") Error : " + e.Message);
+                ShowMessage("Error getting item by Id.", EnumMessageType.ERROR);
+                return null;
+            }
+        }
+
+
+        private static async Task<string> GetJsonResult(string url)
+        {
+            Trace.TraceInformation("Api Service Url : " + url);
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            var response = await httpClient.GetAsync(url);
+            var content = await response.Content.ReadAsStringAsync();
+            return content;
+        }
     }
 }
