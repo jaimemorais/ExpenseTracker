@@ -176,6 +176,7 @@
     <Content Include="Views\PaymentType\Create.cshtml" />
     <Content Include="Views\PaymentType\Index.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

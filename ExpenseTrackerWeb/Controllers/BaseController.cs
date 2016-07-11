@@ -79,10 +79,9 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 string url = this.GetApiServiceURL(api) + "/" + id;
                 string content = await GetJsonResult(url);
-
-                BsonSerializer.Deserialize<BsonDocument>(content);
-
-                BsonDocument document = BsonDocument.Parse(content);
+                                
+                JToken item = JToken.Parse(content);
+                BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
                 T itemDeserialized = BsonSerializer.Deserialize<T>(document);
 
                 return itemDeserialized;

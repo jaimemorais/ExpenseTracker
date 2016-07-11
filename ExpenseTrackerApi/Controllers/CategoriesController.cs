@@ -39,7 +39,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         }
 
         // GET api/Categories/5
-        public async Task<string> Get(string id)
+        public async Task<string> GetAsync(string id)
         {
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
@@ -70,15 +70,38 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         }
 
         // PUT api/Categories/5
-        public void Put(int id, [FromBody]string value)
-        {            
-            // TODO update
+        public async Task PutAsync(string id, Category categoryPut)
+        {
+            try
+            {
+                var filter = Builders<Category>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
+                var update = Builders<Category>.Update.Set("Name", categoryPut.Name);
+
+                MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
+                await categoryHelper.Collection.UpdateOneAsync(filter, update);                
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("Categories PutAsync error : " + e.Message);
+                throw;
+            }
         }
 
         // DELETE api/Categories/5
-        public void Delete(int id)
+        public async Task DeleteAsync(string id)
         {
-            // TODO delete
+            try
+            {
+                var filter = Builders<Category>.Filter.Eq(c => c.Id, ObjectId.Parse(id));                
+
+                MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
+                await categoryHelper.Collection.DeleteOneAsync(filter);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("Categories DeleteAsync error : " + e.Message);
+                throw;
+            }
         }
     }
 }

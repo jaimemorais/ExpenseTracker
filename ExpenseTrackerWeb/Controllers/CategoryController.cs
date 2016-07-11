@@ -45,7 +45,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string url = base.GetApiServiceURL("CategoryApi");
+                    string url = base.GetApiServiceURL("Categories");
 
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
@@ -91,59 +91,94 @@ namespace ExpenseTrackerWeb.Controllers
 
             return View(cat);
         }
-
-        private async Task<Category> GetCategoryById(string id)
-        {
-            //Category category = BsonSerializer.Deserialize<Category>(document);
-
-            /*
-            string url = base.GetApiServiceURL("Categories");
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            var response = await httpClient.GetAsync(url + "/" + id);
-            
-            MongoDB.Bson.BsonDocument document
-                = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(response.ToString());
-            Category category = BsonSerializer.Deserialize<Category>(document);
-            */
-
-            return null;
-        }
+        
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    string url = base.GetApiServiceURL("Categories");
 
-                return RedirectToAction("Index");
+                    Category categoryPut = new Category();
+                    categoryPut.Name = collection["Name"];
+
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                    var response = await httpClient.PutAsJsonAsync(url + "/" + id, categoryPut);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ShowMessage("Category '" + categoryPut.Name + "' updated.", EnumMessageType.INFO);
+                    }
+                    else
+                    {
+                        ShowMessage("Error contacting server.", EnumMessageType.ERROR);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
+                ShowMessage("Error updating category.", EnumMessageType.ERROR);
                 return View();
             }
         }
 
         // GET: Category/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Category cat = await base.GetItemByIdAsync<Category>("Categories", id);
+
+            if (cat == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cat);
         }
 
         // POST: Category/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> Delete(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                string url = base.GetApiServiceURL("Categories");
+                
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                                
+                var response = await httpClient.DeleteAsync(url + "/" + id);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    ShowMessage("Category deleted.", EnumMessageType.INFO);
+                }
+                else
+                {
+                    ShowMessage("Error contacting server.", EnumMessageType.ERROR);
+                }
 
                 return RedirectToAction("Index");
+
             }
             catch
             {
+                ShowMessage("Error deleting category.", EnumMessageType.ERROR);
                 return View();
             }
         }
