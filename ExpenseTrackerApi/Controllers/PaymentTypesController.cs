@@ -20,15 +20,16 @@ namespace ExpenseTrackerApi.Controllers.RestApi
 
     public class PaymentTypesController : ApiController
     {
-        // GET api/PaymentTypes
+
+        // GET api/Categories
         public async Task<IEnumerable<string>> GetAsync()
         {
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
-                
+
             IList<string> returnList = new List<string>();
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             await paymentTypeHelper.Collection.Find(p => p.Name != null) // TODO filter by userId
-                .ForEachAsync(paymentTypeDocument => 
+                .ForEachAsync(paymentTypeDocument =>
                 {
                     string docJson = paymentTypeDocument.ToJson(jsonWriterSettings);
                     returnList.Add(docJson);
@@ -38,19 +39,26 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             return returnList.ToArray();
         }
 
-        // GET api/PaymentTypes/5
-        public string Get(int id)
+        // GET api/Categories/5
+        public async Task<string> GetAsync(string id)
         {
-            // TODO get one
-            return "value";
+            MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
+            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+
+            PaymentType paymentType = await paymentTypeHelper.Collection
+                .Find(p => p.Id.Equals(ObjectId.Parse(id))) // TODO filter by userId
+                .FirstAsync();
+
+            return paymentType.ToJson(jsonWriterSettings);
+
         }
 
-        // POST api/PaymentTypes
+        // POST api/Categories
         public async Task PostAsync(PaymentType paymentTypePosted)
         {
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
-            try 
+            try
             {
                 await paymentTypeHelper.Collection.InsertOneAsync(paymentTypePosted);
             }
@@ -62,16 +70,39 @@ namespace ExpenseTrackerApi.Controllers.RestApi
 
         }
 
-        // PUT api/PaymentTypes/5
-        public void Put(int id, [FromBody]string value)
-        {            
-            // TODO update
+        // PUT api/Categories/5
+        public async Task PutAsync(string id, PaymentType paymentTypePut)
+        {
+            try
+            {
+                var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
+                var update = Builders<PaymentType>.Update.Set("Name", paymentTypePut.Name);
+
+                MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
+                await paymentTypeHelper.Collection.UpdateOneAsync(filter, update);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("PaymentTypes PutAsync error : " + e.Message);
+                throw;
+            }
         }
 
-        // DELETE api/PaymentTypes/5
-        public void Delete(int id)
+        // DELETE api/Categories/5
+        public async Task DeleteAsync(string id)
         {
-            // TODO delete
+            try
+            {
+                var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
+
+                MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
+                await paymentTypeHelper.Collection.DeleteOneAsync(filter);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("PaymentTypes DeleteAsync error : " + e.Message);
+                throw;
+            }
         }
     }
 }

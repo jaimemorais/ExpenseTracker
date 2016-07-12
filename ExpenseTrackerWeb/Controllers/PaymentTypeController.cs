@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -52,7 +53,7 @@ namespace ExpenseTrackerWeb.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
-                        ShowMessage("Payment Type '" + paymentType.Name + "' added.", EnumMessageType.INFO);
+                        ShowMessage("PaymentType '" + paymentType.Name + "' added.", EnumMessageType.INFO);
                     }
                     else
                     {
@@ -68,51 +69,116 @@ namespace ExpenseTrackerWeb.Controllers
             }
             catch
             {
-                ShowMessage("Error creating new Payment Type.", EnumMessageType.ERROR);
+                ShowMessage("Error creating new paymentType.", EnumMessageType.ERROR);
                 return View();
             }
         }
 
         // GET: PaymentType/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            PaymentType paymentType = await base.GetItemByIdAsync<PaymentType>("PaymentTypes", id);
+
+            if (paymentType == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(paymentType);
         }
+
 
         // POST: PaymentType/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    string url = base.GetApiServiceURL("PaymentTypes");
 
-                return RedirectToAction("Index");
+                    PaymentType paymentTypePut = new PaymentType();
+                    paymentTypePut.Name = collection["Name"];
+
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                    var response = await httpClient.PutAsJsonAsync(url + "/" + id, paymentTypePut);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ShowMessage("PaymentType '" + paymentTypePut.Name + "' updated.", EnumMessageType.INFO);
+                    }
+                    else
+                    {
+                        ShowMessage("Error contacting server.", EnumMessageType.ERROR);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
+                ShowMessage("Error updating paymentType.", EnumMessageType.ERROR);
                 return View();
             }
         }
 
         // GET: PaymentType/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            PaymentType paymentType = await base.GetItemByIdAsync<PaymentType>("PaymentTypes", id);
+
+            if (paymentType == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(paymentType);
         }
 
         // POST: PaymentType/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> Delete(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                string url = base.GetApiServiceURL("PaymentTypes");
+
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+
+                var response = await httpClient.DeleteAsync(url + "/" + id);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    ShowMessage("PaymentType deleted.", EnumMessageType.INFO);
+                }
+                else
+                {
+                    ShowMessage("Error contacting server.", EnumMessageType.ERROR);
+                }
 
                 return RedirectToAction("Index");
+
             }
             catch
             {
+                ShowMessage("Error deleting paymentType.", EnumMessageType.ERROR);
                 return View();
             }
         }

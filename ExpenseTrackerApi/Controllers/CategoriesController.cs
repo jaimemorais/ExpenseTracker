@@ -45,8 +45,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             
             Category cat = await categoryHelper.Collection
-                .Find(c => c.Id.Equals(ObjectId.Parse(id)))
-                .FirstAsync(); // TODO filter by userId
+                .Find(c => c.Id.Equals(ObjectId.Parse(id))) // TODO filter by userId
+                .FirstAsync(); 
 
             return cat.ToJson(jsonWriterSettings);
             

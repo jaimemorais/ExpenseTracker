@@ -1,0 +1,25 @@
+﻿@model ExpenseTrackerDomain.Models.PaymentType
+
+@{
+    ViewBag.Title = "Edit Payment Type";
+}
+
+@using (Html.BeginForm("Edit", "PaymentType"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(Model => Model.Name)
+        <div class="col-md-12">
+            @Html.EditorFor(Model => Model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            <br />
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" name="btnSavePaymentType" value="Save" class="btn btn-primary" />
+    </div>
+}
+
