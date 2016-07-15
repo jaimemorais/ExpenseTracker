@@ -39,10 +39,16 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         }
 
         // GET api/Expenses/5
-        public string Get(int id)
+        public async Task<string> GetAsync(string id)
         {
-            // TODO get one
-            return "value";
+            MongoHelper<Expense> categoryHelper = new MongoHelper<Expense>();
+            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+
+            Expense exp = await categoryHelper.Collection
+                .Find(c => c.Id.Equals(ObjectId.Parse(id))) // TODO filter by userId
+                .FirstAsync();
+
+            return exp.ToJson(jsonWriterSettings);
         }
 
         // POST api/Expenses
@@ -52,9 +58,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
 
             try
             {
-                await expenseHelper.Collection.InsertOneAsync(expensePosted);
-
-                // return 201 
+                await expenseHelper.Collection.InsertOneAsync(expensePosted);                
             }
             catch (Exception e)
             {
@@ -65,15 +69,43 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         }
 
         // PUT api/Expenses/5
-        public void Put(int id, [FromBody]string value)
+        public async Task PutAsync(string id, Expense expensePut)
         {
-            // TODO update
+            try
+            {
+                var filter = Builders<Expense>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
+                var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
+                                                     .Set("Value", expensePut.Value)
+                                                     .Set("Description", expensePut.Description)
+                                                     .Set("Category", expensePut.Category)
+                                                     .Set("PaymentType", expensePut.PaymentType);
+
+
+                MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
+                await expenseHelper.Collection.UpdateOneAsync(filter, update);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("Expenses PutAsync error : " + e.Message);
+                throw;
+            }
         }
 
         // DELETE api/Expenses/5
-        public void Delete(int id)
+        public async Task DeleteAsync(string id)
         {
-            // TODO delete
+            try
+            {
+                var filter = Builders<Expense>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
+
+                MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
+                await expenseHelper.Collection.DeleteOneAsync(filter);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("Expenses DeleteAsync error : " + e.Message);
+                throw;
+            }
         }
     }
 }

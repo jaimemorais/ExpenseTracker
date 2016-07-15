@@ -95,36 +95,28 @@ namespace ExpenseTrackerWeb.Controllers
 
         // POST: PaymentType/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(string id, FormCollection collection)
+        public async Task<ActionResult> Edit(string id, PaymentType paymentTypePut)
         {
             try
             {
-                if (ModelState.IsValid)
+                string url = base.GetApiServiceURL("PaymentTypes");
+                                    
+                paymentTypePut.Id = ObjectId.Parse(id);
+
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                var response = await httpClient.PutAsJsonAsync(url + "/" + id, paymentTypePut);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    string url = base.GetApiServiceURL("PaymentTypes");
-
-                    PaymentType paymentTypePut = new PaymentType();
-                    paymentTypePut.Name = collection["Name"];
-
-                    var httpClient = new HttpClient();
-                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                    var response = await httpClient.PutAsJsonAsync(url + "/" + id, paymentTypePut);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        ShowMessage("PaymentType '" + paymentTypePut.Name + "' updated.", EnumMessageType.INFO);
-                    }
-                    else
-                    {
-                        ShowMessage("Error contacting server.", EnumMessageType.ERROR);
-                    }
-
-                    return RedirectToAction("Index");
+                    ShowMessage("PaymentType '" + paymentTypePut.Name + "' updated.", EnumMessageType.INFO);
                 }
                 else
                 {
-                    return View();
+                    ShowMessage("Error contacting server.", EnumMessageType.ERROR);
                 }
+
+                return RedirectToAction("Index");
             }
             catch
             {

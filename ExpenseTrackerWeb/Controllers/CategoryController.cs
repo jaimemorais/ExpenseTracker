@@ -95,36 +95,29 @@ namespace ExpenseTrackerWeb.Controllers
 
         // POST: Category/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(string id, FormCollection collection)
+        public async Task<ActionResult> Edit(string id, Category categoryPut)
         {
             try
             {
-                if (ModelState.IsValid)
+                string url = base.GetApiServiceURL("Categories");
+
+                categoryPut.Id = ObjectId.Parse(id);
+
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+                var response = await httpClient.PutAsJsonAsync(url + "/" + id, categoryPut);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    string url = base.GetApiServiceURL("Categories");
-
-                    Category categoryPut = new Category();
-                    categoryPut.Name = collection["Name"];
-
-                    var httpClient = new HttpClient();
-                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                    var response = await httpClient.PutAsJsonAsync(url + "/" + id, categoryPut);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        ShowMessage("Category '" + categoryPut.Name + "' updated.", EnumMessageType.INFO);
-                    }
-                    else
-                    {
-                        ShowMessage("Error contacting server.", EnumMessageType.ERROR);
-                    }
-
-                    return RedirectToAction("Index");
+                    ShowMessage("Category '" + categoryPut.Name + "' updated.", EnumMessageType.INFO);
                 }
                 else
                 {
-                    return View();
+                    ShowMessage("Error contacting server.", EnumMessageType.ERROR);
                 }
+
+                return RedirectToAction("Index");
+
             }
             catch
             {
@@ -153,7 +146,7 @@ namespace ExpenseTrackerWeb.Controllers
 
         // POST: Category/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(string id, FormCollection collection)
+        public async Task<ActionResult> Delete(string id, FormCollection form)
         {
             try
             {
