@@ -1,22 +1,32 @@
-﻿@{
+﻿@model System.Collections.Generic.IEnumerable<ExpenseTrackerDomain.Models.Category>
+
+@{
     ViewBag.Title = "Categories";
 }
   
 <h2>Your Categories</h2>
 
-<div class="form-group">
-    <div class="col-md-12">
-        <ul class="list-group">
-            @foreach (var category in Model)
-            {
-                <li class="list-group-item-text">@category.Name</li>
-            }
-        </ul>
-    </div>
 
+<table class="table table-striped">
 
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Category", new { id = item.Id }, new object { }) |
+                    @Html.ActionLink("Delete", "Delete", "Category", new { id = item.Id }, new object { })
+                </td>
+            </tr>
+        }
+    }
 
-</div>
+</table>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

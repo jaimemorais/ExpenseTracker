@@ -12,8 +12,8 @@ namespace ExpenseTrackerDomain.Models
 {
     public class User : MongoEntity
     {        
-        [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name is required")]
-        public string Name { get; set; }
+        [Display(Name = "UserName")]
+        [Required(ErrorMessage = "UserName is required")]
+        public string UserName { get; set; }
     }
 }

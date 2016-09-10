@@ -1,0 +1,62 @@
+﻿@model ExpenseTrackerDomain.Models.Expense
+
+@{
+    ViewBag.Title = "Delete Expense";
+}
+
+@using (Html.BeginForm("Delete", "Expense"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+
+        <dl>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Value)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Value)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PaymentType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PaymentType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" name="btnDeleteExpense" value="Delete" class="btn btn-primary" />
+    </div>
+}
