@@ -11,7 +11,6 @@ namespace ExpenseTrackerWeb.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "ExpenseTracker";
-
             
             return View();
         }
