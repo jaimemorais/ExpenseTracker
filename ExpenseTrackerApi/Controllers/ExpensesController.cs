@@ -1,17 +1,12 @@
-﻿using ExpenseTrackerWeb.Helpers;
-using ExpenseTrackerDomain.Models;
+﻿using ExpenseTrackerDomain.Models;
+using ExpenseTrackerWeb.Helpers;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -73,16 +68,18 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             try
             {
+                MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
+
                 var filter = Builders<Expense>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
-                var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
+                /*var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
                                                      .Set("Value", expensePut.Value)
                                                      .Set("Description", expensePut.Description)
                                                      .Set("Category", expensePut.Category)
                                                      .Set("PaymentType", expensePut.PaymentType);
+                                                     */
+                //await expenseHelper.Collection.UpdateOneAsync(filter, update);
 
-
-                MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
-                await expenseHelper.Collection.UpdateOneAsync(filter, update);
+                await expenseHelper.Collection.ReplaceOneAsync(filter, expensePut);
             }
             catch (Exception e)
             {
