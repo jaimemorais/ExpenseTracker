@@ -8,7 +8,10 @@ namespace ExpenseTrackerMvp.ViewModel
         {
             try
             {
-                return "http://10.0.2.2:50805/api/" + apiId;
+                // 10.0.2.2 = localhost - emulator
+                // IIS, not iisexpress 
+                
+                return "http://10.0.2.2:80/expensetrackerapi/api/" + apiId;
             }
             catch
             {

@@ -45,9 +45,10 @@ namespace ExpenseTrackerMvp.ViewModel
             
             string url = GetApiServiceURL("Expenses");
             var httpClient = new HttpClient();
-            //httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
             var response = httpClient.GetAsync(url).Result;
             
+
             if (response.IsSuccessStatusCode)
             {
                 var content = response.Content;
@@ -63,5 +64,6 @@ namespace ExpenseTrackerMvp.ViewModel
                 }
             }
         }
+        
     }
 }
