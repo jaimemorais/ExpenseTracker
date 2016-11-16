@@ -71,15 +71,13 @@ namespace ExpenseTrackerApi.Controllers.RestApi
                 MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
                 var filter = Builders<Expense>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
-                /*var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
+                var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
                                                      .Set("Value", expensePut.Value)
                                                      .Set("Description", expensePut.Description)
                                                      .Set("Category", expensePut.Category)
                                                      .Set("PaymentType", expensePut.PaymentType);
-                                                     */
-                //await expenseHelper.Collection.UpdateOneAsync(filter, update);
-
-                await expenseHelper.Collection.ReplaceOneAsync(filter, expensePut);
+                                                     
+                await expenseHelper.Collection.UpdateOneAsync(filter, update);                                
             }
             catch (Exception e)
             {

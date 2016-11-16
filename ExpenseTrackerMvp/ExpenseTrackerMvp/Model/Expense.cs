@@ -4,58 +4,70 @@ namespace ExpenseTrackerMvp.Model
 {
     public class Expense : Base
     {
-        private DateTime data;
-        public DateTime Data 
+        private string id;
+        public String Id
         {
-            get { return data; }
+            get { return id; }
             set
             {
-                data = value;
-                this.Notify();
-            }
-        }
-
-        private double valor;
-        public double Valor
-        {
-            get { return valor; }
-            set
-            {
-                valor = value;
+                id = value;
                 this.Notify();
             }
         }
 
 
-        private string categoria;
-        public string Categoria
+        private DateTime date;
+        public DateTime Date 
         {
-            get { return categoria; }
+            get { return date; }
             set
             {
-                categoria = value;
+                date = value;
                 this.Notify();
             }
         }
 
-        private string descricao;
-        public string Descricao
+        private double value;
+        public double Value
         {
-            get { return descricao; }
+            get { return value; }
             set
             {
-                descricao = value;
+                this.value = value;
                 this.Notify();
             }
         }
 
-        private string tipoPagamento;
-        public string TipoPagamento
+
+        private string category;
+        public string Category
         {
-            get { return tipoPagamento; }
+            get { return category; }
             set
             {
-                tipoPagamento = value;
+                category = value;
+                this.Notify();
+            }
+        }
+
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                description = value;
+                this.Notify();
+            }
+        }
+
+        private string paymentType;
+        public string PaymentType
+        {
+            get { return paymentType; }
+            set
+            {
+                paymentType = value;
                 this.Notify();
             }
         }

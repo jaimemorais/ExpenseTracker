@@ -7,10 +7,10 @@
 
     <Button Command="{Binding CarregarCommand}" Text="Carregar"></Button>
 
-    <ListView ItemsSource="{Binding Expenses}">      <!-- Observable collection da viewmodel-->
+    <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- Observable collection da viewmodel-->
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextCell Text="{Binding Descricao}"></TextCell>
+          <TextCell Text="{Binding Description}"></TextCell>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>

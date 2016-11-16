@@ -1,15 +1,10 @@
 ﻿using ExpenseTrackerDomain.Models;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ExpenseTrackerWeb.Controllers
@@ -162,7 +157,7 @@ namespace ExpenseTrackerWeb.Controllers
                     await GetCategorySelectListAsync();
                     await GetPaymentTypesSelectListAsync();
 
-                    ShowMessage("Error contacting server.", EnumMessageType.ERROR);
+                    ShowMessage("Expense Edit : Server error.", EnumMessageType.ERROR);
                 }
 
                 return RedirectToAction("Index", "Balance");

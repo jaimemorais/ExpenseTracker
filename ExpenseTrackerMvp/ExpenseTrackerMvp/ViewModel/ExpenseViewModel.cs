@@ -1,14 +1,16 @@
-using System;
+using ExpenseTrackerMvp.Model;
+using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.ViewModel
 {
-    public class ExpenseViewModel
+    public class ExpenseViewModel : BaseViewModel
     {
 
-        public ObservableCollection<Model.Expense> Expenses
+        public ObservableCollection<Model.Expense> ExpenseCollection
         {
             get;
             set;
@@ -22,7 +24,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
         public ExpenseViewModel()
         {
-            this.Expenses = new ObservableCollection<Model.Expense>();
+            this.ExpenseCollection = new ObservableCollection<Model.Expense>();
 
             CarregarCommand = new Command(Carregar);
         }
@@ -30,6 +32,7 @@ namespace ExpenseTrackerMvp.ViewModel
         
         private void Carregar(object obj)
         {
+            /*
             Expenses.Add(new Model.Expense()
             {
                 Data = DateTime.Today,
@@ -37,8 +40,28 @@ namespace ExpenseTrackerMvp.ViewModel
                 Categoria = "Compras",
                 Descricao = "Loja " + Expenses.Count,
                 TipoPagamento = "Ticket Alim"
-            });
+            });*/
+
             
+            string url = GetApiServiceURL("Expenses");
+            var httpClient = new HttpClient();
+            //httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            var response = httpClient.GetAsync(url).Result;
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var content = response.Content;
+                var responseContent = content.ReadAsStringAsync().Result;
+
+                JArray json = JArray.Parse(responseContent);
+                                
+                foreach (JToken item in json)
+                {
+                    Expense e = item.ToObject<Expense>();
+
+                    ExpenseCollection.Add(e);                    
+                }
+            }
         }
     }
 }
