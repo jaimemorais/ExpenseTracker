@@ -58,11 +58,18 @@ namespace ExpenseTrackerMvp.ViewModel
                                 
                 foreach (JToken item in json)
                 {
+
+                    //string desc = JToken.Parse(JToken.Parse(responseContent)[0])["Description"].Value;
                     Expense e = item.ToObject<Expense>();
 
-                    ExpenseCollection.Add(e);                    
+
+                    Expense exp = new Expense();
+                    //exp.Description = desc.Value<string>();
+                    
+                    ExpenseCollection.Add(exp);                    
                 }
             }
+
         }
         
     }
