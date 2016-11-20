@@ -1,7 +1,6 @@
-using ExpenseTrackerMvp.Model;
-using Newtonsoft.Json.Linq;
+using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Query;
 using System.Collections.ObjectModel;
-using System.Net.Http;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -32,17 +31,7 @@ namespace ExpenseTrackerMvp.ViewModel
         
         private void Carregar(object obj)
         {
-            /*
-            Expenses.Add(new Model.Expense()
-            {
-                Data = DateTime.Today,
-                Valor = 10.50,
-                Categoria = "Compras",
-                Descricao = "Loja " + Expenses.Count,
-                TipoPagamento = "Ticket Alim"
-            });*/
-
-            
+            /* Using my api 
             string url = GetApiServiceURL("Expenses");
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
@@ -60,16 +49,39 @@ namespace ExpenseTrackerMvp.ViewModel
                 {
 
                     //string desc = JToken.Parse(JToken.Parse(responseContent)[0])["Description"].Value;
-                    Expense e = item.ToObject<Expense>();
-
-
-                    Expense exp = new Expense();
+                    //Expense exp = new Expense();
                     //exp.Description = desc.Value<string>();
+                            
+                    Expense e = item.ToObject<Expense>();                   
                     
-                    ExpenseCollection.Add(exp);                    
+                    ExpenseCollection.Add(e);                    
                 }
             }
 
+            */
+
+
+            // Using firebase
+
+            var firebase = new FirebaseClient("https://expensetrackermvp.firebaseio.com/");
+
+            ChildQuery query = firebase.Child("Expenses");
+
+
+            // https://github.com/rlamasb/Firebase.Xamarin
+            // https://github.com/williamsrz/xamarin-on-fire/blob/master/XOF.Droid/Services/FirebaseService.cs
+            /*
+            var items = firebase
+              .Child("Expenses")
+              //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.              
+              //.LimitToFirst(2)
+              .OnceAsync<Expense>();
+
+            foreach (var item in items)
+            {
+                ExpenseCollection.Add(item);
+            }
+            */
         }
         
     }
