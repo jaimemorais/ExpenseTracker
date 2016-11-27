@@ -11,11 +11,10 @@
       <ListView.ItemTemplate>
         <DataTemplate>
           <TextCell Text="{Binding Description}"></TextCell>
-        </DataTemplate>
+        </DataTemplate>        
       </ListView.ItemTemplate>
     </ListView>
-
-    
+   
     
   </StackLayout>
   

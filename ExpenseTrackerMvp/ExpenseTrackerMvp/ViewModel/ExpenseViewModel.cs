@@ -1,6 +1,8 @@
+using ExpenseTrackerMvp.Model;
 using Firebase.Xamarin.Database;
-using Firebase.Xamarin.Database.Query;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -65,23 +67,26 @@ namespace ExpenseTrackerMvp.ViewModel
 
             var firebase = new FirebaseClient("https://expensetrackermvp.firebaseio.com/");
 
-            ChildQuery query = firebase.Child("Expenses");
+            //ChildQuery query = firebase.Child("Expenses");
 
 
             // https://github.com/rlamasb/Firebase.Xamarin
             // https://github.com/williamsrz/xamarin-on-fire/blob/master/XOF.Droid/Services/FirebaseService.cs
-            /*
+            
             var items = firebase
               .Child("Expenses")
               //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.              
               //.LimitToFirst(2)
               .OnceAsync<Expense>();
 
-            foreach (var item in items)
+
+            //ExpenseCollection = new ObservableCollection<Expense>(items.Select(c => c.Object).ToList());
+
+            /*foreach (FirebaseObject<Expense> item in items.Result)
             {
-                ExpenseCollection.Add(item);
-            }
-            */
+                //ExpenseCollection.Add(item.);
+            }*/
+
         }
         
     }
