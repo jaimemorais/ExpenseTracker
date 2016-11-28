@@ -1,8 +1,8 @@
 using ExpenseTrackerMvp.Model;
+using Firebase.Xamarin.Auth;
 using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Query;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -17,7 +17,7 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
-        public ICommand CarregarCommand
+        public ICommand LoadCommand
         {
             get;
             set;
@@ -27,18 +27,54 @@ namespace ExpenseTrackerMvp.ViewModel
         {
             this.ExpenseCollection = new ObservableCollection<Model.Expense>();
 
-            CarregarCommand = new Command(Carregar);
+            LoadCommand = new Command(Load);
         }
 
         
-        private void Carregar(object obj)
+        private async void Load(object obj)
         {
-            /* Using my api 
+            
+            string webapikey = ""; // get on firebase
+            string user = ""; // get on firebase
+            string pass = ""; // get on firebase
+
+   
+
+            // Firebase - Email/Password Auth
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(webapikey));
+            var authLink = await authProvider.SignInWithEmailAndPasswordAsync(user, pass);
+            string firebaseToken = authLink.FirebaseToken;
+                        
+            // https://github.com/rlamasb/Firebase.Xamarin
+            // https://github.com/williamsrz/xamarin-on-fire/blob/master/XOF.Droid/Services/FirebaseService.cs
+
+            var firebase = new FirebaseClient("https://expensetrackermvp.firebaseio.com/");
+
+            // Get one
+            Expense exp = await firebase.Child("Expenses").Child("1").WithAuth(firebaseToken).OnceSingleAsync<Expense>();
+            ExpenseCollection.Add(exp);
+            
+            /*var items = await firebase
+              .Child("Expenses")
+              .OrderByKey()
+              .WithAuth(firebaseToken)                           
+              .OnceAsync<Expense>();
+                        
+            foreach (var item in items)
+            {
+                Expense exp = item.Object;
+                ExpenseCollection.Add(exp);                
+            }*/
+
+
+
+
+
+            /* Using custom api 
             string url = GetApiServiceURL("Expenses");
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            var response = httpClient.GetAsync(url).Result;
-            
+            var response = httpClient.GetAsync(url).Result;            
 
             if (response.IsSuccessStatusCode)
             {
@@ -59,35 +95,9 @@ namespace ExpenseTrackerMvp.ViewModel
                     ExpenseCollection.Add(e);                    
                 }
             }
-
             */
 
-
-            // Using firebase
-
-            var firebase = new FirebaseClient("https://expensetrackermvp.firebaseio.com/");
-
-            //ChildQuery query = firebase.Child("Expenses");
-
-
-            // https://github.com/rlamasb/Firebase.Xamarin
-            // https://github.com/williamsrz/xamarin-on-fire/blob/master/XOF.Droid/Services/FirebaseService.cs
-            
-            var items = firebase
-              .Child("Expenses")
-              //.WithAuth("<Authentication Token>") // <-- Add Auth token if required. Auth instructions further down in readme.              
-              //.LimitToFirst(2)
-              .OnceAsync<Expense>();
-
-
-            //ExpenseCollection = new ObservableCollection<Expense>(items.Select(c => c.Object).ToList());
-
-            /*foreach (FirebaseObject<Expense> item in items.Result)
-            {
-                //ExpenseCollection.Add(item.);
-            }*/
-
         }
-        
+
     }
 }

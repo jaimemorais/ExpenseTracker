@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System;
 
 namespace ExpenseTrackerMvp.Model
@@ -7,7 +6,6 @@ namespace ExpenseTrackerMvp.Model
     {
         private string id;
 
-        [JsonProperty("_id")]
         public String Id
         {
             get { return id; }

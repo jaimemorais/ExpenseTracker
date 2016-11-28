@@ -5,7 +5,11 @@
 
   <StackLayout>
 
-    <Button Command="{Binding CarregarCommand}" Text="Carregar"></Button>
+    <Entry x:Name="entryUser" Placeholder="Username" Text="" />
+    <Entry x:Name="entryPass" Placeholder="Password" Text="" IsPassword="true" />
+    
+     
+    <Button Command="{Binding LoadCommand}" Text="Load"></Button>
 
     <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- Observable collection da viewmodel-->
       <ListView.ItemTemplate>
