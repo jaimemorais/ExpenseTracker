@@ -7,8 +7,9 @@ namespace ExpenseTrackerMvp
     {
         public App()
         {
-            // The root page of your application
-            MainPage = new View.ExpensesPage();
+            // TODO if logged, go to ExpenseView else to Login            
+                        
+            MainPage = new View.LoginPage();
         }
 
         protected override void OnStart()

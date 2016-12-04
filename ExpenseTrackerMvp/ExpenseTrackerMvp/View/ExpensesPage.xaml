@@ -4,10 +4,6 @@
              x:Class="ExpenseTrackerMvp.View.ExpensesPage">
 
   <StackLayout>
-
-    <Entry x:Name="entryUser" Placeholder="Username" Text="" />
-    <Entry x:Name="entryPass" Placeholder="Password" Text="" IsPassword="true" />
-    
      
     <Button Command="{Binding LoadCommand}" Text="Load"></Button>
 

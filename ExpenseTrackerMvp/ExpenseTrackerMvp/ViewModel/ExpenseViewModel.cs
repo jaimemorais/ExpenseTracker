@@ -1,4 +1,5 @@
 using ExpenseTrackerMvp.Model;
+using ExpenseTrackerMvp.Util;
 using Firebase.Xamarin.Auth;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
@@ -33,15 +34,16 @@ namespace ExpenseTrackerMvp.ViewModel
         
         private async void Load(object obj)
         {
-            
-            string webapikey = ""; // get on firebase
+
+            string firebaseApiKey = AppConfig.Instance.GetFirebaseApiKey();
+
             string user = ""; // get on firebase
             string pass = ""; // get on firebase
 
    
 
             // Firebase - Email/Password Auth
-            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(webapikey));
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(firebaseApiKey));
             var authLink = await authProvider.SignInWithEmailAndPasswordAsync(user, pass);
             string firebaseToken = authLink.FirebaseToken;
                         
