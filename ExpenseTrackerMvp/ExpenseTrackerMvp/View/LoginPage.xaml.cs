@@ -1,7 +1,6 @@
 ﻿using ExpenseTrackerMvp.Util;
 using Firebase.Xamarin.Auth;
 using System;
-
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.View
@@ -15,27 +14,30 @@ namespace ExpenseTrackerMvp.View
 
         public async void OnLoginButtonClicked(object sender, EventArgs args)
         {
-
             string user = this.EntryUser.Text;
             string pass = this.EntryPass.Text;
 
-            
-            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(AppConfig.Instance.GetFirebaseApiKey()));
-            var authLink = await authProvider.SignInWithEmailAndPasswordAsync(user, pass);
-
-            string firebaseToken = authLink.FirebaseToken;
-
-            if (firebaseToken != null)
+            try
             {
-                UserSettings.SaveFirebaseAuthToken(firebaseToken);
+                FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AppConfig.Instance.GetFirebaseApiKey()));
+                FirebaseAuthLink authLink = await authProvider.SignInWithEmailAndPasswordAsync(user, pass);
+                
+                if (authLink != null && authLink.FirebaseToken != null)
+                {
+                    UserSettings.SaveFirebaseAuthToken(authLink.FirebaseToken);
 
-                await this.Navigation.PushAsync(new ExpensesPage());
+                    App.Current.MainPage = new ExpensesPage();
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Username/password is incorrect.", "OK");
+                }
             }
-            else
+            catch (Exception e)
             {
-                await DisplayAlert("Error", "Username/password is incorrect.", "OK");
+                await DisplayAlert("Error", "Error : " + e.Message, "OK");
             }
-            
         }
+        
     }
 }

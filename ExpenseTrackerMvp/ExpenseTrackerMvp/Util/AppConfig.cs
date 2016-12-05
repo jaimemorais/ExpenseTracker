@@ -33,8 +33,7 @@ namespace ExpenseTrackerMvp.Util
             var resource = type.Namespace + "." + 
                 Device.OnPlatform("iOS", "Droid", "WinPhone") + ".config.xml";
 
-
-            TODO bug aqui
+            resource = "ExpenseTrackerMvp.config.xml";
 
             using (var stream = type.GetTypeInfo().Assembly.GetManifestResourceStream(resource))
             using (var reader = new StreamReader(stream))

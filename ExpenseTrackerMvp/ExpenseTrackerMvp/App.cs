@@ -1,4 +1,5 @@
 ﻿
+using ExpenseTrackerMvp.Util;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp
@@ -7,9 +8,18 @@ namespace ExpenseTrackerMvp
     {
         public App()
         {
-            // TODO if logged, go to ExpenseView else to Login            
+            var firebaseAuthToken = UserSettings.GetFirebaseAuthToken();
+
+            if (firebaseAuthToken != null)
+            {
+                MainPage = new View.ExpensesPage();
+            }
+            else
+            {
+                MainPage = new View.LoginPage();
+            }
                         
-            MainPage = new View.LoginPage();
+            
         }
 
         protected override void OnStart()
