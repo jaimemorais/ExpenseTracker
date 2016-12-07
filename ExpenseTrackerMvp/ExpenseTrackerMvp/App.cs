@@ -17,8 +17,7 @@ namespace ExpenseTrackerMvp
             else
             {
                 MainPage = new View.LoginPage();
-            }
-                        
+            }                        
             
         }
 
