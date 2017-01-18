@@ -1,5 +1,4 @@
 ﻿using ExpenseTrackerMvp.Util;
-using Firebase.Xamarin.Auth;
 using System;
 using Xamarin.Forms;
 
@@ -18,15 +17,14 @@ namespace ExpenseTrackerMvp.View
             string pass = this.EntryPass.Text;
 
             try
-            {
-                FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AppConfig.Instance.GetFirebaseApiKey()));
-                FirebaseAuthLink authLink = await authProvider.SignInWithEmailAndPasswordAsync(user, pass);
-                
-                if (authLink != null && authLink.FirebaseToken != null)
+            {                
+                string firebaseToken = await FirebaseService.SignInAndGetFirebaseToken(user, pass);
+                                                
+                if (firebaseToken != null)
                 {
-                    UserSettings.SaveFirebaseAuthToken(authLink.FirebaseToken);
-
-                    App.Current.MainPage = new ExpensesPage();
+                    UserSettings.SaveFirebaseAuthToken(firebaseToken);
+                    
+                    App.Current.MainPage = new View.MainMasterDetailPage();
                 }
                 else
                 {

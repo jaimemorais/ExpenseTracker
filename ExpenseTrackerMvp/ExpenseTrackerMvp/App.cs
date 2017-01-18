@@ -28,7 +28,9 @@ namespace ExpenseTrackerMvp
         {
             var firebaseAuthToken = UserSettings.GetFirebaseAuthToken();
 
-            if (firebaseAuthToken != null)
+            var authOK = false; // TODO FirebaseService.CheckAuthWithCurrentToken(firebaseAuthToken);
+
+            if (authOK && firebaseAuthToken != null)
             {
                 MainPage = new View.MainMasterDetailPage();
             }

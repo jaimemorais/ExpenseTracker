@@ -1,6 +1,5 @@
 using ExpenseTrackerMvp.Model;
 using ExpenseTrackerMvp.Util;
-using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -37,7 +36,7 @@ namespace ExpenseTrackerMvp.ViewModel
             // https://github.com/williamsrz/xamarin-on-fire/blob/master/XOF.Droid/Services/FirebaseService.cs
             
             string firebaseToken = UserSettings.GetFirebaseAuthToken();
-            var firebase = new FirebaseClient("https://expensetrackermvp.firebaseio.com/");
+            var firebase = FirebaseService.GetFirebaseExpenseTrackerClient();
 
             // Get one
             Expense exp = await firebase.Child("Expenses").Child("1").WithAuth(firebaseToken).OnceSingleAsync<Expense>();

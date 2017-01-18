@@ -5,6 +5,10 @@
 
   <StackLayout VerticalOptions="CenterAndExpand">
 
+    <Label HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold">Expense Tracker</Label>
+    <BoxView HeightRequest="50" />
+
+
     <Entry x:Name="EntryUser" Placeholder="Username" Text=""  />
     <Entry x:Name="EntryPass" Placeholder="Password" Text="" IsPassword="true" />
 

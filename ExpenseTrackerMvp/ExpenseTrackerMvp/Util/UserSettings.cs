@@ -6,6 +6,8 @@ namespace ExpenseTrackerMvp.Util
     {        
         public static void SaveFirebaseAuthToken(string authToken)
         {
+            // TODO use PreferenceManager
+
             Application.Current.Properties["FirebaseAuthToken"] = authToken;
         }
         
