@@ -1,7 +1,10 @@
 using ExpenseTrackerMvp.Model;
 using ExpenseTrackerMvp.Util;
-using Firebase.Xamarin.Database.Query;
+using ExpenseTrackerMvp.View;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -22,11 +25,26 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
+        public ICommand CreateCommand
+        {
+            get;
+            set;
+        }
+
         public ExpenseViewModel()
         {
             this.ExpenseCollection = new ObservableCollection<Model.Expense>();
 
             LoadCommand = new Command(Load);
+
+            LoadCommand.Execute(null);
+
+            CreateCommand = new Command(Create);
+        }
+
+        private async void Create()
+        {
+            await App.NavigateMasterDetail(new ExpensesCreatePage());
         }
 
         
@@ -38,27 +56,31 @@ namespace ExpenseTrackerMvp.ViewModel
             string firebaseToken = UserSettings.GetFirebaseAuthToken();
             var firebase = FirebaseService.GetFirebaseExpenseTrackerClient();
 
-            // Get one
-            Expense exp = await firebase.Child("Expenses").Child("1").WithAuth(firebaseToken).OnceSingleAsync<Expense>();
-            ExpenseCollection.Add(exp);
-            
-            /*var items = await firebase
+            ExpenseCollection.Clear();
+
+
+            // Using Firebase
+
+            // Example : get one
+            //Expense exp = await firebase.Child("Expenses").Child("1").WithAuth(firebaseToken).OnceSingleAsync<Expense>();
+            //ExpenseCollection.Add(exp);
+                        
+            /*
+            var items = await firebase
               .Child("Expenses")
               .OrderByKey()
-              .WithAuth(firebaseToken)                           
-              .OnceAsync<Expense>();
+              .WithAuth(firebaseToken)                                         
+              .OnceAsync<IList<Expense>>();
                         
             foreach (var item in items)
             {
-                Expense exp = item.Object;
+                Expense exp = (Expense)item.Object;
                 ExpenseCollection.Add(exp);                
-            }*/
+            }
+            */
+            
 
-
-
-
-
-            /* Using custom api 
+            // Using custom api 
             string url = GetApiServiceURL("Expenses");
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
@@ -70,20 +92,18 @@ namespace ExpenseTrackerMvp.ViewModel
                 var responseContent = content.ReadAsStringAsync().Result;
 
                 JArray json = JArray.Parse(responseContent);
-                                
+                
                 foreach (JToken item in json)
                 {
-
-                    //string desc = JToken.Parse(JToken.Parse(responseContent)[0])["Description"].Value;
-                    //Expense exp = new Expense();
-                    //exp.Description = desc.Value<string>();
-                            
-                    Expense e = item.ToObject<Expense>();                   
+                    Expense exp = new Expense();
+                    JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
+                    exp.Description = e["Description"].ToString();
+                    exp.Value = double.Parse(e["Value"].ToString());
                     
-                    ExpenseCollection.Add(e);                    
+                    ExpenseCollection.Add(exp);                    
                 }
             }
-            */
+            
 
         }
 

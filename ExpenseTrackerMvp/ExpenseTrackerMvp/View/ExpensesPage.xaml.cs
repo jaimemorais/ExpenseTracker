@@ -9,9 +9,14 @@ namespace ExpenseTrackerMvp.View
         {
             InitializeComponent();
 
-            BindingContext = new ViewModel.ExpenseViewModel();
 
-            
+            ViewModel.ExpenseViewModel expVM = new ViewModel.ExpenseViewModel();
+
+            BindingContext = expVM;
+
+                        
         }
+
+                
     }
 }

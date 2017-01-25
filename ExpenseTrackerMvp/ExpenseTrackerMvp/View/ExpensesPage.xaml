@@ -4,18 +4,19 @@
              x:Class="ExpenseTrackerMvp.View.ExpensesPage">
 
   <StackLayout>
-     
-    <Button Command="{Binding LoadCommand}" Text="Load"></Button>
-
+    
     <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- Observable collection da viewmodel-->
       <ListView.ItemTemplate>
         <DataTemplate>
           <TextCell Text="{Binding Description}"></TextCell>
+          <!--<TextCell Text="{Binding Value}"></TextCell>-->
         </DataTemplate>        
       </ListView.ItemTemplate>
     </ListView>
-   
-    
+
+    <Button Command="{Binding CreateCommand}" Text="Create New"></Button>
+    <Button Command="{Binding LoadCommand}" Text="Refresh"></Button>
+
   </StackLayout>
   
 </ContentPage>

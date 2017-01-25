@@ -12,7 +12,7 @@ namespace ExpenseTrackerMvp
         public async static Task NavigateMasterDetail(Page page)
         {
             // reference :  https://www.youtube.com/watch?v=UBqdI77_p-M&feature=youtu.be
-
+            
             // Hide the menu when navigate
             App.ExpenseTrackerMasterDetailPage.IsPresented = false;
 

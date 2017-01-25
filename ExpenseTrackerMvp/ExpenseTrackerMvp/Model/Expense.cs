@@ -4,8 +4,8 @@ namespace ExpenseTrackerMvp.Model
 {
     public class Expense : Base
     {
-        private string id;
 
+        private string id;
         public String Id
         {
             get { return id; }
