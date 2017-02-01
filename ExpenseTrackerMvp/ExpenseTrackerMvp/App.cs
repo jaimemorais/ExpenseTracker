@@ -23,19 +23,10 @@ namespace ExpenseTrackerMvp
         public App()
         {
         }
-
-        private bool UserIsAuthenticated()
-        {
-            var firebaseAuthToken = UserSettings.GetFirebaseAuthToken();
-
-            var authOK = FirebaseService.CheckAuthWithCurrentToken(firebaseAuthToken);
-
-            return (authOK && firebaseAuthToken != null);            
-        }
-
+        
         protected override void OnStart()
         {            
-            if (UserIsAuthenticated())
+            if (FirebaseService.Instance.LoginWithUserSettingsAsync(UserSettings.GetEmail(), UserSettings.GetPassword()))
             {
                 MainPage = new View.MainMasterDetailPage();
             }

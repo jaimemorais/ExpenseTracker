@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTrackerMvp.Util;
+using System;
 
 namespace ExpenseTrackerMvp.ViewModel
 {
@@ -11,11 +12,11 @@ namespace ExpenseTrackerMvp.ViewModel
                 // 10.0.2.2 = localhost - emulator
                 // IIS, not iisexpress 
                 
-                return "http://10.0.2.2:80/expensetrackerapi/api/" + apiId;
+                return AppConfig.Instance.GetExpenseTrackerApiUrl() + apiId;
             }
             catch
             {
-                throw new Exception("WebApiServiceURL not set.");
+                throw new Exception("expensetracker-api-url not set.");
             }
         }
 

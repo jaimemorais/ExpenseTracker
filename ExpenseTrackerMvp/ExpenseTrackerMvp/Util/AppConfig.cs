@@ -15,8 +15,19 @@ namespace ExpenseTrackerMvp.Util
         /// </summary>        
         public string GetFirebaseApiKey()
         {
+            return GetConfigElement("firebase-api-key");
+        }
+
+
+        public string GetExpenseTrackerApiUrl()
+        {
+            return GetConfigElement("expensetracker-api-url");
+        }
+
+        private string GetConfigElement(string element)
+        {
             System.Type type = this.GetType();
-            
+
             //var resource = type.Namespace + "." + Device.OnPlatform("iOS", "Droid", "WinPhone") + ".config.xml";            
             var resource = "ExpenseTrackerMvp.config.xml";
 
@@ -24,7 +35,7 @@ namespace ExpenseTrackerMvp.Util
             using (var reader = new StreamReader(stream))
             {
                 var doc = XDocument.Parse(reader.ReadToEnd());
-                return doc.Element("config").Element("firebase-api-key").Value;
+                return doc.Element("config").Element(element).Value;
             }
         }
     }

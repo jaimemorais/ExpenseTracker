@@ -18,12 +18,10 @@ namespace ExpenseTrackerMvp.View
 
             try
             {                
-                string firebaseToken = await FirebaseService.SignInAndGetFirebaseToken(user, pass);
+                await FirebaseService.Instance.LoginAsync(user, pass);
                                                 
-                if (firebaseToken != null)
+                if (FirebaseService.Instance.CurrentUser != null)
                 {
-                    UserSettings.SaveFirebaseAuthToken(firebaseToken);
-                    
                     App.Current.MainPage = new View.MainMasterDetailPage();
                 }
                 else
