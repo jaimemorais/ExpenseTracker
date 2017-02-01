@@ -3,11 +3,10 @@
 namespace ExpenseTrackerMvp.Util
 {
     public static class UserSettings
-    {        
-        public static void SaveFirebaseAuthToken(string authToken)
-        {            
-            // TODO use PreferenceManager
+    {       
 
+        public static void SaveFirebaseAuthToken(string authToken)
+        {   
             Application.Current.Properties["FirebaseAuthToken"] = authToken;
         }
         

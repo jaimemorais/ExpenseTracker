@@ -24,13 +24,18 @@ namespace ExpenseTrackerMvp
         {
         }
 
-        private void CheckAuthToken()
+        private bool UserIsAuthenticated()
         {
             var firebaseAuthToken = UserSettings.GetFirebaseAuthToken();
 
-            var authOK = false; // TODO FirebaseService.CheckAuthWithCurrentToken(firebaseAuthToken);
+            var authOK = FirebaseService.CheckAuthWithCurrentToken(firebaseAuthToken);
 
-            if (authOK && firebaseAuthToken != null)
+            return (authOK && firebaseAuthToken != null);            
+        }
+
+        protected override void OnStart()
+        {            
+            if (UserIsAuthenticated())
             {
                 MainPage = new View.MainMasterDetailPage();
             }
@@ -38,11 +43,6 @@ namespace ExpenseTrackerMvp
             {
                 MainPage = new View.LoginPage();
             }
-        }
-
-        protected override void OnStart()
-        {            
-            CheckAuthToken();
         }
 
         protected override void OnSleep()

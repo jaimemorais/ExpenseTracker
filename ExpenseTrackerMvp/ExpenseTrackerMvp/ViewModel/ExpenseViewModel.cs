@@ -1,5 +1,4 @@
 using ExpenseTrackerMvp.Model;
-using ExpenseTrackerMvp.Util;
 using ExpenseTrackerMvp.View;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -53,19 +52,19 @@ namespace ExpenseTrackerMvp.ViewModel
             // https://github.com/rlamasb/Firebase.Xamarin
             // https://github.com/williamsrz/xamarin-on-fire/blob/master/XOF.Droid/Services/FirebaseService.cs
             
-            string firebaseToken = UserSettings.GetFirebaseAuthToken();
-            var firebase = FirebaseService.GetFirebaseExpenseTrackerClient();
 
             ExpenseCollection.Clear();
 
 
             // Using Firebase
+            /*
+            string firebaseToken = UserSettings.GetFirebaseAuthToken();
+            var firebase = FirebaseService.GetFirebaseExpenseTrackerClient();
 
             // Example : get one
             //Expense exp = await firebase.Child("Expenses").Child("1").WithAuth(firebaseToken).OnceSingleAsync<Expense>();
             //ExpenseCollection.Add(exp);
                         
-            /*
             var items = await firebase
               .Child("Expenses")
               .OrderByKey()
@@ -78,7 +77,7 @@ namespace ExpenseTrackerMvp.ViewModel
                 ExpenseCollection.Add(exp);                
             }
             */
-            
+
 
             // Using custom api 
             string url = GetApiServiceURL("Expenses");
@@ -89,7 +88,7 @@ namespace ExpenseTrackerMvp.ViewModel
             if (response.IsSuccessStatusCode)
             {
                 var content = response.Content;
-                var responseContent = content.ReadAsStringAsync().Result;
+                var responseContent = await content.ReadAsStringAsync();
 
                 JArray json = JArray.Parse(responseContent);
                 
