@@ -1,4 +1,5 @@
 ﻿
+using ExpenseTrackerMvp.Service;
 using ExpenseTrackerMvp.Util;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -26,7 +27,7 @@ namespace ExpenseTrackerMvp
         
         protected override void OnStart()
         {            
-            if (FirebaseService.Instance.LoginWithUserSettingsAsync(UserSettings.GetEmail(), UserSettings.GetPassword()))
+            if (FirebaseService.Instance.LoginWithUserSettings(UserSettings.GetEmail(), UserSettings.GetPassword()))
             {
                 MainPage = new View.MainMasterDetailPage();
             }

@@ -1,20 +1,27 @@
-﻿using Xamarin.Forms;
+﻿using ExpenseTrackerMvp.Service;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.Util
 {
-    public static class UserSettings
-    {       
+    public class UserSettings
+    {
+        public static UserSettings Instance { get; } = new UserSettings();
+
         private static string EMAIL = "email";
         private static string PWD = "pwd";
 
-        public static void SaveEmail(string email)
+        public async Task SaveEmailAsync(string email)
         {   
             Application.Current.Properties[EMAIL] = email;
+            await Application.Current.SavePropertiesAsync();
         }
 
-        public static void SavePassword(string pwd)
+        public async Task SavePasswordAsync(string pwd)
         {
-            Application.Current.Properties[PWD] = EncryptString(pwd);
+            Application.Current.Properties[PWD] = 
+                DependencyService.Get<ICryptoService>().EncryptString(pwd, AppConfig.Instance.GetExpenseTrackerCryptoPassword());
+            await Application.Current.SavePropertiesAsync();
         }
 
         public static string GetEmail()
@@ -31,26 +38,15 @@ namespace ExpenseTrackerMvp.Util
         {
             if (Application.Current.Properties.ContainsKey(PWD))
             {
-                return DecryptString(Application.Current.Properties[PWD].ToString());
+                return DependencyService.Get<ICryptoService>().DecryptString(Application.Current.Properties[PWD].ToString(), AppConfig.Instance.GetExpenseTrackerCryptoPassword());
             }
 
             return null;
         }
+        
 
 
 
 
-
-        private static string EncryptString(string str)
-        {
-            // TODO
-            return null;
-        }
-
-        private static string DecryptString(string str)
-        {
-            // TODO
-            return null;
-        }
     }
 }

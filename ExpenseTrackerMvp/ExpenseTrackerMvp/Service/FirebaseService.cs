@@ -1,8 +1,10 @@
-﻿using Firebase.Xamarin.Auth;
+﻿using ExpenseTrackerMvp.Util;
+using Firebase.Xamarin.Auth;
 using Firebase.Xamarin.Database;
+using System;
 using System.Threading.Tasks;
 
-namespace ExpenseTrackerMvp.Util
+namespace ExpenseTrackerMvp.Service
 {
     public class FirebaseService
     {
@@ -24,10 +26,10 @@ namespace ExpenseTrackerMvp.Util
 
                 _currentUser = authLink.User;
 
-                UserSettings.SaveEmail(email);
-                UserSettings.SavePassword(pwd);
+                await UserSettings.Instance.SaveEmailAsync(email);
+                await UserSettings.Instance.SavePasswordAsync(pwd);
             }
-            catch
+            catch (Exception ex)
             {
                 return;
             }
@@ -39,7 +41,7 @@ namespace ExpenseTrackerMvp.Util
         }
 
 
-        public bool LoginWithUserSettingsAsync(string email, string pwd)
+        public bool LoginWithUserSettings(string email, string pwd)
         {            
             try
             { 
