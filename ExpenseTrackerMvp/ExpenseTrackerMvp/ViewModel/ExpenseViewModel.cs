@@ -81,9 +81,12 @@ namespace ExpenseTrackerMvp.ViewModel
 
             // Using custom api 
             string url = GetApiServiceURL("Expenses");
+
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            var response = httpClient.GetAsync(url).Result;            
+            httpClient.Timeout = new System.TimeSpan(0, 0, 3);
+
+            var response = await httpClient.GetAsync(url);            
 
             if (response.IsSuccessStatusCode)
             {

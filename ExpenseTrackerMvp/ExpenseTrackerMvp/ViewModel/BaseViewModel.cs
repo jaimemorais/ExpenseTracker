@@ -9,9 +9,15 @@ namespace ExpenseTrackerMvp.ViewModel
         {
             try
             {
+                // AVD
                 // 10.0.2.2 = localhost - emulator
                 // IIS, not iisexpress 
-                
+
+                // Hyper v 
+                // http://briannoyesblog.azurewebsites.net/2016/03/06/calling-localhost-web-apis-from-visual-studio-android-emulator/
+                // enable firewall rule for port 80
+                // http://169.254.80.80  (Desktop Adapter #2 )
+
                 return AppConfig.Instance.GetExpenseTrackerApiUrl() + apiId;
             }
             catch
