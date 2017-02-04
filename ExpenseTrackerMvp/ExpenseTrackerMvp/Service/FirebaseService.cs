@@ -31,6 +31,7 @@ namespace ExpenseTrackerMvp.Service
             }
             catch (Exception ex)
             {
+                // TODO logging service
                 return;
             }
         }
