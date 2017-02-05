@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System.Configuration;
 
 namespace ExpenseTrackerWeb.Helpers
@@ -15,7 +13,9 @@ namespace ExpenseTrackerWeb.Helpers
 
             var client = new MongoClient(uriMongo);
 
-            var database = client.GetDatabase("ExpenseTracker");
+            string databaseName = MongoUrl.Create(uriMongo).DatabaseName;
+            
+            var database = client.GetDatabase(databaseName);  
 
             Collection = database.GetCollection<T>(typeof(T).Name.ToLower());
         }
