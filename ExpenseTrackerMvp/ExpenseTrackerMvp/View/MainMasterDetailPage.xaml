@@ -2,5 +2,10 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExpenseTrackerMvp.View.MainMasterDetailPage">
-  <Label Text="Expense Tracker" VerticalOptions="Center" HorizontalOptions="Center" />
+  
+    
+    <Label Text="Expense Tracker" VerticalOptions="Center" HorizontalOptions="Center" />
+
+    <Label Text="Teste" VerticalOptions="Center" HorizontalOptions="Center" />
+
 </MasterDetailPage>

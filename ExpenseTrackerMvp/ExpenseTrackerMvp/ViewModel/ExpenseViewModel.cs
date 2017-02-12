@@ -2,6 +2,7 @@ using ExpenseTrackerMvp.Model;
 using ExpenseTrackerMvp.View;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Windows.Input;
@@ -30,6 +31,12 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
+        public ICommand SaveCommand
+        {
+            get;
+            set;
+        }
+
         public ExpenseViewModel()
         {
             this.ExpenseCollection = new ObservableCollection<Model.Expense>();
@@ -39,6 +46,8 @@ namespace ExpenseTrackerMvp.ViewModel
             LoadCommand.Execute(null);
 
             CreateCommand = new Command(Create);
+
+            SaveCommand = new Command(Save);
         }
 
         private async void Create()
@@ -46,7 +55,13 @@ namespace ExpenseTrackerMvp.ViewModel
             await App.NavigateMasterDetail(new ExpensesCreatePage());
         }
 
-        
+        private async void Save()
+        {
+            // TODO save new expense
+                        
+        }
+
+
         private async void Load(object obj)
         {
             // https://github.com/rlamasb/Firebase.Xamarin
@@ -86,26 +101,36 @@ namespace ExpenseTrackerMvp.ViewModel
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
             httpClient.Timeout = new System.TimeSpan(0, 0, 3);
 
-            var response = await httpClient.GetAsync(url);            
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var content = response.Content;
-                var responseContent = await content.ReadAsStringAsync();
+                var response = await httpClient.GetAsync(url);
 
-                JArray json = JArray.Parse(responseContent);
-                
-                foreach (JToken item in json)
+                if (response.IsSuccessStatusCode)
                 {
-                    Expense exp = new Expense();
-                    JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
-                    exp.Description = e["Description"].ToString();
-                    exp.Value = double.Parse(e["Value"].ToString());
-                    
-                    ExpenseCollection.Add(exp);                    
+                    var content = response.Content;
+                    var responseContent = await content.ReadAsStringAsync();
+
+                    JArray json = JArray.Parse(responseContent);
+
+                    foreach (JToken item in json)
+                    {
+                        Expense exp = new Expense();
+                        JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
+                        exp.Description = e["Description"].ToString();
+                        exp.Value = double.Parse(e["Value"].ToString());
+
+                        ExpenseCollection.Add(exp);
+                    }
                 }
+
             }
-            
+            catch (Exception ex)
+            {
+                // TODO logging
+                await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
+            }
+
+
 
         }
 

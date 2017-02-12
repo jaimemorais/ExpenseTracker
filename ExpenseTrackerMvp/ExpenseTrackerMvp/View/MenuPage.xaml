@@ -7,8 +7,20 @@
   
   <StackLayout Padding="20">
 
-    <Button x:Name="btnExpenses" Text="Go to Expenses" />
-    <Button x:Name="btnCategories" Text="Go to Categories" />
+    <ListView x:Name="ListViewMenu">
+      <ListView.Header>
+        <Label Text="Expense Tracker" HorizontalTextAlignment="Center"></Label>        
+      </ListView.Header>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Padding="10" Spacing="15" Orientation="Horizontal">              
+              <Label Text="{Binding MenuTitle}" FontSize="12" VerticalOptions="Center"/>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>      
+    </ListView>
     
   </StackLayout>
   

@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerMvp.Util;
 using System;
+using System.Threading.Tasks;
 
 namespace ExpenseTrackerMvp.ViewModel
 {
@@ -24,6 +25,11 @@ namespace ExpenseTrackerMvp.ViewModel
             {
                 throw new Exception("expensetracker-api-url not set.");
             }
+        }
+
+        protected async Task ShowErrorMessage(string msg)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", msg, "OK");
         }
 
     }

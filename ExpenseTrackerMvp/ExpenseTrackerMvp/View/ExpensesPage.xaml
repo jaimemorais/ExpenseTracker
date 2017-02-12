@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExpenseTrackerMvp.View.ExpensesPage">
 
-  <StackLayout>
-    
+  <StackLayout Spacing="10" Padding="10">
+
+    <Label Text="Expenses" FontSize="18" FontAttributes="Bold" />
+
     <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- Observable collection da viewmodel-->
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextCell Text="{Binding Description}"></TextCell>
-          <!--<TextCell Text="{Binding Value}"></TextCell>-->
+          <ViewCell>
+            <Grid>               
+              <Label Text="{Binding Description}" FontAttributes="Bold" />
+              <Label Grid.Column="1" Text="{Binding Value}" />              
+            </Grid>
+          </ViewCell>
         </DataTemplate>        
       </ListView.ItemTemplate>
     </ListView>
