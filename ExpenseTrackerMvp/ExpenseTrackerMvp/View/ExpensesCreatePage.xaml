@@ -10,13 +10,13 @@
     <Label Text=""/>
 
     <Label Text="Date"  />
-    <DatePicker x:Name="EntryDate" />
+    <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
 
     <Label Text="Description"  />
-    <Entry x:Name="EntryDescription" />
+    <Entry x:Name="EntryDescription" Text="{Binding Description}" />
         
     <Label Text="Value"  />
-    <Entry x:Name="EntryValue" Keyboard="Numeric" />
+    <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
 
 
     <Button Command="{Binding SaveCommand}" Text="Save"></Button>
