@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -56,9 +57,6 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private async void Create()
         {
-            this.Date = DateTime.Now.Date;
-            this.Value = 0;
-
             await App.NavigateMasterDetail(new ExpensesCreatePage());
         }
 
@@ -69,26 +67,31 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Description = this.Description;
             exp.Value = this.Value;
 
-
-            // TODO call save api
-                                    
+            string json = JsonConvert.SerializeObject(exp);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage httpResponse = await base.GetHttpClient().PostAsync(GetApiServiceURL("Expenses"), httpContent);
+            
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                LoadCommand.Execute(null);
+                await App.NavigateMasterDetail(new ExpensesPage());
+            }
+            else
+            {
+                await base.ShowErrorMessage("Error creating Expense on server.");
+            }
         }
 
 
         private async void Load(object obj)
         {
             ExpenseCollection.Clear();
-            
-            // Using custom api 
-            string url = GetApiServiceURL("Expenses");
 
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            httpClient.Timeout = new System.TimeSpan(0, 0, 3);
+            // Using custom api            
 
             try
             {
-                var response = await httpClient.GetAsync(url);
+                var response = await base.GetHttpClient().GetAsync(GetApiServiceURL("Expenses"));
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -116,7 +119,7 @@ namespace ExpenseTrackerMvp.ViewModel
             }
 
 
-            
+
 
             // Using Firebase
             // https://github.com/rlamasb/Firebase.Xamarin

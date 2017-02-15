@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerMvp.Util;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerMvp.ViewModel
@@ -27,9 +28,19 @@ namespace ExpenseTrackerMvp.ViewModel
             }
         }
 
+
+        protected HttpClient GetHttpClient()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            httpClient.Timeout = new System.TimeSpan(0, 0, 3);
+            return httpClient;
+        }
+
+
         protected async Task ShowErrorMessage(string msg)
         {
-            await App.Current.MainPage.DisplayAlert("Error", msg, "OK");
+            await App.Current.MainPage.DisplayAlert("ExpenseTracker Error", msg, "OK");
         }
 
     }
