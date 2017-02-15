@@ -7,7 +7,7 @@
 
     <Label Text="Expenses" FontSize="18" FontAttributes="Bold" />
 
-    <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- Observable collection da viewmodel-->
+    <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- ObservableCollection viewmodel-->
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
