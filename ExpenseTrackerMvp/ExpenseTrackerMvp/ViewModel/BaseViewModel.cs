@@ -1,12 +1,23 @@
 ﻿using ExpenseTrackerMvp.Util;
 using System;
+using System.ComponentModel;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerMvp.ViewModel
 {
-    public class BaseViewModel
+    public class BaseViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Notify([CallerMemberName] string propertyName = null)
+        {
+            if (PropertyChanged != null && !string.IsNullOrEmpty(propertyName))
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+                
         protected string GetApiServiceURL(string apiId)
         {
             try

@@ -18,6 +18,21 @@ namespace ExpenseTrackerMvp.ViewModel
         public Double Value { get; set; }
 
 
+        private bool Busy;        
+
+        public bool IsBusy
+        {
+            get
+            {
+                return Busy;
+            }
+            set
+            {
+                Busy = value;
+                this.Notify();
+            }
+        }
+
         public ObservableCollection<Model.Expense> ExpenseCollection
         {
             get;
@@ -85,37 +100,43 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private async void Load(object obj)
         {
-            ExpenseCollection.Clear();
 
-            // Using custom api            
+            ExpenseCollection.Clear();
 
             try
             {
-                var response = await base.GetHttpClient().GetAsync(GetApiServiceURL("Expenses"));
-
-                if (response.IsSuccessStatusCode)
+                IsBusy = true;
+                using (HttpClient httpClient = base.GetHttpClient())
                 {
-                    var content = response.Content;
-                    var responseContent = await content.ReadAsStringAsync();
+                    var response = await httpClient.GetAsync(GetApiServiceURL("Expenses"));
 
-                    JArray json = JArray.Parse(responseContent);
-
-                    foreach (JToken item in json)
+                    if (response.IsSuccessStatusCode)
                     {
-                        Expense exp = new Expense();
-                        JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
-                        exp.Description = e["Description"].ToString();
-                        exp.Value = double.Parse(e["Value"].ToString());
+                        var content = response.Content;
+                        var responseContent = await content.ReadAsStringAsync();
 
-                        ExpenseCollection.Add(exp);
+                        JArray json = JArray.Parse(responseContent);
+
+                        foreach (JToken item in json)
+                        {
+                            Expense exp = new Expense();
+                            JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
+                            exp.Description = e["Description"].ToString();
+                            exp.Value = double.Parse(e["Value"].ToString());
+
+                            ExpenseCollection.Add(exp);
+                        }
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 // TODO logging
                 await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
             }
 
 

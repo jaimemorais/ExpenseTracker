@@ -4,10 +4,10 @@
              x:Class="ExpenseTrackerMvp.View.ExpensesPage">
 
   <StackLayout Spacing="10" Padding="10">
-
+    
     <Label Text="Expenses" FontSize="18" FontAttributes="Bold" />
 
-    <ListView ItemsSource="{Binding ExpenseCollection}">      <!-- ObservableCollection viewmodel-->
+    <ListView ItemsSource="{Binding ExpenseCollection}" IsRefreshing="{Binding IsBusy}">      <!-- ObservableCollection viewmodel-->
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -19,6 +19,8 @@
         </DataTemplate>        
       </ListView.ItemTemplate>
     </ListView>
+
+    <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}"/>
 
     <Button Command="{Binding CreateCommand}" Text="Create New"></Button>
     <Button Command="{Binding LoadCommand}" Text="Refresh"></Button>
