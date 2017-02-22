@@ -1,17 +1,11 @@
 ﻿using ExpenseTrackerDomain.Models;
 using ExpenseTrackerWeb.Helpers;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -27,11 +21,10 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
             IList<string> returnList = new List<string>();
-            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             await paymentTypeHelper.Collection.Find(p => p.Name != null) // TODO filter by userId
                 .ForEachAsync(paymentTypeDocument =>
                 {
-                    string docJson = paymentTypeDocument.ToJson(jsonWriterSettings);
+                    string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(paymentTypeDocument);
                     returnList.Add(docJson);
                 }
             );
@@ -43,13 +36,12 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         public async Task<string> GetAsync(string id)
         {
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
-            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
 
             PaymentType paymentType = await paymentTypeHelper.Collection
                 .Find(p => p.Id.Equals(ObjectId.Parse(id))) // TODO filter by userId
                 .FirstAsync();
 
-            return paymentType.ToJson(jsonWriterSettings);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(paymentType);
 
         }
 

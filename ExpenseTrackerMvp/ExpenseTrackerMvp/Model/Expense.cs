@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 
 namespace ExpenseTrackerMvp.Model
@@ -20,6 +22,8 @@ namespace ExpenseTrackerMvp.Model
 
 
         private DateTime date;
+
+        [JsonConverter(typeof(OnlyDateConverter))]
         public DateTime Date 
         {
             get { return date; }
@@ -75,5 +79,14 @@ namespace ExpenseTrackerMvp.Model
             }
         }
 
+    }
+
+
+    public class OnlyDateConverter : IsoDateTimeConverter
+    {
+        public OnlyDateConverter()
+        {
+            DateTimeFormat = "yyyy-MM-dd";
+        }
     }
 }

@@ -12,8 +12,9 @@
         <DataTemplate>
           <ViewCell>
             <Grid>               
-              <Label Text="{Binding Description}" FontAttributes="Bold" />
-              <Label Grid.Column="1" Text="{Binding Value}" />              
+              <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}" FontAttributes="Bold" />
+              <Label Grid.Row="0" Grid.Column="1" Text="{Binding Value}" />
+              <Label Grid.Row="1" Grid.Column="0" Text="{Binding Date}" />
             </Grid>
           </ViewCell>
         </DataTemplate>        

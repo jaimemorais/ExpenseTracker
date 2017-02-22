@@ -1,7 +1,6 @@
 ﻿using ExpenseTrackerDomain.Models;
 using ExpenseTrackerWeb.Helpers;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -21,11 +20,10 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
                 
             IList<string> returnList = new List<string>();
-            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
             await expenseHelper.Collection.Find(e => e.Value > 0) // TODO filter by userId
                 .ForEachAsync(expenseDocument => 
                 {
-                    string docJson = expenseDocument.ToJson(jsonWriterSettings);
+                    string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(expenseDocument);
                     returnList.Add(docJson);
                 }
             );                    
@@ -36,14 +34,13 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // GET api/Expenses/5
         public async Task<string> GetAsync(string id)
         {
-            MongoHelper<Expense> categoryHelper = new MongoHelper<Expense>();
-            var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
+            MongoHelper<Expense> categoryHelper = new MongoHelper<Expense>();            
 
             Expense exp = await categoryHelper.Collection
                 .Find(c => c.Id.Equals(ObjectId.Parse(id))) // TODO filter by userId
                 .FirstAsync();
 
-            return exp.ToJson(jsonWriterSettings);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(exp);
         }
 
         // POST api/Expenses

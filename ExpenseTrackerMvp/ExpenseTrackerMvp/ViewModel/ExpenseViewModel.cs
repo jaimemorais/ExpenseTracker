@@ -123,6 +123,7 @@ namespace ExpenseTrackerMvp.ViewModel
                             JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
                             exp.Description = e["Description"].ToString();
                             exp.Value = double.Parse(e["Value"].ToString());
+                            exp.Date = DateTime.Parse(e["Date"].ToString());
 
                             ExpenseCollection.Add(exp);
                         }

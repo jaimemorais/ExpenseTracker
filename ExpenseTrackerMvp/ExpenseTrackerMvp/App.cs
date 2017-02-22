@@ -1,5 +1,4 @@
-﻿
-using ExpenseTrackerMvp.Service;
+﻿using ExpenseTrackerMvp.Service;
 using ExpenseTrackerMvp.Util;
 using System.Threading.Tasks;
 using Xamarin.Forms;
