@@ -1,4 +1,7 @@
 ﻿
+using ExpenseTrackerMvp.ViewModel;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.View
@@ -17,6 +20,16 @@ namespace ExpenseTrackerMvp.View
                         
         }
 
-                
+        private async void ListViewExpenses_OnRefreshing(object sender, EventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                ((ExpenseViewModel)BindingContext).LoadCommand.Execute(null);
+            });
+
+            lvExpenses.EndRefresh();
+        }
+
+        
     }
 }

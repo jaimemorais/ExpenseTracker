@@ -1,27 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:expTracker="clr-namespace:ExpenseTrackerMvp.ValueConverters" 
              x:Class="ExpenseTrackerMvp.View.ExpensesPage">
 
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <expTracker:DateTimeConverter x:Key="ExpenseTrackerDateTimeConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
   <StackLayout Spacing="10" Padding="10">
     
     <Label Text="Expenses" FontSize="18" FontAttributes="Bold" />
 
-    <ListView ItemsSource="{Binding ExpenseCollection}" IsRefreshing="{Binding IsBusy}">      <!-- ObservableCollection viewmodel-->
+    <ListView ItemsSource="{Binding ExpenseCollection}" x:Name="lvExpenses" IsPullToRefreshEnabled="True" Refreshing="ListViewExpenses_OnRefreshing">    
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
             <Grid>               
               <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}" FontAttributes="Bold" />
               <Label Grid.Row="0" Grid.Column="1" Text="{Binding Value}" />
-              <Label Grid.Row="1" Grid.Column="0" Text="{Binding Date}" />
+              <Label Grid.Row="1" Grid.Column="0" FontSize="10" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
             </Grid>
           </ViewCell>
         </DataTemplate>        
       </ListView.ItemTemplate>
     </ListView>
-
-    <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}"/>
 
     <Button Command="{Binding CreateCommand}" Text="Create New"></Button>
     <Button Command="{Binding LoadCommand}" Text="Refresh"></Button>
