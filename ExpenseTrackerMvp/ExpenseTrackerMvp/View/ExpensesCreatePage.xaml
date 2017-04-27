@@ -12,12 +12,20 @@
     <Label Text="Date"  />
     <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
 
-    <Label Text="Description"  />
-    <Entry x:Name="EntryDescription" Text="{Binding Description}" />
-        
+    <Label Text="Category"  />
+    <Entry x:Name="EntryCategory" Keyboard="Numeric" Text="{Binding Category}"/>    <!-- TODO change to picker -->
+
     <Label Text="Value"  />
     <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
 
+    <Label Text="Payment Type"  />
+    <Entry x:Name="EntryPaymentType" Text="{Binding Description}" />  <!-- TODO change to picker -->
+    
+    <Label Text="Description"  />
+    <Entry x:Name="EntryDescription" Text="{Binding Description}" />
+
+
+    
 
     <Button Command="{Binding SaveCommand}" Text="Save"></Button>
   </StackLayout>

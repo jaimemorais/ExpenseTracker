@@ -136,6 +136,7 @@
   <ItemGroup>
     <EmbeddedResource Include="config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

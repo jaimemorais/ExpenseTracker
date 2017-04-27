@@ -4,80 +4,26 @@ using System;
 
 namespace ExpenseTrackerMvp.Model
 {
-    public class Expense : Base
+    public class Expense 
     {
-
-        private string id;
-        public String Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-                this.Notify();
-            }
-        }
-
+        public String Id { get; set; }
+     
         public string UserId { get; set; }
 
 
         private DateTime date;
 
         [JsonConverter(typeof(OnlyDateConverter))]
-        public DateTime Date 
-        {
-            get { return date; }
-            set
-            {
-                date = value;
-                this.Notify();
-            }
-        }
+        public DateTime Date { get; set; }
 
-        private double value;
-        public double Value
-        {
-            get { return value; }
-            set
-            {
-                this.value = value;
-                this.Notify();
-            }
-        }
+        public double Value { get; set; }
 
 
-        private string category;
-        public string Category
-        {
-            get { return category; }
-            set
-            {
-                category = value;
-                this.Notify();
-            }
-        }
+        public string Category { get; set; }
 
-        private string description;
-        public string Description
-        {
-            get { return description; }
-            set
-            {
-                description = value;
-                this.Notify();
-            }
-        }
-
-        private string paymentType;
-        public string PaymentType
-        {
-            get { return paymentType; }
-            set
-            {
-                paymentType = value;
-                this.Notify();
-            }
-        }
+        public string Description { get; set; }
+                
+        public string PaymentType { get; set; }
 
     }
 

@@ -6,7 +6,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.ViewModel
@@ -16,6 +15,10 @@ namespace ExpenseTrackerMvp.ViewModel
         public DateTime Date { get; set; }
         public String Description { get; set; }
         public Double Value { get; set; }
+        public String Category { get; set; }
+        public String PaymentType { get; set; }
+
+
 
 
         private bool Busy;        
@@ -39,19 +42,19 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
-        public ICommand LoadCommand
+        public Command LoadCommand
         {
             get;
             set;
         }
 
-        public ICommand CreateCommand
+        public Command CreateCommand
         {
             get;
             set;
         }
 
-        public ICommand SaveCommand
+        public Command SaveCommand
         {
             get;
             set;
@@ -61,21 +64,21 @@ namespace ExpenseTrackerMvp.ViewModel
         {
             this.ExpenseCollection = new ObservableCollection<Model.Expense>();
 
-            LoadCommand = new Command(Load);
+            LoadCommand = new Command(ExecuteLoad);
 
             LoadCommand.Execute(null);
 
-            CreateCommand = new Command(Create);
+            CreateCommand = new Command(ExecuteCreate);
 
-            SaveCommand = new Command(Save);
+            SaveCommand = new Command(ExecuteSave);
         }
 
-        private async void Create()
+        private async void ExecuteCreate()
         {
             await App.NavigateMasterDetail(new ExpensesCreatePage());
         }
 
-        private async void Save()
+        private async void ExecuteSave()
         {
             Expense exp = new Expense();
             exp.Date = this.Date;
@@ -98,7 +101,7 @@ namespace ExpenseTrackerMvp.ViewModel
         }
 
 
-        private async void Load(object obj)
+        private async void ExecuteLoad(object obj)
         {
 
             ExpenseCollection.Clear();
