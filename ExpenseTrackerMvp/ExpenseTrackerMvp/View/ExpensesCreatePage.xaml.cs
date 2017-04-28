@@ -16,5 +16,7 @@ namespace ExpenseTrackerMvp.View
             this.EntryDate.Date = DateTime.Now.Date;
             this.EntryValue.Text = string.Empty;
         }
+
+
     }
 }

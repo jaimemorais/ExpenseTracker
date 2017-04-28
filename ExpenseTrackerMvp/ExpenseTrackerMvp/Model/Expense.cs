@@ -10,9 +10,7 @@ namespace ExpenseTrackerMvp.Model
      
         public string UserId { get; set; }
 
-
-        private DateTime date;
-
+        
         [JsonConverter(typeof(OnlyDateConverter))]
         public DateTime Date { get; set; }
 

@@ -3,6 +3,7 @@ using ExpenseTrackerMvp.View;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
@@ -17,6 +18,10 @@ namespace ExpenseTrackerMvp.ViewModel
         public Double Value { get; set; }
         public String Category { get; set; }
         public String PaymentType { get; set; }
+
+
+        public List<Category> CategoryList { get; set; }
+        public Category CategorySelectedItem { get; set; }
 
 
 
@@ -75,8 +80,58 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private async void ExecuteCreate()
         {
+            await LoadCategoryList();
+
             await App.NavigateMasterDetail(new ExpensesCreatePage());
         }
+
+        private async System.Threading.Tasks.Task LoadCategoryList()
+        {            
+
+            try
+            {
+                if (CategoryList == null)
+                {
+                    CategoryList = new List<Model.Category>();
+                }
+
+                CategoryList.Clear();
+
+                IsBusy = true;
+                using (HttpClient httpClient = base.GetHttpClient())
+                {
+                    var response = await httpClient.GetAsync(GetApiServiceURL("Categories"));
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = response.Content;
+                        var responseContent = await content.ReadAsStringAsync();
+
+                        JArray json = JArray.Parse(responseContent);
+
+                        foreach (JToken item in json)
+                        {
+                            JObject cat = (JObject)JsonConvert.DeserializeObject(item.ToString());
+
+                            Category catItem = new Model.Category();
+                            catItem.Name = cat["Name"].ToString();
+
+                            CategoryList.Add(catItem);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+        }
+
 
         private async void ExecuteSave()
         {
@@ -84,6 +139,7 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Date = this.Date;
             exp.Description = this.Description;
             exp.Value = this.Value;
+            exp.Category = this.CategorySelectedItem.Name;
 
             string json = JsonConvert.SerializeObject(exp);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");

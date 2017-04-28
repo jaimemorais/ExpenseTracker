@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fe="clr-namespace:FreshEssentials;assembly=FreshEssentials"
              x:Class="ExpenseTrackerMvp.View.ExpensesCreatePage">
   
   <StackLayout Spacing="10" Padding="10">
@@ -12,9 +13,10 @@
     <Label Text="Date"  />
     <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
 
-    <Label Text="Category"  />
-    <Entry x:Name="EntryCategory" Keyboard="Numeric" Text="{Binding Category}"/>    <!-- TODO change to picker -->
-
+    <Label Text="Category"  />    
+    <fe:BindablePicker ItemsSource="{Binding Path=CategoryList}" DisplayProperty="Name" SelectedItem="{Binding CategorySelectedItem}" Title="Select..." />
+    <!-- http://www.michaelridland.com/xamarin/freshessentials-for-xamarin-forms-the-must-have-nuget-for-forms/ -->
+    
     <Label Text="Value"  />
     <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
 
