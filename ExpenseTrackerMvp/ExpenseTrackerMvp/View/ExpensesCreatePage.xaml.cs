@@ -1,4 +1,5 @@
 ﻿
+using ExpenseTrackerMvp.Service;
 using System;
 using Xamarin.Forms;
 
@@ -10,7 +11,7 @@ namespace ExpenseTrackerMvp.View
         {
             InitializeComponent();
 
-            BindingContext = new ViewModel.ExpenseViewModel();
+            BindingContext = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiService());
 
 
             this.EntryDate.Date = DateTime.Now.Date;

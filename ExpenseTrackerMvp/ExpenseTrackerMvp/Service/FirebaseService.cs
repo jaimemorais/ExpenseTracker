@@ -1,7 +1,6 @@
 ﻿using ExpenseTrackerMvp.Util;
 using Firebase.Xamarin.Auth;
 using Firebase.Xamarin.Database;
-using System;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerMvp.Service
@@ -29,7 +28,7 @@ namespace ExpenseTrackerMvp.Service
                 await UserSettings.Instance.SaveEmailAsync(email);
                 await UserSettings.Instance.SavePasswordAsync(pwd);
             }
-            catch (Exception ex)
+            catch 
             {
                 // TODO logging service
                 return;

@@ -38,6 +38,8 @@
     <Compile Include="App.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Service\ICryptoService.cs" />
+    <Compile Include="Service\ExpenseTrackerWebApiService.cs" />
+    <Compile Include="Service\IExpenseTrackerWebApiService.cs" />
     <Compile Include="Util\AppConfig.cs" />
     <Compile Include="Model\Expense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

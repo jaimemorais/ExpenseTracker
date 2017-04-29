@@ -1,7 +1,6 @@
 ﻿
+using ExpenseTrackerMvp.Service;
 using ExpenseTrackerMvp.ViewModel;
-using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.View
@@ -13,23 +12,20 @@ namespace ExpenseTrackerMvp.View
             InitializeComponent();
 
 
-            ViewModel.ExpenseViewModel expVM = new ViewModel.ExpenseViewModel();
+            ViewModel.ExpenseViewModel expVM = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiService());
 
             BindingContext = expVM;
 
                         
         }
 
-        private async void ListViewExpenses_OnRefreshing(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            await Task.Run(() =>
-            {
-                ((ExpenseViewModel)BindingContext).LoadCommand.Execute(null);
-            });
+            ((ExpenseViewModel)BindingContext).ExecuteLoadExpenses();
 
-            lvExpenses.EndRefresh();
+            base.OnAppearing();
         }
-
+        
         
     }
 }

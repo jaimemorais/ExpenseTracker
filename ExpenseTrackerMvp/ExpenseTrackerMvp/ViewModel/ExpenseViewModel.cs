@@ -1,12 +1,10 @@
 using ExpenseTrackerMvp.Model;
+using ExpenseTrackerMvp.Service;
 using ExpenseTrackerMvp.View;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Text;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.ViewModel
@@ -71,13 +69,15 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
-        public ExpenseViewModel()
+        private readonly IExpenseTrackerWebApiService _expenseTrackerWebApiService;
+
+        public ExpenseViewModel(IExpenseTrackerWebApiService expenseTrackerWebApiService)
         {
-            this.ExpenseCollection = new ObservableCollection<Model.Expense>();
+            _expenseTrackerWebApiService = expenseTrackerWebApiService;
 
-            LoadCommand = new Command(ExecuteLoad);
+            ExpenseCollection = new ObservableCollection<Expense>();
 
-            LoadCommand.Execute(null);
+            LoadCommand = new Command(ExecuteLoadExpenses);            
 
             CreateCommand = new Command(ExecuteCreate);
 
@@ -113,28 +113,9 @@ namespace ExpenseTrackerMvp.ViewModel
                 CategoryList.Clear();
 
                 IsBusy = true;
-                using (HttpClient httpClient = base.GetHttpClient())
-                {
-                    var response = await httpClient.GetAsync(GetApiServiceURL("Categories"));
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var content = response.Content;
-                        var responseContent = await content.ReadAsStringAsync();
+                CategoryList = await _expenseTrackerWebApiService.GetCategoryList(); 
 
-                        JArray json = JArray.Parse(responseContent);
-
-                        foreach (JToken item in json)
-                        {
-                            JObject cat = (JObject)JsonConvert.DeserializeObject(item.ToString());
-
-                            Category catItem = new Model.Category();
-                            catItem.Name = cat["Name"].ToString();
-
-                            CategoryList.Add(catItem);
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -164,10 +145,9 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Category = this.CategorySelectedItem.Name;
             */
 
-            string json = JsonConvert.SerializeObject(exp);
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage httpResponse = await base.GetHttpClient().PostAsync(GetApiServiceURL("Expenses"), httpContent);
-            
+
+            HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.SaveExpense(exp);
+
             if (httpResponse.IsSuccessStatusCode)
             {
                 LoadCommand.Execute(null);
@@ -181,7 +161,7 @@ namespace ExpenseTrackerMvp.ViewModel
         }
 
 
-        private async void ExecuteLoad(object obj)
+        public async void ExecuteLoadExpenses()
         {
 
             ExpenseCollection.Clear();
@@ -189,29 +169,8 @@ namespace ExpenseTrackerMvp.ViewModel
             try
             {
                 IsBusy = true;
-                using (HttpClient httpClient = base.GetHttpClient())
-                {
-                    var response = await httpClient.GetAsync(GetApiServiceURL("Expenses"));
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var content = response.Content;
-                        var responseContent = await content.ReadAsStringAsync();
-
-                        JArray json = JArray.Parse(responseContent);
-
-                        foreach (JToken item in json)
-                        {
-                            Expense exp = new Expense();
-                            JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
-                            exp.Description = e["Description"].ToString();
-                            exp.Value = double.Parse(e["Value"].ToString());
-                            exp.Date = DateTime.Parse(e["Date"].ToString());
-
-                            ExpenseCollection.Add(exp);
-                        }
-                    }
-                }
+                this.ExpenseCollection = await _expenseTrackerWebApiService.GetExpenseList();
             }
             catch (Exception ex)
             {
@@ -222,8 +181,6 @@ namespace ExpenseTrackerMvp.ViewModel
             {
                 IsBusy = false;
             }
-
-
 
 
             // Using Firebase
