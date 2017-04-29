@@ -27,7 +27,11 @@
     
 
     <Button Command="{Binding SaveCommand}" Text="Save"></Button>
-  </StackLayout>
+      
+    <!-- On a modal page, you have to put a back command, due to iOS way to treat modal pages -->
+    <Button Command="{Binding BackCommand}" Text="Back"></Button>
+      
+</StackLayout>
 
 
 

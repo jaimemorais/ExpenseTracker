@@ -65,6 +65,12 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
+        public Command BackCommand
+        {
+            get;
+            set;
+        }
+
         public ExpenseViewModel()
         {
             this.ExpenseCollection = new ObservableCollection<Model.Expense>();
@@ -76,13 +82,22 @@ namespace ExpenseTrackerMvp.ViewModel
             CreateCommand = new Command(ExecuteCreate);
 
             SaveCommand = new Command(ExecuteSave);
+
+            BackCommand = new Command(ExecuteBack);
+
         }
 
         private async void ExecuteCreate()
         {
             await LoadCategoryList();
 
-            await App.NavigateMasterDetail(new ExpensesCreatePage());
+            await App.NavigateMasterDetailModal(new ExpensesCreatePage());
+        }
+
+
+        private async void ExecuteBack()
+        {
+            await App.NavigateMasterDetailModalBack();
         }
 
         private async System.Threading.Tasks.Task LoadCategoryList()
@@ -140,12 +155,14 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Description = this.Description;
             exp.Value = this.Value;
 
+            /*
             if (this.CategorySelectedItem == null)
             {
                 await base.ShowErrorMessage("Select a category.");
                 return;
             }
             exp.Category = this.CategorySelectedItem.Name;
+            */
 
             string json = JsonConvert.SerializeObject(exp);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
@@ -154,7 +171,8 @@ namespace ExpenseTrackerMvp.ViewModel
             if (httpResponse.IsSuccessStatusCode)
             {
                 LoadCommand.Execute(null);
-                await App.NavigateMasterDetail(new ExpensesPage());
+
+                await App.NavigateMasterDetailModalBack();
             }
             else
             {

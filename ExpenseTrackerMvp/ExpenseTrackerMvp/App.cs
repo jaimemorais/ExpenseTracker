@@ -20,6 +20,17 @@ namespace ExpenseTrackerMvp
             await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushAsync(page);
         }
 
+        public async static Task NavigateMasterDetailModal(Page page)
+        {         
+            // Navigate to page
+            await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(page);
+        }
+
+        public async static Task NavigateMasterDetailModalBack()
+        {
+            await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PopModalAsync();
+        }
+
         public App()
         {
         }
