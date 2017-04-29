@@ -2,7 +2,9 @@
 using ExpenseTrackerMvp.Util;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace ExpenseTrackerMvp
 {
     public class App : Application

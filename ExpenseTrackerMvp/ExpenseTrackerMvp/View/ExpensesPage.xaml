@@ -5,35 +5,40 @@
              x:Class="ExpenseTrackerMvp.View.ExpensesPage"
              Title="Expenses">
 
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <expTracker:DateTimeConverter x:Key="ExpenseTrackerDateTimeConverter"/>
-    </ResourceDictionary>
-  </ContentPage.Resources>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <expTracker:DateTimeConverter x:Key="ExpenseTrackerDateTimeConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-  <ContentPage.ToolbarItems>
-      <ToolbarItem Name="toolbarItemRefresh" Order="Primary" Command="{Binding LoadExpensesCommand}" Text="Refresh" Priority="0" />
-  </ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="refresh_icon.png" Command="{Binding LoadExpensesCommand}" Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
 
 
-  <StackLayout Spacing="10" Padding="10">
-    
-    <ListView ItemsSource="{Binding ExpenseCollection}" >    
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid>               
-              <Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}" FontAttributes="Bold" />
-              <Label Grid.Row="0" Grid.Column="1" Text="{Binding Value}" />
-              <Label Grid.Row="1" Grid.Column="0" FontSize="10" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
-            </Grid>
-          </ViewCell>
-        </DataTemplate>        
-      </ListView.ItemTemplate>
-    </ListView>
+    <StackLayout Spacing="10" Padding="10">
 
-    <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
 
-  </StackLayout>
-  
+        <ListView ItemsSource="{Binding ExpenseCollection}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Value}" />
+                            <Label Grid.Row="0" Grid.Column="2" FontSize="10" Text="{Binding PaymentType}" />
+
+                            <Label Grid.Row="1" Grid.Column="0" FontSize="10" Text="{Binding Description}" />
+                            <Label Grid.Row="1" Grid.Column="2" FontSize="10" Text="{Binding Category}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
+
+    </StackLayout>
+
 </ContentPage>

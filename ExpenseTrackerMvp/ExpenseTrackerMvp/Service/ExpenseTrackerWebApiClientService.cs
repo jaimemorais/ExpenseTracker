@@ -97,6 +97,8 @@ namespace ExpenseTrackerMvp.Service
                         exp.Description = e["Description"].ToString();
                         exp.Value = double.Parse(e["Value"].ToString());
                         exp.Date = DateTime.Parse(e["Date"].ToString());
+                        exp.PaymentType = e["PaymentType"]?.ToString();
+                        exp.Category = e["Category"]?.ToString();
 
                         returnList.Add(exp);
                     }

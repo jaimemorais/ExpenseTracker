@@ -18,7 +18,7 @@
     <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
 
     <Label Text="Payment Type"  />
-    <Entry x:Name="EntryPaymentType" Text="{Binding Description}" />  <!-- TODO change to picker -->
+    <Entry x:Name="EntryPaymentType" Text="{Binding PaymentType}" />  <!-- TODO change to picker -->
     
     <Label Text="Description"  />
     <Entry x:Name="EntryDescription" Text="{Binding Description}" />
