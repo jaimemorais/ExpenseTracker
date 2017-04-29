@@ -139,6 +139,12 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Date = this.Date;
             exp.Description = this.Description;
             exp.Value = this.Value;
+
+            if (this.CategorySelectedItem == null)
+            {
+                await base.ShowErrorMessage("Select a category.");
+                return;
+            }
             exp.Category = this.CategorySelectedItem.Name;
 
             string json = JsonConvert.SerializeObject(exp);

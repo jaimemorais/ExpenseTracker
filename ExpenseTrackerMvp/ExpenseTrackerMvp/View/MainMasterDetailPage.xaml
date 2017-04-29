@@ -7,5 +7,7 @@
     <Label Text="Expense Tracker" VerticalOptions="Center" HorizontalOptions="Center" />
 
     <Label Text="Teste" VerticalOptions="Center" HorizontalOptions="Center" />
+    
+    
 
 </MasterDetailPage>

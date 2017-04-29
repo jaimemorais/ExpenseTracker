@@ -2,13 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:fe="clr-namespace:FreshEssentials;assembly=FreshEssentials"
-             x:Class="ExpenseTrackerMvp.View.ExpensesCreatePage">
+             x:Class="ExpenseTrackerMvp.View.ExpensesCreatePage"
+             Title="New Expense">
   
   <StackLayout Spacing="10" Padding="10">
-
-    <Label Text="New Expense" FontSize="18" FontAttributes="Bold" />
-
-    <Label Text=""/>
 
     <Label Text="Date"  />
     <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
