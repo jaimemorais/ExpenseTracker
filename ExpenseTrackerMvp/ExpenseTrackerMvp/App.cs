@@ -49,7 +49,7 @@ namespace ExpenseTrackerMvp
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            // Handle when your app sleeps 
         }
 
         protected override void OnResume()
