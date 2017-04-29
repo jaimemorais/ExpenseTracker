@@ -10,7 +10,12 @@
       <expTracker:DateTimeConverter x:Key="ExpenseTrackerDateTimeConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
-  
+
+  <ContentPage.ToolbarItems>
+      <ToolbarItem Name="toolbarItemRefresh" Order="Primary" Command="{Binding LoadExpensesCommand}" Text="Refresh" Priority="0" />
+  </ContentPage.ToolbarItems>
+
+
   <StackLayout Spacing="10" Padding="10">
     
     <ListView ItemsSource="{Binding ExpenseCollection}" >    
@@ -27,8 +32,7 @@
       </ListView.ItemTemplate>
     </ListView>
 
-    <Button Command="{Binding CreateCommand}" Text="Create New"></Button>
-    <Button Command="{Binding LoadCommand}" Text="Refresh"></Button>
+    <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
 
   </StackLayout>
   

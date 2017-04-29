@@ -14,7 +14,24 @@ namespace ExpenseTrackerMvp.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-                
+
+
+
+        private bool _busy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _busy;
+            }
+            set
+            {
+                _busy = value;
+                this.Notify();
+            }
+        }
+
+
 
         protected async Task ShowErrorMessage(string msg)
         {

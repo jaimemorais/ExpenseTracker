@@ -1,5 +1,6 @@
 ﻿
 using ExpenseTrackerMvp.Service;
+using ExpenseTrackerMvp.ViewModel;
 using System;
 using Xamarin.Forms;
 
@@ -11,13 +12,17 @@ namespace ExpenseTrackerMvp.View
         {
             InitializeComponent();
 
-            BindingContext = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiClientService());
-
-
+            BindingContext = new ExpenseCreateViewModel(new ExpenseTrackerWebApiClientService());
+            
             this.EntryDate.Date = DateTime.Now.Date;
             this.EntryValue.Text = string.Empty;
         }
 
+        protected override void OnAppearing()
+        {
+            ((ExpenseCreateViewModel)BindingContext).LoadCategoryCommand.Execute(null);
 
+            base.OnAppearing();
+        }
     }
 }

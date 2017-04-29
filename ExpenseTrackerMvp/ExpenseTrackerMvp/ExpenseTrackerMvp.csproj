@@ -47,6 +47,7 @@
     <Compile Include="Util\UserSettings.cs" />
     <Compile Include="ValueConverters\DateTimeConverter.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ExpenseCreateViewModel.cs" />
     <Compile Include="ViewModel\ExpenseViewModel.cs" />
     <Compile Include="View\CategoriesPage.xaml.cs">
       <DependentUpon>CategoriesPage.xaml</DependentUpon>
