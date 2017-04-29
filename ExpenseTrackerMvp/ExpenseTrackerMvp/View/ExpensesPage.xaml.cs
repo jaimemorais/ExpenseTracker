@@ -21,7 +21,7 @@ namespace ExpenseTrackerMvp.View
 
         protected override void OnAppearing()
         {
-            ((ExpenseViewModel)BindingContext).ExecuteLoadExpenses();
+            ((ExpenseViewModel)BindingContext).LoadCommand.Execute(null);
 
             base.OnAppearing();
         }

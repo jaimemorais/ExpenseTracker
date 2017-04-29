@@ -77,7 +77,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
             ExpenseCollection = new ObservableCollection<Expense>();
 
-            LoadCommand = new Command(ExecuteLoadExpenses);            
+            LoadCommand = new Command(ExecuteLoad);            
 
             CreateCommand = new Command(ExecuteCreate);
 
@@ -161,7 +161,7 @@ namespace ExpenseTrackerMvp.ViewModel
         }
 
 
-        public async void ExecuteLoadExpenses()
+        private async void ExecuteLoad()
         {
 
             ExpenseCollection.Clear();
