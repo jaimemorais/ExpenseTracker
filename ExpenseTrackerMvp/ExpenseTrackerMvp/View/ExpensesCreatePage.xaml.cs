@@ -11,7 +11,7 @@ namespace ExpenseTrackerMvp.View
         {
             InitializeComponent();
 
-            BindingContext = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiService());
+            BindingContext = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiClientService());
 
 
             this.EntryDate.Date = DateTime.Now.Date;

@@ -13,7 +13,7 @@
   
   <StackLayout Spacing="10" Padding="10">
     
-    <ListView ItemsSource="{Binding ExpenseCollection}" x:Name="lvExpenses" >    
+    <ListView ItemsSource="{Binding ExpenseCollection}" >    
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>

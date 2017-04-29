@@ -4,14 +4,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerMvp.Service
 {
-    public class ExpenseTrackerWebApiService : IExpenseTrackerWebApiService
+    public class ExpenseTrackerWebApiClientService : IExpenseTrackerWebApiClientService
     {
 
 
@@ -76,9 +75,9 @@ namespace ExpenseTrackerMvp.Service
             return CategoryList;
         }
 
-        public async Task<ObservableCollection<Expense>> GetExpenseList()
+        public async Task<List<Expense>> GetExpenseList()
         {
-            ObservableCollection<Expense> ExpenseCollection = new ObservableCollection<Expense>();
+            List<Expense> returnList = new List<Expense>();
 
             using (HttpClient httpClient = GetHttpClient())
             {
@@ -99,12 +98,12 @@ namespace ExpenseTrackerMvp.Service
                         exp.Value = double.Parse(e["Value"].ToString());
                         exp.Date = DateTime.Parse(e["Date"].ToString());
 
-                        ExpenseCollection.Add(exp);
+                        returnList.Add(exp);
                     }
                 }
             }
 
-            return ExpenseCollection;
+            return returnList;
         }
 
 

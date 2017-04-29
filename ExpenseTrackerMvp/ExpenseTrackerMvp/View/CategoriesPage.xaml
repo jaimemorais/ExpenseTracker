@@ -5,5 +5,5 @@
              Title="Categories">
     
     
-  <Label Text="CategoriesPage" VerticalOptions="Center" HorizontalOptions="Center" />
+  <Label Text="Categories Page - In development" VerticalOptions="Center" HorizontalOptions="Center" />
 </ContentPage>

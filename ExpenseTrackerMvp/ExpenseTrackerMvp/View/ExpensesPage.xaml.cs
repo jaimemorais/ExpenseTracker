@@ -12,7 +12,7 @@ namespace ExpenseTrackerMvp.View
             InitializeComponent();
 
 
-            ViewModel.ExpenseViewModel expVM = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiService());
+            ViewModel.ExpenseViewModel expVM = new ViewModel.ExpenseViewModel(new ExpenseTrackerWebApiClientService());
 
             BindingContext = expVM;
 

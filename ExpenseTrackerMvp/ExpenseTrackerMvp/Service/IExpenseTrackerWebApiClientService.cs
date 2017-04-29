@@ -1,15 +1,14 @@
 ﻿using ExpenseTrackerMvp.Model;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerMvp.Service
 {
-    public interface IExpenseTrackerWebApiService
+    public interface IExpenseTrackerWebApiClientService
     {
 
-        Task<ObservableCollection<Expense>> GetExpenseList();
+        Task<List<Expense>> GetExpenseList();
 
         Task<List<Category>> GetCategoryList();
 

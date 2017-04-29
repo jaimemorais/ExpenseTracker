@@ -17,33 +17,53 @@ namespace ExpenseTrackerMvp.ViewModel
         public String Category { get; set; }
         public String PaymentType { get; set; }
 
-
-        public List<Category> CategoryList { get; set; }
-        public Category CategorySelectedItem { get; set; }
-
-
-
-
-        private bool Busy;        
-
-        public bool IsBusy
-        {
-            get
-            {
-                return Busy;
-            }
-            set
-            {
-                Busy = value;
-                this.Notify();
-            }
-        }
-
         public ObservableCollection<Model.Expense> ExpenseCollection
         {
             get;
             set;
         }
+
+
+        public List<Category> CategoryList { get; set; }
+        public Category CategorySelectedItem { get; set; }
+
+        private bool _busy;        
+        public bool IsBusy
+        {
+            get
+            {
+                return _busy;
+            }
+            set
+            {
+                _busy = value;
+                this.Notify();
+            }
+        }
+
+        
+
+
+        private readonly IExpenseTrackerWebApiClientService _expenseTrackerWebApiService;
+
+        public ExpenseViewModel(IExpenseTrackerWebApiClientService expenseTrackerWebApiService)
+        {
+            _expenseTrackerWebApiService = expenseTrackerWebApiService;
+
+            ExpenseCollection = new ObservableCollection<Expense>();
+
+            LoadCommand = new Command(ExecuteLoadExpense);
+
+            CreateCommand = new Command(ExecuteCreate);
+
+            SaveCommand = new Command(ExecuteSave);
+
+            BackCommand = new Command(ExecuteBack);
+
+        }
+
+
+
 
         public Command LoadCommand
         {
@@ -69,27 +89,12 @@ namespace ExpenseTrackerMvp.ViewModel
             set;
         }
 
-        private readonly IExpenseTrackerWebApiService _expenseTrackerWebApiService;
 
-        public ExpenseViewModel(IExpenseTrackerWebApiService expenseTrackerWebApiService)
-        {
-            _expenseTrackerWebApiService = expenseTrackerWebApiService;
 
-            ExpenseCollection = new ObservableCollection<Expense>();
-
-            LoadCommand = new Command(ExecuteLoad);            
-
-            CreateCommand = new Command(ExecuteCreate);
-
-            SaveCommand = new Command(ExecuteSave);
-
-            BackCommand = new Command(ExecuteBack);
-
-        }
 
         private async void ExecuteCreate()
         {
-            await LoadCategoryList();
+            await ExecuteLoadCategory();
 
             await App.NavigateMasterDetailModal(new ExpensesCreatePage());
         }
@@ -99,35 +104,6 @@ namespace ExpenseTrackerMvp.ViewModel
         {
             await App.NavigateMasterDetailModalBack();
         }
-
-        private async System.Threading.Tasks.Task LoadCategoryList()
-        {            
-
-            try
-            {
-                if (CategoryList == null)
-                {
-                    CategoryList = new List<Model.Category>();
-                }
-
-                CategoryList.Clear();
-
-                IsBusy = true;
-
-                CategoryList = await _expenseTrackerWebApiService.GetCategoryList(); 
-
-            }
-            catch (Exception ex)
-            {
-                await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-
-        }
-
 
         private async void ExecuteSave()
         {
@@ -161,7 +137,7 @@ namespace ExpenseTrackerMvp.ViewModel
         }
 
 
-        private async void ExecuteLoad()
+        private async void ExecuteLoadExpense()
         {
 
             ExpenseCollection.Clear();
@@ -170,7 +146,14 @@ namespace ExpenseTrackerMvp.ViewModel
             {
                 IsBusy = true;
 
-                this.ExpenseCollection = await _expenseTrackerWebApiService.GetExpenseList();
+                
+                List<Expense> expenseList = await _expenseTrackerWebApiService.GetExpenseList();
+                
+                foreach (Expense exp in expenseList)
+                {
+                    this.ExpenseCollection.Add(exp);
+                }
+                                
             }
             catch (Exception ex)
             {
@@ -208,6 +191,36 @@ namespace ExpenseTrackerMvp.ViewModel
             */
 
         }
+        
+
+        private async System.Threading.Tasks.Task ExecuteLoadCategory()
+        {
+
+            try
+            {
+                if (CategoryList == null)
+                {
+                    CategoryList = new List<Model.Category>();
+                }
+
+                CategoryList.Clear();
+
+                IsBusy = true;
+
+                CategoryList = await _expenseTrackerWebApiService.GetCategoryList();
+
+            }
+            catch (Exception ex)
+            {
+                await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+        }
+
 
     }
 }
