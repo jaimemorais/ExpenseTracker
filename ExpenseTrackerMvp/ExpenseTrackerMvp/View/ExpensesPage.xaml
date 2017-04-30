@@ -16,25 +16,37 @@
     </ContentPage.ToolbarItems>
 
 
-    <StackLayout Spacing="10" Padding="10">
+    <StackLayout>
 
+            <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="10,0,0,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-        <ListView ItemsSource="{Binding ExpenseCollection}" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Value}" />
-                            <Label Grid.Row="0" Grid.Column="2" FontSize="10" Text="{Binding PaymentType}" />
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="10" FontAttributes="Bold" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
 
-                            <Label Grid.Row="1" Grid.Column="0" FontSize="10" Text="{Binding Description}" />
-                            <Label Grid.Row="1" Grid.Column="2" FontSize="10" Text="{Binding Category}" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" Text="{Binding Description}" />
+                                <Label Grid.Row="1" Grid.Column="2" FontSize="16" FontAttributes="Bold" Text="{Binding Value}" />
+
+                                <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
+                                <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
 
         <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
