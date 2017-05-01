@@ -20,9 +20,10 @@ namespace ExpenseTrackerMvp.View
 
         protected override void OnAppearing()
         {
-            ((ExpenseCreateViewModel)BindingContext).LoadCategoryCommand.Execute(null);
+            ((ExpenseCreateViewModel)BindingContext).LoadCategoriesCommand.Execute(null);
 
             base.OnAppearing();
         }
+
     }
 }

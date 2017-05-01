@@ -2,6 +2,7 @@ using ExpenseTrackerMvp.Model;
 using ExpenseTrackerMvp.Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using Xamarin.Forms;
 
@@ -15,10 +16,22 @@ namespace ExpenseTrackerMvp.ViewModel
         public String Category { get; set; }
         public String PaymentType { get; set; }
 
-        public List<Category> CategoryList { get; set; }
-        public Category CategorySelectedItem { get; set; }
+        public ObservableCollection<string> CategoryList { get; set; }
 
-        
+
+
+        private string _categorySelectedItem;
+        public string CategorySelectedItem
+        {
+            get { return _categorySelectedItem; }
+            set
+            {
+                _categorySelectedItem = value;
+                Notify();
+            }
+        }
+
+
 
 
         private readonly IExpenseTrackerWebApiClientService _expenseTrackerWebApiService;
@@ -31,7 +44,13 @@ namespace ExpenseTrackerMvp.ViewModel
 
             BackCommand = new Command(ExecuteBack);
 
-            LoadCategoryCommand = new Command(ExecuteLoadCategory);
+            LoadCategoriesCommand = new Command(ExecuteLoadCategories);
+
+            CategoryList = new ObservableCollection<string>();
+
+            CategoryList.Add("Teste1");
+            CategoryList.Add("Teste2");
+
         }
 
         
@@ -39,10 +58,10 @@ namespace ExpenseTrackerMvp.ViewModel
 
         public Command BackCommand { get; set; }
 
-        public Command LoadCategoryCommand { get; set; }
-
-
+        public Command LoadCategoriesCommand { get; set; }
         
+
+
         private async void ExecuteBack()
         {
             await App.NavigateMasterDetailModalBack();
@@ -79,21 +98,21 @@ namespace ExpenseTrackerMvp.ViewModel
 
         
 
-        private async void ExecuteLoadCategory()
+        public async void ExecuteLoadCategories()
         {
 
             try
             {
-                if (CategoryList == null)
-                {
-                    CategoryList = new List<Model.Category>();
-                }
+                IsBusy = true;
 
                 CategoryList.Clear();
 
-                IsBusy = true;
+                List<Category> listCat = await _expenseTrackerWebApiService.GetCategoryList();
 
-                CategoryList = await _expenseTrackerWebApiService.GetCategoryList();
+                foreach (Category cat in listCat)
+                {
+                    CategoryList.Add(cat.Name);
+                }
 
             }
             catch (Exception ex)
