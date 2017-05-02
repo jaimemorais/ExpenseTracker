@@ -14,13 +14,14 @@
     <Label Text="Category"  />    
     
     <!-- Not used anymore. Xamarin Forms now has a bindable picker <expTrackerControls:BindablePicker  x:Name="pckCategory" Title="Select a category..." ItemsSource="{Binding CategoryList}" SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}" />-->
-    <Picker  x:Name="pckCategory" Title="Select a category..." ItemsSource="{Binding CategoryList}" SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}" />
+    <Picker x:Name="pckCategory" Title="Select a category..." ItemsSource="{Binding CategoryList}" SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}" />
 
     <Label Text="Value"  />
     <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
 
     <Label Text="Payment Type"  />
-    <Entry x:Name="EntryPaymentType" Text="{Binding PaymentType}" />  <!-- TODO change to picker -->
+    <Picker x:Name="pckPaymentType" Title="Select a payment type..." ItemsSource="{Binding PaymentTypeList}" SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" />
+    
     
     <Label Text="Description"  />
     <Entry x:Name="EntryDescription" Text="{Binding Description}" />

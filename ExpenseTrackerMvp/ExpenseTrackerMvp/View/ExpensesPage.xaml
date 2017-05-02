@@ -19,7 +19,8 @@
     <StackLayout>
 
             <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" SeparatorVisibility="None"
-                      IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy}" >
+                      IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy}" 
+                      CachingStrategy="RecycleElement" >
               
                 <ListView.ItemTemplate>
                     <DataTemplate>

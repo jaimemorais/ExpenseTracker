@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Controls\BindablePicker.cs" />
+    <Compile Include="Model\PaymentType.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Service\ICryptoService.cs" />
     <Compile Include="Service\ExpenseTrackerWebApiClientService.cs" />

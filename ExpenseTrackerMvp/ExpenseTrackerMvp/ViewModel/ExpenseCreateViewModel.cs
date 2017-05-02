@@ -16,10 +16,10 @@ namespace ExpenseTrackerMvp.ViewModel
         public String Category { get; set; }
         public String PaymentType { get; set; }
 
+
+
         public ObservableCollection<string> CategoryList { get; set; }
-
-
-
+        
         private string _categorySelectedItem;
         public string CategorySelectedItem
         {
@@ -27,6 +27,19 @@ namespace ExpenseTrackerMvp.ViewModel
             set
             {
                 _categorySelectedItem = value;
+                Notify();
+            }
+        }
+
+        public ObservableCollection<string> PaymentTypeList { get; set; }
+
+        private string _paymentTypeSelectedItem;
+        public string PaymentTypeSelectedItem
+        {
+            get { return _paymentTypeSelectedItem; }
+            set
+            {
+                _paymentTypeSelectedItem = value;
                 Notify();
             }
         }
@@ -46,7 +59,11 @@ namespace ExpenseTrackerMvp.ViewModel
 
             LoadCategoriesCommand = new Command(ExecuteLoadCategories);
 
+            LoadPaymentTypesCommand = new Command(ExecuteLoadPaymentTypes);
+
             CategoryList = new ObservableCollection<string>();
+
+            PaymentTypeList = new ObservableCollection<string>();
         }
 
         
@@ -55,7 +72,9 @@ namespace ExpenseTrackerMvp.ViewModel
         public Command BackCommand { get; set; }
 
         public Command LoadCategoriesCommand { get; set; }
-        
+
+        public Command LoadPaymentTypesCommand { get; set; }
+
 
 
         private async void ExecuteBack()
@@ -67,17 +86,38 @@ namespace ExpenseTrackerMvp.ViewModel
         {
             Expense exp = new Expense();
             exp.Date = this.Date;
-            exp.Description = this.Description;
-            exp.Value = this.Value;
 
-            
+
+
             if (this.CategorySelectedItem == null)
             {
                 await base.ShowErrorMessage("Select a category.");
                 return;
             }
             exp.Category = this.CategorySelectedItem;
-            
+
+            if (this.Value == 0)
+            {
+                await base.ShowErrorMessage("Inform a value.");
+                return;
+            }
+            exp.Value = this.Value;
+
+            if (this.PaymentTypeSelectedItem == null)
+            {
+                await base.ShowErrorMessage("Select a payment type.");
+                return;
+            }
+            exp.PaymentType = this.PaymentTypeSelectedItem;
+
+            if (this.Description == null)
+            {
+                await base.ShowErrorMessage("Inform a description.");
+                return;
+            }
+            exp.Description = this.Description;
+
+
 
 
             HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.SaveExpense(exp);
@@ -122,6 +162,33 @@ namespace ExpenseTrackerMvp.ViewModel
 
         }
 
+        public async void ExecuteLoadPaymentTypes()
+        {
+
+            try
+            {
+                IsBusy = true;
+
+                PaymentTypeList.Clear();
+
+                List<PaymentType> listPaymentType = await _expenseTrackerWebApiService.GetPaymentTypeList();
+
+                foreach (PaymentType pt in listPaymentType)
+                {
+                    PaymentTypeList.Add(pt.Name);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+        }
 
     }
 }

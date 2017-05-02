@@ -12,6 +12,8 @@ namespace ExpenseTrackerMvp.Service
 
         Task<List<Category>> GetCategoryList();
 
+        Task<List<PaymentType>> GetPaymentTypeList();
+
         Task<HttpResponseMessage> SaveExpense(Expense expense);
     }
 }

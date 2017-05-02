@@ -76,6 +76,39 @@ namespace ExpenseTrackerMvp.Service
             return CategoryList;
         }
 
+
+        public async Task<List<Model.PaymentType>> GetPaymentTypeList()
+        {
+            List<Model.PaymentType> PaymentTypeList = new List<Model.PaymentType>();
+
+            using (HttpClient httpClient = GetHttpClient())
+            {
+                var response = await httpClient.GetAsync(GetApiServiceURL("PaymentTypes"));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = response.Content;
+                    var responseContent = await content.ReadAsStringAsync();
+
+                    JArray json = JArray.Parse(responseContent);
+
+                    foreach (JToken item in json)
+                    {
+                        JObject pt = (JObject)JsonConvert.DeserializeObject(item.ToString());
+
+                        PaymentType catItem = new Model.PaymentType();
+                        catItem.Name = pt["Name"].ToString();
+
+                        PaymentTypeList.Add(catItem);
+                    }
+                }
+            }
+
+            return PaymentTypeList;
+        }
+
+
+
         public async Task<List<Expense>> GetExpenseList()
         {
             List<Expense> returnList = new List<Expense>();
