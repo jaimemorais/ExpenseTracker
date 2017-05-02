@@ -10,7 +10,7 @@ namespace ExpenseTrackerMvp.ViewModel
 {
     public class ExpenseViewModel : BaseViewModel
     {
-        public ObservableCollection<Model.Expense> ExpenseCollection { get; set; }
+        public ObservableCollection<Model.Expense> ExpenseCollection { get; }
         
 
 

@@ -18,7 +18,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
 
 
-        public ObservableCollection<string> CategoryList { get; set; }
+        public ObservableCollection<string> CategoryList { get; }
         
         private string _categorySelectedItem;
         public string CategorySelectedItem
@@ -31,7 +31,7 @@ namespace ExpenseTrackerMvp.ViewModel
             }
         }
 
-        public ObservableCollection<string> PaymentTypeList { get; set; }
+        public ObservableCollection<string> PaymentTypeList { get; }
 
         private string _paymentTypeSelectedItem;
         public string PaymentTypeSelectedItem
