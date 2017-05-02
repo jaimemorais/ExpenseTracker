@@ -24,6 +24,6 @@ namespace ExpenseTrackerMvp.View
 
             base.OnAppearing();
         }
-
+                
     }
 }

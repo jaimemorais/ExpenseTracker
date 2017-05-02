@@ -47,10 +47,6 @@ namespace ExpenseTrackerMvp.ViewModel
             LoadCategoriesCommand = new Command(ExecuteLoadCategories);
 
             CategoryList = new ObservableCollection<string>();
-
-            CategoryList.Add("Teste1");
-            CategoryList.Add("Teste2");
-
         }
 
         
@@ -74,14 +70,14 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Description = this.Description;
             exp.Value = this.Value;
 
-            /*
+            
             if (this.CategorySelectedItem == null)
             {
                 await base.ShowErrorMessage("Select a category.");
                 return;
             }
-            exp.Category = this.CategorySelectedItem.Name;
-            */
+            exp.Category = this.CategorySelectedItem;
+            
 
 
             HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.SaveExpense(exp);

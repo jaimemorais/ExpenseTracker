@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Specialized;
-using Xamarin.Forms;
-
-namespace ExpenseTrackerMvp.Controls
+﻿namespace ExpenseTrackerMvp.Controls
 {
-    public class BindablePicker : Picker
+    /* Not used anymore. Updated to Xamarin Forms 2.3.4 that now has a bindable picker 
+     * public class BindablePicker : Picker
     {
         public BindablePicker()
         {
@@ -88,5 +84,5 @@ namespace ExpenseTrackerMvp.Controls
                 picker.SelectedIndex = picker.Items.IndexOf(newvalue.ToString());
             }
         }
-    }
+    }*/
 }
