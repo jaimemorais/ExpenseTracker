@@ -18,15 +18,26 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         public async Task<IEnumerable<string>> GetAsync()
         {
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
-                
+            
+            /*
+            string currentUser = null;
+            if (Request.Headers.Contains("CurrentUserName"))
+            {
+                IEnumerable<string> headerValues = Request.Headers.GetValues("CurrentUserName");
+                currentUser = headerValues.FirstOrDefault();
+            }                      
+             */
+            
             IList<string> returnList = new List<string>();
-            await categoryHelper.Collection.Find(c => c.Name != null) // TODO filter by userName
-                .ForEachAsync(categoryDocument => 
+
+            await categoryHelper.Collection.Find(c => c.UserName != null) // TODO filter by user id
+                .ForEachAsync(categoryDocument =>
                 {
                     string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(categoryDocument);
                     returnList.Add(docJson);
                 }
             );
+            
 
             return returnList.ToArray();
         }

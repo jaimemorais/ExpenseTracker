@@ -28,7 +28,7 @@ namespace ExpenseTrackerMvp.Service
                 // enable firewall rule for port 80
                 // http://169.254.80.80  (Desktop Adapter #2 )
 
-                return AppConfig.Instance.GetExpenseTrackerApiUrl() + apiId;
+                return AppConfig.Instance.GetExpenseTrackerApiUrl() + apiId; 
             }
             catch
             {
@@ -39,9 +39,12 @@ namespace ExpenseTrackerMvp.Service
 
         protected HttpClient GetHttpClient()
         {
-            var httpClient = new HttpClient();
+            var httpClient = new HttpClient();            
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
             httpClient.Timeout = new System.TimeSpan(0, 0, 3);
+
+            httpClient.DefaultRequestHeaders.Add("CurrentUserName", UserSettings.GetEmail());
+
             return httpClient;
         }
 
@@ -67,6 +70,8 @@ namespace ExpenseTrackerMvp.Service
 
                         Category catItem = new Model.Category();
                         catItem.Name = cat["Name"].ToString();
+                        catItem.UserName = cat["UserName"]?.ToString();
+
 
                         CategoryList.Add(catItem);
                     }
@@ -96,10 +101,12 @@ namespace ExpenseTrackerMvp.Service
                     {
                         JObject pt = (JObject)JsonConvert.DeserializeObject(item.ToString());
 
-                        PaymentType catItem = new Model.PaymentType();
-                        catItem.Name = pt["Name"].ToString();
+                        PaymentType ptItem = new Model.PaymentType();
+                        ptItem.Name = pt["Name"].ToString();
+                        ptItem.UserName = pt["UserName"]?.ToString();
 
-                        PaymentTypeList.Add(catItem);
+
+                        PaymentTypeList.Add(ptItem);
                     }
                 }
             }
@@ -133,6 +140,7 @@ namespace ExpenseTrackerMvp.Service
                         exp.Date = DateTime.Parse(e["Date"].ToString());
                         exp.PaymentType = e["PaymentType"]?.ToString();
                         exp.Category = e["Category"]?.ToString();
+                        exp.UserName = e["UserName"]?.ToString();
 
                         returnList.Add(exp);
                     }

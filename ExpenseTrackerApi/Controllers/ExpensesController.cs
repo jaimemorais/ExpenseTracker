@@ -18,7 +18,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         public async Task<IEnumerable<string>> GetAsync()
         {            
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
-                
+            
             IList<string> returnList = new List<string>();
             await expenseHelper.Collection.Find(e => e.Value > 0) // TODO filter by userName
                 .ForEachAsync(expenseDocument => 
