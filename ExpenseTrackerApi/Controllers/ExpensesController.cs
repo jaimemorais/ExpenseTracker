@@ -67,12 +67,13 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             {
                 MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
-                var filter = Builders<Expense>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
+                var filter = Builders<Expense>.Filter.Eq(e => e.Id, ObjectId.Parse(id));
                 var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
                                                      .Set("Value", expensePut.Value)
                                                      .Set("Description", expensePut.Description)
                                                      .Set("Category", expensePut.Category)
-                                                     .Set("PaymentType", expensePut.PaymentType);
+                                                     .Set("PaymentType", expensePut.PaymentType)
+                                                     .Set("UserName", expensePut.UserName);
                                                      
                 await expenseHelper.Collection.UpdateOneAsync(filter, update);                                
             }

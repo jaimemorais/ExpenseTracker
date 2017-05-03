@@ -67,7 +67,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             try
             {
                 var filter = Builders<Category>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
-                var update = Builders<Category>.Update.Set("Name", categoryPut.Name);
+                var update = Builders<Category>.Update.Set("Name", categoryPut.Name)
+                                                       .Set("UserName", categoryPut.UserName);
 
                 MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
                 await categoryHelper.Collection.UpdateOneAsync(filter, update);                

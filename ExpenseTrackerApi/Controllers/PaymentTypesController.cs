@@ -68,7 +68,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             try
             {
                 var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
-                var update = Builders<PaymentType>.Update.Set("Name", paymentTypePut.Name);
+                var update = Builders<PaymentType>.Update.Set("Name", paymentTypePut.Name)
+                                                       .Set("UserName", paymentTypePut.UserName);
 
                 MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
                 await paymentTypeHelper.Collection.UpdateOneAsync(filter, update);
