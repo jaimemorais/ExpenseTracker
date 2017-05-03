@@ -67,7 +67,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             {
                 MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
-                var filter = Builders<Expense>.Filter.Eq(e => e.Id, ObjectId.Parse(id));
+                var filter = Builders<Expense>.Filter.Eq(e => e.Id, id);
                 var update = Builders<Expense>.Update.Set("Date", expensePut.Date)
                                                      .Set("Value", expensePut.Value)
                                                      .Set("Description", expensePut.Description)
@@ -89,7 +89,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             try
             {
-                var filter = Builders<Expense>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
+                var filter = Builders<Expense>.Filter.Eq(c => c.Id, id);
 
                 MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
                 await expenseHelper.Collection.DeleteOneAsync(filter);

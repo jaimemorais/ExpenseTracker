@@ -1,15 +1,8 @@
 ﻿using ExpenseTrackerDomain.Models;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ExpenseTrackerWeb.Controllers
@@ -101,7 +94,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 string url = base.GetApiServiceURL("PaymentTypes");
                                     
-                paymentTypePut.Id = ObjectId.Parse(id);
+                paymentTypePut.Id = id;
 
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");

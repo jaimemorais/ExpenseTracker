@@ -1,5 +1,6 @@
 using ExpenseTrackerMvp.Model;
 using ExpenseTrackerMvp.Service;
+using ExpenseTrackerMvp.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -118,6 +119,7 @@ namespace ExpenseTrackerMvp.ViewModel
             exp.Description = this.Description;
 
 
+            exp.UserName = UserSettings.GetEmail();
 
 
             HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.SaveExpense(exp);

@@ -1,9 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ExpenseTrackerDomain.Models
 {
@@ -11,7 +7,12 @@ namespace ExpenseTrackerDomain.Models
     {
 
         [BsonId]
-        public ObjectId Id { get; set; }
+        public ObjectId _id { get; set; }
 
+        public string Id
+        {
+            get { return _id.ToString(); }
+            set { _id = ObjectId.Parse(value); }
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             try
             {
-                var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
+                var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, id);
                 var update = Builders<PaymentType>.Update.Set("Name", paymentTypePut.Name)
                                                        .Set("UserName", paymentTypePut.UserName);
 
@@ -86,7 +86,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             try
             {
-                var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, ObjectId.Parse(id));
+                var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, id);
 
                 MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
                 await paymentTypeHelper.Collection.DeleteOneAsync(filter);

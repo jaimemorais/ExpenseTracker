@@ -1,5 +1,4 @@
 ﻿using ExpenseTrackerDomain.Models;
-using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -142,7 +141,7 @@ namespace ExpenseTrackerWeb.Controllers
             {
                 string url = base.GetApiServiceURL("Expenses");
 
-                expensePut.Id = ObjectId.Parse(id);
+                expensePut.Id = id;
 
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");

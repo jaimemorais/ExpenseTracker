@@ -66,7 +66,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             try
             {
-                var filter = Builders<Category>.Filter.Eq(c => c.Id, ObjectId.Parse(id));
+                var filter = Builders<Category>.Filter.Eq(c => c.Id, id);
                 var update = Builders<Category>.Update.Set("Name", categoryPut.Name)
                                                        .Set("UserName", categoryPut.UserName);
 
@@ -85,7 +85,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             try
             {
-                var filter = Builders<Category>.Filter.Eq(c => c.Id, ObjectId.Parse(id));                
+                var filter = Builders<Category>.Filter.Eq(c => c.Id, id);                
 
                 MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
                 await categoryHelper.Collection.DeleteOneAsync(filter);
