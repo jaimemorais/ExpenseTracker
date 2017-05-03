@@ -20,7 +20,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
                 
             IList<string> returnList = new List<string>();
-            await categoryHelper.Collection.Find(c => c.Name != null) // TODO filter by userId
+            await categoryHelper.Collection.Find(c => c.Name != null) // TODO filter by userName
                 .ForEachAsync(categoryDocument => 
                 {
                     string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(categoryDocument);
@@ -37,7 +37,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
             
             Category cat = await categoryHelper.Collection
-                .Find(c => c.Id.Equals(ObjectId.Parse(id))) // TODO filter by userId
+                .Find(c => c.Id.Equals(ObjectId.Parse(id))) // TODO filter by userName
                 .FirstAsync(); 
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(cat);

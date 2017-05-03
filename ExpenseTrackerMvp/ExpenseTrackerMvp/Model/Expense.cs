@@ -8,7 +8,7 @@ namespace ExpenseTrackerMvp.Model
     {
         public String Id { get; set; }
      
-        public string UserId { get; set; }
+        public string UserName { get; set; }
 
         
         [JsonConverter(typeof(OnlyDateConverter))]

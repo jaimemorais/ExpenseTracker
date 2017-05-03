@@ -3,7 +3,7 @@ namespace ExpenseTrackerMvp.Model
     public class Category 
     {
     
-        public string UserId { get; set; }
+        public string UserName { get; set; }
 
         
 

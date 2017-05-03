@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -33,7 +32,6 @@ namespace ExpenseTrackerDomain.Models
         [Required(ErrorMessage = "Select a payment type")]
         public string PaymentType { get; set; }
 
-        //TODO [BsonId]
-        public ObjectId UserId;
+        public string UserName;
     }
 }
