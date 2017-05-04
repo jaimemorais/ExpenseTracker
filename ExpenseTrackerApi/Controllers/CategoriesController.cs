@@ -19,18 +19,9 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         {
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
             
-            /*
-            string currentUser = null;
-            if (Request.Headers.Contains("CurrentUserName"))
-            {
-                IEnumerable<string> headerValues = Request.Headers.GetValues("CurrentUserName");
-                currentUser = headerValues.FirstOrDefault();
-            }                      
-             */
-            
             IList<string> returnList = new List<string>();
 
-            await categoryHelper.Collection.Find(c => c.UserName != null) // TODO filter by user id
+            await categoryHelper.Collection.Find(c => c.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
                 .ForEachAsync(categoryDocument =>
                 {
                     string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(categoryDocument);
@@ -48,7 +39,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
             
             Category cat = await categoryHelper.Collection
-                .Find(c => c.Id.Equals(ObjectId.Parse(id))) // TODO filter by userName
+                .Find(c => c.Id.Equals(ObjectId.Parse(id))) 
                 .FirstAsync(); 
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(cat);

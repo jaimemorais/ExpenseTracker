@@ -21,7 +21,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
             
             IList<string> returnList = new List<string>();
-            await paymentTypeHelper.Collection.Find(p => p.Name != null) // TODO filter by userName
+            await paymentTypeHelper.Collection.Find(p => p.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
                 .ForEachAsync(paymentTypeDocument =>
                 {
                     string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(paymentTypeDocument);
@@ -38,7 +38,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
             PaymentType paymentType = await paymentTypeHelper.Collection
-                .Find(p => p.Id.Equals(ObjectId.Parse(id))) // TODO filter by userName
+                .Find(p => p.Id.Equals(ObjectId.Parse(id))) 
                 .FirstAsync();
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(paymentType);
