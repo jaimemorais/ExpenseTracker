@@ -4,6 +4,7 @@ using ExpenseTrackerMvp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.ViewModel
@@ -26,16 +27,34 @@ namespace ExpenseTrackerMvp.ViewModel
             LoadExpensesCommand = new Command(ExecuteLoadExpense);
 
             CreateCommand = new Command(ExecuteCreate);
+
+            DeleteItemCommand = new Command<Expense>(ExecuteDeleteItem);
         }
         
 
 
-        public Command LoadExpensesCommand { get; set; }
+        public Command LoadExpensesCommand { get; }
 
-        public Command CreateCommand { get; set; }
+        public Command CreateCommand { get; }
         
+        public Command DeleteItemCommand { get; }
 
 
+
+
+        private async void ExecuteDeleteItem(Expense exp)
+        {
+            HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.DeleteExpense(exp);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                ExecuteLoadExpense();
+            }
+            else
+            {
+                await base.ShowErrorMessage("Error deleting Expense on server.");
+            }            
+        }
 
 
         private async void ExecuteCreate()

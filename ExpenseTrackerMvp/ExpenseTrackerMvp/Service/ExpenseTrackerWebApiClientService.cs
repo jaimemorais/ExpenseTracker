@@ -162,6 +162,18 @@ namespace ExpenseTrackerMvp.Service
 
             return httpResponse;
         }
-        
+
+
+        public async Task<HttpResponseMessage> DeleteExpense(Expense expense)
+        {
+            string json = JsonConvert.SerializeObject(expense);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponse = 
+                await GetHttpClient().DeleteAsync(GetApiServiceURL("Expenses") + "/" + expense.Id);
+
+            return httpResponse;
+        }
     }
 }

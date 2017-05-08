@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:expTracker="clr-namespace:ExpenseTrackerMvp.ValueConverters" 
              x:Class="ExpenseTrackerMvp.View.ExpensesPage"
+             x:Name="ExpensePageName"
              Title="Expenses">
 
     <ContentPage.Resources>
@@ -16,44 +17,59 @@
     </ContentPage.ToolbarItems>
 
 
-    <StackLayout>
+    <ContentPage.Content>
 
-            <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" SeparatorVisibility="None"
-                      IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy}" 
-                      CachingStrategy="RecycleElement" >
+        <StackLayout>
+
+                <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" SeparatorVisibility="None"
+                          IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy}" 
+                          CachingStrategy="RecycleElement" >
               
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Margin="10,0,0,5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*" />
-                                    <ColumnDefinition Width="0" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
 
-                                <Label Grid.Row="0" Grid.Column="0" FontSize="10" FontAttributes="Bold" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Delete Expense" IsDestructive="True" 
+                                              CommandParameter="{Binding .}"  
+                                              Command="{Binding Path=BindingContext.DeleteItemCommand, 
+                                                                Source={x:Reference Name=ExpensePageName } }" />
+                                                <!-- Binding .  :  current object from the ListView item -->
+                                                <!-- Binding Source : in this case, we want the BindingContext to be the same BindingContext from the ContentPage -->
+                                </ViewCell.ContextActions>
 
-                                <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" Text="{Binding Description}" />
-                                <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" Text="{Binding Value}" />
+                                <Grid Margin="10,0,0,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="0" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
-                                <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
-                            </Grid>
+                                    <Label Grid.Row="0" Grid.Column="0" FontSize="10" FontAttributes="Bold" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
 
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                    <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" Text="{Binding Description}" />
+                                    <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" Text="{Binding Value}" />
+
+                                    <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
+                                    <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
 
-        <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
+            <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
 
-    </StackLayout>
+        </StackLayout>
+
+    </ContentPage.Content>
+
 
 </ContentPage>
