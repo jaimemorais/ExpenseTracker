@@ -35,7 +35,7 @@ namespace ExpenseTrackerMvp
             // Show image after save expense
             if (imageToShow != null)
             {
-                await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(new ShowGifPage());
+                await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(new ShowGifPage(imageToShow));
                 await Task.Delay(2000);
                 await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PopModalAsync();                
             }

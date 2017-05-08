@@ -44,8 +44,7 @@ namespace ExpenseTrackerMvp.ViewModel
                 Notify();
             }
         }
-
-
+        
 
 
         private readonly IExpenseTrackerWebApiClientService _expenseTrackerWebApiService;
@@ -126,9 +125,11 @@ namespace ExpenseTrackerMvp.ViewModel
 
             if (httpResponse.IsSuccessStatusCode)
             {
-
-
-                await App.NavigateMasterDetailModalBack("teste");
+                if (exp.Value > 10)
+                    await App.NavigateMasterDetailModalBack("icon.png");                
+                else
+                    await App.NavigateMasterDetailModalBack("refresh_icon.png");
+              
             }
             else
             {
