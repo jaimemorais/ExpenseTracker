@@ -1,6 +1,5 @@
 ﻿using ExpenseTrackerDomain.Models;
 using ExpenseTrackerWeb.Helpers;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -37,7 +36,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<Expense> categoryHelper = new MongoHelper<Expense>();            
 
             Expense exp = await categoryHelper.Collection
-                .Find(c => c.Id.Equals(ObjectId.Parse(id))) 
+                .Find(c => c.Id.Equals(id)) 
                 .FirstAsync();
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(exp);

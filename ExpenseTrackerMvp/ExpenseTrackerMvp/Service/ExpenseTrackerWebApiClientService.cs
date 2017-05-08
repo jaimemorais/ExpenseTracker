@@ -135,6 +135,7 @@ namespace ExpenseTrackerMvp.Service
                     {
                         Expense exp = new Expense();
                         JObject e = (JObject)JsonConvert.DeserializeObject(item.ToString());
+                        exp.Id = e["Id"].ToString();
                         exp.Description = e["Description"].ToString();
                         exp.Value = double.Parse(e["Value"].ToString());
                         exp.Date = DateTime.Parse(e["Date"].ToString());
@@ -166,10 +167,6 @@ namespace ExpenseTrackerMvp.Service
 
         public async Task<HttpResponseMessage> DeleteExpense(Expense expense)
         {
-            string json = JsonConvert.SerializeObject(expense);
-
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-
             HttpResponseMessage httpResponse = 
                 await GetHttpClient().DeleteAsync(GetApiServiceURL("Expenses") + "/" + expense.Id);
 

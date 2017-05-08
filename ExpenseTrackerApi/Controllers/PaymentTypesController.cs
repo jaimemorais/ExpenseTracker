@@ -1,6 +1,5 @@
 ﻿using ExpenseTrackerDomain.Models;
 using ExpenseTrackerWeb.Helpers;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -38,7 +37,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
             PaymentType paymentType = await paymentTypeHelper.Collection
-                .Find(p => p.Id.Equals(ObjectId.Parse(id))) 
+                .Find(p => p.Id.Equals(id)) 
                 .FirstAsync();
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(paymentType);
