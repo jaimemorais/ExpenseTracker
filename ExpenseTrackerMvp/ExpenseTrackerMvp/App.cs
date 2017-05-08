@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerMvp.Service;
 using ExpenseTrackerMvp.Util;
+using ExpenseTrackerMvp.View;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -28,8 +29,17 @@ namespace ExpenseTrackerMvp
             await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(page);
         }
 
-        public async static Task NavigateMasterDetailModalBack()
+        public async static Task NavigateMasterDetailModalBack(string imageToShow)
         {
+
+            // Show image after save expense
+            if (imageToShow != null)
+            {
+                await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(new ShowGifPage());
+                await Task.Delay(2000);
+                await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PopModalAsync();                
+            }
+
             await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PopModalAsync();
         }
 

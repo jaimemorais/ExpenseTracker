@@ -1,5 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ExpenseTrackerMvp.View.ShowGifPage">
-  <ContentView.Content>
-  </ContentView.Content>
-</ContentView>
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             x:Class="ExpenseTrackerMvp.View.ShowGifPage">
+
+    <ContentPage.Content>
+        
+        <Image>
+            <Image.Source>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <OnPlatform.iOS>icon.png</OnPlatform.iOS>
+                    <OnPlatform.Android>icon.png</OnPlatform.Android>
+                    <OnPlatform.WinPhone>Images/icon.png</OnPlatform.WinPhone>
+                </OnPlatform>
+            </Image.Source>
+        </Image>
+
+    </ContentPage.Content>
+
+
+</ContentPage>

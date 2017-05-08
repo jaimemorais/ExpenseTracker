@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.View
 {
-    public partial class ShowGifPage : ContentView
+    public partial class ShowGifPage : ContentPage
     {
         public ShowGifPage()
         {

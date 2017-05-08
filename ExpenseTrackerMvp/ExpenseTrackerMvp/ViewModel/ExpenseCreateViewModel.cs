@@ -80,7 +80,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private async void ExecuteBack()
         {
-            await App.NavigateMasterDetailModalBack();
+            await App.NavigateMasterDetailModalBack(null);
         }
 
         private async void ExecuteSave()
@@ -126,7 +126,9 @@ namespace ExpenseTrackerMvp.ViewModel
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                await App.NavigateMasterDetailModalBack();
+
+
+                await App.NavigateMasterDetailModalBack("teste");
             }
             else
             {
