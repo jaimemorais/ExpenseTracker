@@ -37,7 +37,7 @@ namespace ExpenseTrackerMvp
             if (imageToShow != null)
             {
                 await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(new ShowGifPage(imageToShow));
-                await Task.Delay(2000);
+                await Task.Delay(1500);
                 await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PopModalAsync();                
             }
 

@@ -67,13 +67,13 @@ namespace ExpenseTrackerMvp.ViewModel
         }
 
         
-        public Command SaveCommand { get; set; }
+        public Command SaveCommand { get; }
 
-        public Command BackCommand { get; set; }
+        public Command BackCommand { get; }
 
-        public Command LoadCategoriesCommand { get; set; }
+        public Command LoadCategoriesCommand { get; }
 
-        public Command LoadPaymentTypesCommand { get; set; }
+        public Command LoadPaymentTypesCommand { get; }
 
 
 
@@ -137,7 +137,23 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private string GetImageToShow(Expense exp)
         {
-            return "icon.png";
+            string img_s = "puppys{0}.png";
+            string img_h = "puppyh{0}.png";
+
+            Random rnd = new Random();
+            int r = rnd.Next(1, 4);
+
+            if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Monday) && exp.Value > 30) || exp.Value > 100) 
+            {
+                return string.Format(img_s, r);
+            }
+
+            if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Tuesday) && exp.Value > 40))
+            {
+                return string.Format(img_s, r);
+            }
+            
+            return string.Format(img_h, r);
         }
         
 

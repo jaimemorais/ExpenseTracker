@@ -41,7 +41,7 @@ namespace ExpenseTrackerMvp.Service
         {
             var httpClient = new HttpClient();            
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            httpClient.Timeout = new System.TimeSpan(0, 0, 3);
+            httpClient.Timeout = new System.TimeSpan(0, 0, 10);
 
             httpClient.DefaultRequestHeaders.Add("CurrentUserName", UserSettings.GetEmail());
 
@@ -51,7 +51,7 @@ namespace ExpenseTrackerMvp.Service
 
         public async Task<List<Model.Category>> GetCategoryList()
         {
-            List<Model.Category> CategoryList = new List<Model.Category>();
+            List<Model.Category> categoryList = new List<Model.Category>();
 
             using (HttpClient httpClient = GetHttpClient())
             {
@@ -73,18 +73,18 @@ namespace ExpenseTrackerMvp.Service
                         catItem.UserName = cat["UserName"]?.ToString();
 
 
-                        CategoryList.Add(catItem);
+                        categoryList.Add(catItem);
                     }
                 }
             }
 
-            return CategoryList;
+            return categoryList.OrderBy(c => c.Name).ToList();
         }
 
 
         public async Task<List<Model.PaymentType>> GetPaymentTypeList()
         {
-            List<Model.PaymentType> PaymentTypeList = new List<Model.PaymentType>();
+            List<Model.PaymentType> paymentTypeList = new List<Model.PaymentType>();
 
             using (HttpClient httpClient = GetHttpClient())
             {
@@ -106,12 +106,12 @@ namespace ExpenseTrackerMvp.Service
                         ptItem.UserName = pt["UserName"]?.ToString();
 
 
-                        PaymentTypeList.Add(ptItem);
+                        paymentTypeList.Add(ptItem);
                     }
                 }
             }
 
-            return PaymentTypeList;
+            return paymentTypeList.OrderBy(p => p.Name).ToList();
         }
 
 
