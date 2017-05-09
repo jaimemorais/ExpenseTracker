@@ -3,8 +3,10 @@ using ExpenseTrackerWeb.Helpers;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -13,9 +15,20 @@ namespace ExpenseTrackerApi.Controllers.RestApi
 
     public class ExpensesController : ApiController
     {
+        private void CheckAuth()
+        {
+            // TODO auth - meanwhile I use this
+            if (UtilApi.GetHeaderValue(Request, "ApiToken") != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+        }
+
         // GET api/Expenses
         public async Task<IEnumerable<string>> GetAsync()
-        {            
+        {
+            CheckAuth();
+
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
             
             IList<string> returnList = new List<string>();
@@ -33,6 +46,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // GET api/Expenses/5
         public async Task<string> GetAsync(string id)
         {
+            CheckAuth();
+
             MongoHelper<Expense> categoryHelper = new MongoHelper<Expense>();            
 
             Expense exp = await categoryHelper.Collection
@@ -45,6 +60,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // POST api/Expenses
         public async Task PostAsync(Expense expensePosted)
         {
+            CheckAuth();
+
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
             try
@@ -62,6 +79,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // PUT api/Expenses/5
         public async Task PutAsync(string id, Expense expensePut)
         {
+            CheckAuth();
+
             try
             {
                 MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
@@ -86,6 +105,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // DELETE api/Expenses/5
         public async Task DeleteAsync(string id)
         {
+            CheckAuth();
+
             try
             {
                 var filter = Builders<Expense>.Filter.Eq(c => c.Id, id);

@@ -81,9 +81,8 @@ namespace ExpenseTrackerWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     string url = base.GetApiServiceURL("Expenses");
-                    var httpClient = new HttpClient();
-                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                    var response = await httpClient.PostAsJsonAsync(url, expense);
+
+                    var response = await GetHttpClient().PostAsJsonAsync(url, expense);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -142,10 +141,8 @@ namespace ExpenseTrackerWeb.Controllers
                 string url = base.GetApiServiceURL("Expenses");
 
                 expensePut.Id = id;
-
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                var response = await httpClient.PutAsJsonAsync(url + "/" + id, expensePut);
+                
+                var response = await GetHttpClient().PutAsJsonAsync(url + "/" + id, expensePut);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -198,10 +195,8 @@ namespace ExpenseTrackerWeb.Controllers
             {
 
                 string url = base.GetApiServiceURL("Expenses");
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-
-                var response = await httpClient.DeleteAsync(url + "/" + id);
+                
+                var response = await GetHttpClient().DeleteAsync(url + "/" + id);
 
                 if (response.IsSuccessStatusCode)
                 {

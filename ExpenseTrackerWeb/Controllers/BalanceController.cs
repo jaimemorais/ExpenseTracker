@@ -5,7 +5,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -18,9 +17,8 @@ namespace ExpenseTrackerWeb.Controllers
             try
             {
                 string url = base.GetApiServiceURL("Expenses");
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                var response = await httpClient.GetAsync(url);
+                
+                var response = await GetHttpClient().GetAsync(url);
                 var content = await response.Content.ReadAsStringAsync();
 
                 JArray json = JArray.Parse(content);

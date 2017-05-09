@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -98,12 +97,19 @@ namespace ExpenseTrackerWeb.Controllers
         private static async Task<string> GetJsonResult(string url)
         {
             Trace.TraceInformation("Api Service Url : " + url);
-
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            var response = await httpClient.GetAsync(url);
+            
+            var response = await GetHttpClient().GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
             return content;
+        }
+
+        public static HttpClient GetHttpClient()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
+            httpClient.DefaultRequestHeaders.Add("ApiToken", ConfigurationManager.AppSettings.Get("expensetracker-api-token"));
+
+            return httpClient;
         }
     }
 }

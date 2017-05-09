@@ -3,8 +3,10 @@ using ExpenseTrackerWeb.Helpers;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -13,10 +15,21 @@ namespace ExpenseTrackerApi.Controllers.RestApi
 
     public class PaymentTypesController : ApiController
     {
+        private void CheckAuth()
+        {
+            // TODO auth - meanwhile I use this
+            if (UtilApi.GetHeaderValue(Request, "ApiToken") != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+        }
+
 
         // GET api/Categories
         public async Task<IEnumerable<string>> GetAsync()
         {
+            CheckAuth();
+
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
             
             IList<string> returnList = new List<string>();
@@ -34,6 +47,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // GET api/Categories/5
         public async Task<string> GetAsync(string id)
         {
+            CheckAuth();
+
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
             PaymentType paymentType = await paymentTypeHelper.Collection
@@ -47,6 +62,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // POST api/Categories
         public async Task PostAsync(PaymentType paymentTypePosted)
         {
+            CheckAuth();
+
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
             try
@@ -64,6 +81,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // PUT api/Categories/5
         public async Task PutAsync(string id, PaymentType paymentTypePut)
         {
+            CheckAuth();
+
             try
             {
                 var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, id);
@@ -83,6 +102,8 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         // DELETE api/Categories/5
         public async Task DeleteAsync(string id)
         {
+            CheckAuth();
+
             try
             {
                 var filter = Builders<PaymentType>.Filter.Eq(p => p.Id, id);

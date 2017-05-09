@@ -24,6 +24,11 @@ namespace ExpenseTrackerMvp.Util
             return GetConfigElement("expensetracker-api-url");
         }
 
+        public string GetExpenseTrackerApiToken()
+        {
+            return GetConfigElement("expensetracker-api-token");
+        }
+
         public string GetExpenseTrackerCryptoPassword()
         {
             return GetConfigElement("expensetracker-crypto-password");

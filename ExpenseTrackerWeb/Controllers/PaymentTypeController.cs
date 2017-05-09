@@ -39,10 +39,8 @@ namespace ExpenseTrackerWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     string url = base.GetApiServiceURL("PaymentTypes");
-
-                    var httpClient = new HttpClient();
-                    httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                    var response = await httpClient.PostAsJsonAsync(url, paymentType);
+                    
+                    var response = await GetHttpClient().PostAsJsonAsync(url, paymentType);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -96,9 +94,7 @@ namespace ExpenseTrackerWeb.Controllers
                                     
                 paymentTypePut.Id = id;
 
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-                var response = await httpClient.PutAsJsonAsync(url + "/" + id, paymentTypePut);
+                var response = await GetHttpClient().PutAsJsonAsync(url + "/" + id, paymentTypePut);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -143,11 +139,8 @@ namespace ExpenseTrackerWeb.Controllers
             try
             {
                 string url = base.GetApiServiceURL("PaymentTypes");
-
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-
-                var response = await httpClient.DeleteAsync(url + "/" + id);
+                
+                var response = await GetHttpClient().DeleteAsync(url + "/" + id);
 
                 if (response.IsSuccessStatusCode)
                 {
