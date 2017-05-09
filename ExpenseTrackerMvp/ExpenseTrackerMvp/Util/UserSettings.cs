@@ -36,9 +36,16 @@ namespace ExpenseTrackerMvp.Util
 
         public static string GetPassword()
         {
-            if (Application.Current.Properties.ContainsKey(PWD))
+            try
             {
-                return DependencyService.Get<ICryptoService>().DecryptString(Application.Current.Properties[PWD].ToString(), AppConfig.Instance.GetExpenseTrackerCryptoPassword());
+                if (Application.Current.Properties.ContainsKey(PWD))
+                {
+                    return DependencyService.Get<ICryptoService>().DecryptString(Application.Current.Properties[PWD].ToString(), AppConfig.Instance.GetExpenseTrackerCryptoPassword());
+                }
+            }
+            catch
+            {
+                return null;
             }
 
             return null;

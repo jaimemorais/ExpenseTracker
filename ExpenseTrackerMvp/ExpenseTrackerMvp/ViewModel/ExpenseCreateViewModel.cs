@@ -125,11 +125,9 @@ namespace ExpenseTrackerMvp.ViewModel
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                if (exp.Value > 10)
-                    await App.NavigateMasterDetailModalBack("icon.png");                
-                else
-                    await App.NavigateMasterDetailModalBack("refresh_icon.png");
-              
+
+                string imageToShow = GetImageToShow(exp);
+                await App.NavigateMasterDetailModalBack(imageToShow);
             }
             else
             {
@@ -137,6 +135,10 @@ namespace ExpenseTrackerMvp.ViewModel
             }
         }
 
+        private string GetImageToShow(Expense exp)
+        {
+            return "icon.png";
+        }
         
 
         public async void ExecuteLoadCategories()
