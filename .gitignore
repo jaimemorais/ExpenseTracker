@@ -5,13 +5,6 @@
 web.Release.config
 web.Debug.config
 
-
-#Expense tracker app config
-config.xml
-
-
-
-
 # User-specific files
 *.suo
 *.user
