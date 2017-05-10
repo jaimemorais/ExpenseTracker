@@ -6,9 +6,9 @@ using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.View
 {
-    public partial class ExpensesCreatePage : ContentPage
+    public partial class ExpenseCreatePage : ContentPage
     {
-        public ExpensesCreatePage()
+        public ExpenseCreatePage()
         {
             InitializeComponent();
 

@@ -50,15 +50,19 @@
     <Compile Include="ValueConverters\DateTimeConverter.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ExpenseCreateViewModel.cs" />
+    <Compile Include="ViewModel\PreferencesViewModel.cs" />
     <Compile Include="ViewModel\ExpenseViewModel.cs" />
+    <Compile Include="View\PreferencesPage.xaml.cs">
+      <DependentUpon>PreferencesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CategoriesPage.xaml.cs">
       <DependentUpon>CategoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ExpensesCreatePage.xaml.cs">
-      <DependentUpon>ExpensesCreatePage.xaml</DependentUpon>
+    <Compile Include="View\ExpenseCreatePage.xaml.cs">
+      <DependentUpon>ExpenseCreatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ExpensesPage.xaml.cs">
-      <DependentUpon>ExpensesPage.xaml</DependentUpon>
+    <Compile Include="View\ExpensePage.xaml.cs">
+      <DependentUpon>ExpensePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -127,7 +131,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="View\ExpensesPage.xaml">
+    <EmbeddedResource Include="View\ExpensePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -157,7 +161,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="View\ExpensesCreatePage.xaml">
+    <EmbeddedResource Include="View\ExpenseCreatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -174,7 +178,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="View\PreferencesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

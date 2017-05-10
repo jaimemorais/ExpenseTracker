@@ -59,7 +59,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private async void ExecuteCreate()
         {
-            await App.NavigateMasterDetailModal(new ExpensesCreatePage());
+            await App.NavigateMasterDetailModal(new ExpenseCreatePage());
         }
 
         

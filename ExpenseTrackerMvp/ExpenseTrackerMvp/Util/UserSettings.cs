@@ -10,6 +10,7 @@ namespace ExpenseTrackerMvp.Util
 
         private static string EMAIL = "email";
         private static string PWD = "pwd";
+        private static string SHOW_PUPPY = "show_puppy";
 
         public async Task SaveEmailAsync(string email)
         {   
@@ -50,9 +51,23 @@ namespace ExpenseTrackerMvp.Util
 
             return null;
         }
+
+
+        public async Task SaveShowPuppyPrefAsync(bool value)
+        {
+            Application.Current.Properties[SHOW_PUPPY] = value;
+            await Application.Current.SavePropertiesAsync();
+        }
         
+        public static bool GetShowPuppyPref()
+        {
+            if (Application.Current.Properties.ContainsKey(SHOW_PUPPY))
+            {
+                return (bool)Application.Current.Properties[SHOW_PUPPY];
+            }
 
-
+            return true;
+        }
 
 
     }

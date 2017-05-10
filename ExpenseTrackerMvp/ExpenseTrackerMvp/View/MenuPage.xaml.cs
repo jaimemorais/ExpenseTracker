@@ -16,8 +16,9 @@ namespace ExpenseTrackerMvp.View
 
             ListViewMenu.ItemsSource = menuItems = new List<MenuItem>
                 {
-                    new MenuItem { MenuTitle = "Expenses", Page = new ExpensesPage() /*, Icon ="expenses.png" */},
-                    new MenuItem { MenuTitle = "Categories", Page = new CategoriesPage() /*, Icon = "categories.png" */}
+                    new MenuItem { MenuTitle = "Expenses", Page = new ExpensePage() /*, Icon ="expenses.png" */},
+                    new MenuItem { MenuTitle = "Preferences", Page = new PreferencesPage() /*, Icon ="expenses.png" */},
+                    //new MenuItem { MenuTitle = "Categories", Page = new CategoriesPage() /*, Icon = "categories.png" */}
                 };
 
             ListViewMenu.SelectedItem = menuItems[0];

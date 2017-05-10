@@ -10,7 +10,7 @@ namespace ExpenseTrackerMvp.View
             InitializeComponent();
 
             this.Master = new MenuPage();
-            this.Detail = new NavigationPage(new ExpensesPage());
+            this.Detail = new NavigationPage(new ExpensePage());
 
             App.ExpenseTrackerMasterDetailPage = this;            
         }
