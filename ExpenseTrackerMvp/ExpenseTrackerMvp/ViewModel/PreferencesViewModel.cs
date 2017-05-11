@@ -1,5 +1,4 @@
 using ExpenseTrackerMvp.Util;
-using Xamarin.Forms;
 
 namespace ExpenseTrackerMvp.ViewModel
 {
@@ -11,23 +10,20 @@ namespace ExpenseTrackerMvp.ViewModel
         public bool ShowPuppyPref
         {
             get { return _showPuppyPref; }
-            set { _showPuppyPref = value; }
+            set
+            {
+                _showPuppyPref = value;
+                ExecuteSavePreferences();
+            }
         }
 
 
 
         public PreferencesViewModel()
         {
-            SavePreferencesCommand = new Command(ExecuteSavePreferences);
-
-            ShowPuppyPref = UserSettings.GetShowPuppyPref();
+            _showPuppyPref = UserSettings.GetShowPuppyPref();
         }
-
-        public Command SavePreferencesCommand { get; }
         
-
-
-
 
         private async void ExecuteSavePreferences()
         {

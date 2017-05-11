@@ -6,15 +6,12 @@
     
     <ContentPage.Content>
         
-        <StackLayout VerticalOptions="CenterAndExpand">
+        <StackLayout VerticalOptions="StartAndExpand">
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">                    
                 <Label Text="Show puppy when a new expense is added" VerticalOptions="Center" />
                 <Switch IsToggled="{Binding ShowPuppyPref}" />                                
             </StackLayout>
-
-
-            <Button Command="{Binding SavePreferencesCommand}" Text="Save Preferences"></Button>
 
         </StackLayout>
 
