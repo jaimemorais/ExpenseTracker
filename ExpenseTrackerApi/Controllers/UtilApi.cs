@@ -15,6 +15,7 @@ namespace ExpenseTrackerApi.Controllers
                 currentUserName = headerValues.FirstOrDefault();
             }
 
+
             return currentUserName;
         }
     }
