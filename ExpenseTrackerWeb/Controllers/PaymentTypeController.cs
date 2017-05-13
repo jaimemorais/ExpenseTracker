@@ -100,6 +100,9 @@ namespace ExpenseTrackerWeb.Controllers
                                     
                 paymentTypePut.Id = id;
 
+                paymentTypePut.UserName = Session["UserName"].ToString();
+
+
                 var response = await GetHttpClient().PutAsJsonAsync(url + "/" + id, paymentTypePut);
 
                 if (response.IsSuccessStatusCode)

@@ -98,7 +98,10 @@ namespace ExpenseTrackerWeb.Controllers
                 string url = base.GetApiServiceURL("Categories");
 
                 categoryPut.Id = id;
-                
+
+                categoryPut.UserName = Session["UserName"].ToString();
+
+
                 var response = await GetHttpClient().PutAsJsonAsync(url + "/" + id, categoryPut);
 
                 if (response.IsSuccessStatusCode)

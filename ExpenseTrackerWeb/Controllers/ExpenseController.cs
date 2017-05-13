@@ -84,8 +84,7 @@ namespace ExpenseTrackerWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     string url = base.GetApiServiceURL("Expenses");
-
-
+                    
                     expense.UserName = Session["UserName"].ToString();
 
                     var response = await GetHttpClient().PostAsJsonAsync(url, expense);
@@ -147,7 +146,10 @@ namespace ExpenseTrackerWeb.Controllers
                 string url = base.GetApiServiceURL("Expenses");
 
                 expensePut.Id = id;
-                
+
+                expensePut.UserName = Session["UserName"].ToString();
+
+
                 var response = await GetHttpClient().PutAsJsonAsync(url + "/" + id, expensePut);
 
                 if (response.IsSuccessStatusCode)
