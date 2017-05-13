@@ -107,9 +107,9 @@ namespace ExpenseTrackerWeb.Controllers
                                 
                 
             }
-            catch
+            catch (Exception ex)
             {
-                ShowMessage("Error creating new expense.", EnumMessageType.ERROR);
+                ShowMessage("Error creating new expense. " + ex.Message, EnumMessageType.ERROR);
                 return View();
             }
         }
@@ -167,9 +167,9 @@ namespace ExpenseTrackerWeb.Controllers
                 return RedirectToAction("Index", "Balance");
 
             }
-            catch
+            catch (Exception ex)
             {
-                ShowMessage("Error updating expense.", EnumMessageType.ERROR);
+                ShowMessage("Error updating expense. " + ex.Message, EnumMessageType.ERROR);
                 return View();
             }
         }
@@ -217,9 +217,9 @@ namespace ExpenseTrackerWeb.Controllers
                 
                 return RedirectToAction("Index", "Balance");
             }
-            catch
+            catch (Exception ex)
             {
-                ShowMessage("Error deleting expense.", EnumMessageType.ERROR);
+                ShowMessage("Error deleting expense. " + ex.Message, EnumMessageType.ERROR);
                 return View();
             }
         }

@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerDomain.Models;
 using ExpenseTrackerWeb.Filters;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -63,9 +64,9 @@ namespace ExpenseTrackerWeb.Controllers
                     return View();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                ShowMessage("Error creating new category.", EnumMessageType.ERROR);
+                ShowMessage("Error creating new category. " + ex.Message, EnumMessageType.ERROR);
                 return View();
             }
         }
@@ -116,9 +117,9 @@ namespace ExpenseTrackerWeb.Controllers
                 return RedirectToAction("Index");
 
             }
-            catch
+            catch (Exception ex)
             {
-                ShowMessage("Error updating category.", EnumMessageType.ERROR);
+                ShowMessage("Error updating category. " + ex.Message, EnumMessageType.ERROR);
                 return View();
             }
         }
@@ -163,9 +164,9 @@ namespace ExpenseTrackerWeb.Controllers
                 return RedirectToAction("Index");
 
             }
-            catch
+            catch (Exception ex)
             {
-                ShowMessage("Error deleting category.", EnumMessageType.ERROR);
+                ShowMessage("Error deleting category. " + ex.Message, EnumMessageType.ERROR);
                 return View();
             }
         }
