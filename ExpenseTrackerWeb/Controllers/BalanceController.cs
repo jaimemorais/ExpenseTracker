@@ -1,7 +1,5 @@
 ﻿using ExpenseTrackerDomain.Models;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using Newtonsoft.Json.Linq;
+using ExpenseTrackerWeb.Filters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,31 +8,17 @@ using System.Web.Mvc;
 
 namespace ExpenseTrackerWeb.Controllers
 {
+    [AuthFilter]
     public class BalanceController : BaseController
     {
         public async Task<ActionResult> Index()
         {
             try
             {
-                string url = base.GetApiServiceURL("Expenses");
+
+                List<Expense> expenses = await base.GetItemListAsync<Expense>("Expenses");
                 
-                var response = await GetHttpClient().GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
-
-                JArray json = JArray.Parse(content);
-
-                var expenseItems = new List<Expense>();
-
-                foreach (JToken item in json)
-                {
-                    MongoDB.Bson.BsonDocument document
-                        = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
-                    Expense e = BsonSerializer.Deserialize<Expense>(document);
-
-                    expenseItems.Add(e);
-                }
-
-                return View(expenseItems);
+                return View(expenses);
             }
             catch (Exception e)
             {

@@ -22,8 +22,8 @@
         <StackLayout>
 
                 <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" SeparatorVisibility="None"
-                          IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy}" 
-                          CachingStrategy="RecycleElement" >
+                          IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                          CachingStrategy="RecycleElement" x:Name="lvExpenses">
               
                     <ListView.ItemTemplate>
                         <DataTemplate>

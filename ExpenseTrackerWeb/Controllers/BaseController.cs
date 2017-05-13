@@ -19,7 +19,6 @@ namespace ExpenseTrackerWeb.Controllers
         ERROR
     }
 
-
     public abstract class BaseController : Controller
     {
         protected string GetApiServiceURL(string apiId) 
@@ -94,7 +93,7 @@ namespace ExpenseTrackerWeb.Controllers
         }
 
 
-        private static async Task<string> GetJsonResult(string url)
+        private async Task<string> GetJsonResult(string url)
         {
             Trace.TraceInformation("Api Service Url : " + url);
             
@@ -103,11 +102,16 @@ namespace ExpenseTrackerWeb.Controllers
             return content;
         }
 
-        public static HttpClient GetHttpClient()
+        public HttpClient GetHttpClient()
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
             httpClient.DefaultRequestHeaders.Add("ApiToken", ConfigurationManager.AppSettings.Get("expensetracker-api-token"));
+
+            if (Session["UserName"] != null)
+            {
+                httpClient.DefaultRequestHeaders.Add("CurrentUserName", Session["UserName"].ToString());
+            }
 
             return httpClient;
         }

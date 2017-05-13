@@ -1,4 +1,5 @@
 ﻿using ExpenseTrackerDomain.Models;
+using ExpenseTrackerWeb.Filters;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -8,6 +9,8 @@ using System.Web.Mvc;
 
 namespace ExpenseTrackerWeb.Controllers
 {
+
+    [AuthFilter]
     public class ExpenseController : BaseController
     {
         // GET: Expense
@@ -81,6 +84,9 @@ namespace ExpenseTrackerWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     string url = base.GetApiServiceURL("Expenses");
+
+
+                    expense.UserName = Session["UserName"].ToString();
 
                     var response = await GetHttpClient().PostAsJsonAsync(url, expense);
 
