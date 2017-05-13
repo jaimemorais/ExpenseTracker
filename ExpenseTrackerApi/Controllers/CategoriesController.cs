@@ -19,7 +19,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
         private void CheckAuth()
         {
             // TODO auth - meanwhile I use this
-            if (UtilApi.GetHeaderValue(Request, "ApiToken") != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
+            if (UtilApi.GetHeaderValue(Request, "expensetracker-api-token") != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
             {
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }

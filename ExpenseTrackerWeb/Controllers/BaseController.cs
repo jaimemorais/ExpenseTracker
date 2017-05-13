@@ -107,7 +107,7 @@ namespace ExpenseTrackerWeb.Controllers
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("User-Agent", "Other");
-            httpClient.DefaultRequestHeaders.Add("ApiToken", ConfigurationManager.AppSettings.Get("expensetracker-api-token"));
+            httpClient.DefaultRequestHeaders.Add("expensetracker-api-token", ConfigurationManager.AppSettings.Get("expensetracker-api-token"));
 
             if (Session["UserName"] != null)
             {

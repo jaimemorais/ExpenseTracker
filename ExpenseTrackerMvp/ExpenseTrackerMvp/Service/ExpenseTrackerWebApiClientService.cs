@@ -45,7 +45,7 @@ namespace ExpenseTrackerMvp.Service
 
             httpClient.DefaultRequestHeaders.Add("CurrentUserName", UserSettings.GetEmail());
 
-            httpClient.DefaultRequestHeaders.Add("ApiToken", AppConfig.Instance.GetExpenseTrackerApiToken());
+            httpClient.DefaultRequestHeaders.Add("expensetracker-api-token", AppConfig.Instance.GetExpenseTrackerApiToken());
 
             return httpClient;
         }
