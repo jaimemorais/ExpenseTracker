@@ -169,9 +169,6 @@ namespace ExpenseTrackerWeb.Controllers
             }
             catch
             {
-                await GetCategorySelectListAsync();
-                await GetPaymentTypesSelectListAsync();
-
                 ShowMessage("Error updating expense.", EnumMessageType.ERROR);
                 return View();
             }
@@ -222,9 +219,6 @@ namespace ExpenseTrackerWeb.Controllers
             }
             catch
             {
-                await GetCategorySelectListAsync();
-                await GetPaymentTypesSelectListAsync();
-
                 ShowMessage("Error deleting expense.", EnumMessageType.ERROR);
                 return View();
             }
