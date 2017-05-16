@@ -2200,23 +2200,23 @@ namespace ExpenseTrackerMvp.Droid
 			// aapt resource value: 0x7f0200a0
 			public const int mr_ic_play_light = 2130837664;
 			
-			// aapt resource value: 0x7f0200ac
-			public const int notification_template_icon_bg = 2130837676;
+			// aapt resource value: 0x7f0200ad
+			public const int notification_template_icon_bg = 2130837677;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int oldsplash = 2130837665;
+			public const int puppyh1 = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int puppyh1 = 2130837666;
+			public const int puppyh2 = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int puppyh2 = 2130837667;
+			public const int puppyh3 = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int puppyh3 = 2130837668;
+			public const int puppyh4 = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int puppyh4 = 2130837669;
+			public const int puppyh5 = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
 			public const int puppys1 = 2130837670;
@@ -2231,10 +2231,13 @@ namespace ExpenseTrackerMvp.Droid
 			public const int puppys4 = 2130837673;
 			
 			// aapt resource value: 0x7f0200aa
-			public const int refresh_icon = 2130837674;
+			public const int puppys5 = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int splash = 2130837675;
+			public const int refresh_icon = 2130837675;
+			
+			// aapt resource value: 0x7f0200ac
+			public const int splash = 2130837676;
 			
 			static Drawable()
 			{

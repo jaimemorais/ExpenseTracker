@@ -82,12 +82,21 @@ namespace ExpenseTrackerMvp.ViewModel
             await App.NavigateMasterDetailModalBack(null);
         }
 
+
+        int _tapCount = 0;
+
         private async void ExecuteSave()
         {
+            // Prevent multiple tap on save button
+            _tapCount += 1;
+            if (_tapCount > 1)
+            {
+                _tapCount = 0;
+                return;
+            }
+
             Expense exp = new Expense();
             exp.Date = this.Date;
-
-
 
             if (this.CategorySelectedItem == null)
             {
@@ -141,9 +150,9 @@ namespace ExpenseTrackerMvp.ViewModel
             string img_h = "puppyh{0}.png";
 
             Random rnd = new Random();
-            int r = rnd.Next(1, 4);
+            int r = rnd.Next(1, 5);
 
-            if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Monday) && exp.Value > 30) || exp.Value > 100) 
+            if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Monday) && exp.Value > 30) || exp.Value > 80) 
             {
                 return string.Format(img_s, r);
             }
