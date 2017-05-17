@@ -55,13 +55,15 @@ namespace ExpenseTrackerWeb.Controllers
                     string month = System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(exp.Date.Month);
                     month = month.Substring(0, 1).ToUpper() + month.Substring(1);
 
+                    string name = (exp.UserName.Split()[0] == "patricia" ? "Patrícia" : "Jaime");
+
                     sb.AppendLine(GetTD(month) +
                                   GetTD(exp.Date.Day.ToString()) +
                                   GetTD(exp.Value.ToString()) +
-                                  GetTD(" ???? ") +
+                                  GetTD(name) +
                                   GetTD(exp.Category) +
                                   GetTD(exp.Description) +
-                                  GetTD((exp.PaymentType == "Cartao Credito" ? "Itau CC" + GetTD("Cartao de Credito") + GetTD(" ???? ") : exp.PaymentType))
+                                  GetTD((exp.PaymentType == "Cartao Credito" ? "Itau CC" + GetTD("Cartao de Credito") + GetTD(name) : exp.PaymentType))
                                  );
 
                     
