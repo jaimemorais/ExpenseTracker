@@ -22,7 +22,7 @@
 
         <StackLayout>
 
-                <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" SeparatorVisibility="None"
+                <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" 
                           IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
                           CachingStrategy="RecycleElement" x:Name="lvExpenses">
               
@@ -51,10 +51,10 @@
                                         <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Row="0" Grid.Column="0" FontSize="10" FontAttributes="Bold" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
+                                    <Label Grid.Row="0" Grid.Column="0" FontSize="10" FontAttributes="Bold" TextColor="Navy" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
 
-                                    <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" Text="{Binding Description}" />
-                                    <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" Text="{Binding Value}" />
+                                    <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" TextColor="Black" Text="{Binding Description}" />
+                                    <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" TextColor="Black" Text="{Binding Value, StringFormat='{0:N}'}" />
 
                                     <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
                                     <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
