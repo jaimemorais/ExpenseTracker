@@ -14,6 +14,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="refresh_icon.png" Command="{Binding LoadExpensesCommand}" Order="Primary" Priority="0" />
+        <ToolbarItem Text="Logoff" Command="{Binding LogoffCommand}" Order="Secondary" Priority="0" />
     </ContentPage.ToolbarItems>
 
 

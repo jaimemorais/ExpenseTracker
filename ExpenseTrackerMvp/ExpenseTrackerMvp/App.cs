@@ -49,7 +49,7 @@ namespace ExpenseTrackerMvp
         }
         
         protected override void OnStart()
-        {            
+        {
             if (FirebaseService.Instance.LoginWithUserSettings(UserSettings.GetEmail(), UserSettings.GetPassword()))
             {
                 MainPage = new View.MainMasterDetailPage();
@@ -59,6 +59,7 @@ namespace ExpenseTrackerMvp
                 MainPage = new View.LoginPage();
             }
         }
+        
 
         protected override void OnSleep()
         {
