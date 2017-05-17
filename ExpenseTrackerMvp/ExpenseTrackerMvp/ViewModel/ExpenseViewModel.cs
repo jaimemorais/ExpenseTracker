@@ -1,5 +1,6 @@
 using ExpenseTrackerMvp.Model;
 using ExpenseTrackerMvp.Service;
+using ExpenseTrackerMvp.Util;
 using ExpenseTrackerMvp.View;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ namespace ExpenseTrackerMvp.ViewModel
             CreateCommand = new Command(ExecuteCreate);
 
             DeleteItemCommand = new Command<Expense>(ExecuteDeleteItem);
+
+            LogoffCommand = new Command(ExecuteLogoff);
         }
         
 
@@ -39,7 +42,15 @@ namespace ExpenseTrackerMvp.ViewModel
         
         public Command DeleteItemCommand { get; }
 
+        public Command LogoffCommand { get; }
 
+
+        private async void ExecuteLogoff()
+        {
+            await UserSettings.Instance.SaveEmailAsync("");
+            await UserSettings.Instance.SavePasswordAsync("");
+            App.Current.MainPage = new LoginPage();
+        }
 
 
         private async void ExecuteDeleteItem(Expense exp)
