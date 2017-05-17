@@ -55,7 +55,7 @@ namespace ExpenseTrackerWeb.Controllers
                     string month = System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(exp.Date.Month);
                     month = month.Substring(0, 1).ToUpper() + month.Substring(1);
 
-                    string name = (exp.UserName.Split()[0] == "patricia" ? "Patrícia" : "Jaime");
+                    string name = (exp.UserName.Split('@')[0] == "patricia" ? "Patrícia" : "Jaime");
 
                     sb.AppendLine(GetTD(month) +
                                   GetTD(exp.Date.Day.ToString()) +
