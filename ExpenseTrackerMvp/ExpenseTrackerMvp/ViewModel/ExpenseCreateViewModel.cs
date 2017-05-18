@@ -46,34 +46,25 @@ namespace ExpenseTrackerMvp.ViewModel
         }
         
 
-
         private readonly IExpenseTrackerWebApiClientService _expenseTrackerWebApiService;
 
         public ExpenseCreateViewModel(IExpenseTrackerWebApiClientService expenseTrackerWebApiService)
         {
-            _expenseTrackerWebApiService = expenseTrackerWebApiService;
-
-            SaveCommand = new Command(ExecuteSave);
-
-            BackCommand = new Command(ExecuteBack);
-
-            LoadCategoriesCommand = new Command(ExecuteLoadCategories);
-
-            LoadPaymentTypesCommand = new Command(ExecuteLoadPaymentTypes);
-
-            CategoryList = new ObservableCollection<string>();
+            _expenseTrackerWebApiService = expenseTrackerWebApiService;            
 
             PaymentTypeList = new ObservableCollection<string>();
+
+            CategoryList = new ObservableCollection<string>();
         }
 
         
-        public Command SaveCommand { get; }
+        public Command SaveCommand => new Command(ExecuteSave);
 
-        public Command BackCommand { get; }
+        public Command BackCommand => new Command(ExecuteBack);
 
-        public Command LoadCategoriesCommand { get; }
+        public Command LoadCategoriesCommand => new Command(ExecuteLoadCategories);
 
-        public Command LoadPaymentTypesCommand { get; }
+        public Command LoadPaymentTypesCommand => new Command(ExecuteLoadPaymentTypes);
 
 
 

@@ -14,35 +14,25 @@ namespace ExpenseTrackerMvp.ViewModel
     {
         public ObservableCollection<Model.Expense> ExpenseCollection { get; }
         
-
-
-
         private readonly IExpenseTrackerWebApiClientService _expenseTrackerWebApiService;
 
         public ExpenseViewModel(IExpenseTrackerWebApiClientService expenseTrackerWebApiService)
         {
             _expenseTrackerWebApiService = expenseTrackerWebApiService;
 
-            ExpenseCollection = new ObservableCollection<Expense>();
-
-            LoadExpensesCommand = new Command(ExecuteLoadExpense);
-
-            CreateCommand = new Command(ExecuteCreate);
-
-            DeleteItemCommand = new Command<Expense>(ExecuteDeleteItem);
-
-            LogoffCommand = new Command(ExecuteLogoff);
+            ExpenseCollection = new ObservableCollection<Expense>();            
         }
         
 
+        public Command LoadExpensesCommand => new Command(ExecuteLoadExpense);
 
-        public Command LoadExpensesCommand { get; }
+        public Command CreateCommand => new Command(ExecuteCreate);
 
-        public Command CreateCommand { get; }
-        
-        public Command DeleteItemCommand { get; }
+        public Command DeleteItemCommand => new Command<Expense>(ExecuteDeleteItem);
 
-        public Command LogoffCommand { get; }
+        public Command LogoffCommand => new Command(ExecuteLogoff);
+
+
 
 
         private async void ExecuteLogoff()
