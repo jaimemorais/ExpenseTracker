@@ -45,7 +45,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
         private async void ExecuteDeleteItem(Expense exp)
         {
-            HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.DeleteExpense(exp);
+            HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.DeleteExpenseAsync(exp);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -75,7 +75,7 @@ namespace ExpenseTrackerMvp.ViewModel
                 IsBusy = true;
 
                 
-                List<Expense> expenseList = await _expenseTrackerWebApiService.GetExpenseList();
+                List<Expense> expenseList = await _expenseTrackerWebApiService.GetExpenseListAsync();
                 
                 foreach (Expense exp in expenseList)
                 {

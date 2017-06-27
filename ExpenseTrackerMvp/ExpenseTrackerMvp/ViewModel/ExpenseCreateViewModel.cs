@@ -110,18 +110,22 @@ namespace ExpenseTrackerMvp.ViewModel
             }
             exp.PaymentType = this.PaymentTypeSelectedItem;
 
-            if (this.Description == null)
-            {
-                await base.ShowErrorMessage("Inform a description.");
-                return;
-            }
-            exp.Description = this.Description;
 
+            if (string.IsNullOrEmpty(this.Description))
+            {
+                exp.Description = exp.Category;
+            }
+            else
+            {
+                exp.Description = this.Description;
+            }
+
+            
 
             exp.UserName = UserSettings.GetEmail();
 
 
-            HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.SaveExpense(exp);
+            HttpResponseMessage httpResponse = await _expenseTrackerWebApiService.SaveExpenseAsync(exp);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -141,19 +145,24 @@ namespace ExpenseTrackerMvp.ViewModel
             string img_h = "puppyh{0}.png";
 
             Random rnd = new Random();
-            int r = rnd.Next(1, 7);
+            
 
             if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Monday) && exp.Value > 30) || exp.Value > 80) 
             {
+                int r = rnd.Next(1, 7);
                 return string.Format(img_s, r);
             }
-
-            if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Tuesday) && exp.Value > 40))
+            else if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Tuesday) && exp.Value > 40))
             {
+                int r = rnd.Next(1, 7);
                 return string.Format(img_s, r);
+            }            
+            else
+            {
+                int r = rnd.Next(1, 8);
+                return string.Format(img_h, r);
             }
             
-            return string.Format(img_h, r);
         }
         
 
@@ -166,7 +175,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
                 CategoryList.Clear();
 
-                List<Category> listCat = await _expenseTrackerWebApiService.GetCategoryList();
+                List<Category> listCat = await _expenseTrackerWebApiService.GetCategoryListAsync();
 
                 foreach (Category cat in listCat)
                 {
@@ -194,7 +203,7 @@ namespace ExpenseTrackerMvp.ViewModel
 
                 PaymentTypeList.Clear();
 
-                List<PaymentType> listPaymentType = await _expenseTrackerWebApiService.GetPaymentTypeList();
+                List<PaymentType> listPaymentType = await _expenseTrackerWebApiService.GetPaymentTypeListAsync();
 
                 foreach (PaymentType pt in listPaymentType)
                 {

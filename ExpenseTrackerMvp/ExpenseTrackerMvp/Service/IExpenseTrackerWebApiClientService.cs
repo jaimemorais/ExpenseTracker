@@ -8,14 +8,14 @@ namespace ExpenseTrackerMvp.Service
     public interface IExpenseTrackerWebApiClientService
     {
 
-        Task<List<Expense>> GetExpenseList();
+        Task<List<Expense>> GetExpenseListAsync();
 
-        Task<List<Category>> GetCategoryList();
+        Task<List<Category>> GetCategoryListAsync();
 
-        Task<List<PaymentType>> GetPaymentTypeList();
+        Task<List<PaymentType>> GetPaymentTypeListAsync();
 
-        Task<HttpResponseMessage> SaveExpense(Expense expense);
+        Task<HttpResponseMessage> SaveExpenseAsync(Expense expense);
 
-        Task<HttpResponseMessage> DeleteExpense(Expense expense);
+        Task<HttpResponseMessage> DeleteExpenseAsync(Expense expense);
     }
 }

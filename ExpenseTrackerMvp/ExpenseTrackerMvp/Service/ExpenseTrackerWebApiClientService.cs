@@ -51,7 +51,7 @@ namespace ExpenseTrackerMvp.Service
         }
 
 
-        public async Task<List<Model.Category>> GetCategoryList()
+        public async Task<List<Model.Category>> GetCategoryListAsync()
         {
             List<Model.Category> categoryList = new List<Model.Category>();
 
@@ -84,7 +84,7 @@ namespace ExpenseTrackerMvp.Service
         }
 
 
-        public async Task<List<Model.PaymentType>> GetPaymentTypeList()
+        public async Task<List<Model.PaymentType>> GetPaymentTypeListAsync()
         {
             List<Model.PaymentType> paymentTypeList = new List<Model.PaymentType>();
 
@@ -118,7 +118,7 @@ namespace ExpenseTrackerMvp.Service
 
 
 
-        public async Task<List<Expense>> GetExpenseList()
+        public async Task<List<Expense>> GetExpenseListAsync()
         {
             List<Expense> returnList = new List<Expense>();
 
@@ -155,7 +155,7 @@ namespace ExpenseTrackerMvp.Service
         }
 
 
-        public async Task<HttpResponseMessage> SaveExpense(Expense expense)
+        public async Task<HttpResponseMessage> SaveExpenseAsync(Expense expense)
         {
             string json = JsonConvert.SerializeObject(expense);
 
@@ -167,7 +167,7 @@ namespace ExpenseTrackerMvp.Service
         }
 
 
-        public async Task<HttpResponseMessage> DeleteExpense(Expense expense)
+        public async Task<HttpResponseMessage> DeleteExpenseAsync(Expense expense)
         {
             HttpResponseMessage httpResponse = 
                 await GetHttpClient().DeleteAsync(GetApiServiceURL("Expenses") + "/" + expense.Id);
