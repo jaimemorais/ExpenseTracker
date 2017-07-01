@@ -2200,8 +2200,8 @@ namespace ExpenseTrackerMvp.Droid
 			// aapt resource value: 0x7f0200a0
 			public const int mr_ic_play_light = 2130837664;
 			
-			// aapt resource value: 0x7f0200b2
-			public const int notification_template_icon_bg = 2130837682;
+			// aapt resource value: 0x7f0200b3
+			public const int notification_template_icon_bg = 2130837683;
 			
 			// aapt resource value: 0x7f0200a1
 			public const int puppyh1 = 2130837665;
@@ -2253,6 +2253,9 @@ namespace ExpenseTrackerMvp.Droid
 			
 			// aapt resource value: 0x7f0200b1
 			public const int splash = 2130837681;
+			
+			// aapt resource value: 0x7f0200b2
+			public const int splashold = 2130837682;
 			
 			static Drawable()
 			{
