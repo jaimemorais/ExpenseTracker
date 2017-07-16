@@ -34,6 +34,10 @@ namespace ExpenseTrackerMvp.Util
             return GetConfigElement("expensetracker-crypto-password");
         }
 
+        public string GetMobileCenterKey()
+        {
+            return GetConfigElement("mobile-center-key");
+        }
 
         private string GetConfigElement(string element)
         {
