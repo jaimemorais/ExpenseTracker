@@ -85,8 +85,11 @@ namespace ExpenseTrackerMvp.ViewModel
             }
             catch (Exception ex)
             {
+                
+                await base.ShowErrorMessage("Cannot connect to server. Try again.");
+                
                 // TODO logging
-                await base.ShowErrorMessage("Cannot connect to server. " + ex.Message);
+                string log = ex.Message;
             }
             finally
             {

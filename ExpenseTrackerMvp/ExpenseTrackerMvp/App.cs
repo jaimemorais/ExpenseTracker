@@ -1,9 +1,6 @@
 ﻿using ExpenseTrackerMvp.Service;
 using ExpenseTrackerMvp.Util;
 using ExpenseTrackerMvp.View;
-using Microsoft.Azure.Mobile;
-using Microsoft.Azure.Mobile.Analytics;
-using Microsoft.Azure.Mobile.Crashes;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -61,10 +58,7 @@ namespace ExpenseTrackerMvp
             {
                 MainPage = new View.LoginPage();
             }
-
             
-            MobileCenter.Start("android=" + AppConfig.Instance.GetMobileCenterKey() + ";",
-                   typeof(Analytics), typeof(Crashes));
         }
         
 
