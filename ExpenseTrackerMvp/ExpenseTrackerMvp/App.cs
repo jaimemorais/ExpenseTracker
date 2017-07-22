@@ -27,7 +27,6 @@ namespace ExpenseTrackerMvp
         {         
             // Navigate to page
             await App.ExpenseTrackerMasterDetailPage.Detail.Navigation.PushModalAsync(page);
-
         }
 
         public async static Task NavigateMasterDetailModalBack(string imageToShow)
