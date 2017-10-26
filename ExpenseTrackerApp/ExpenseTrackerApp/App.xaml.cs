@@ -16,6 +16,7 @@ namespace ExpenseTrackerApp
         {
             InitializeComponent();
 
+            Container.Register<ITelemetry, Telemetry>(Reuse.Singleton);
             Container.Register<IUserSettings, UserSettings>(Reuse.Singleton);
             Container.Register<IHttpConnection, HttpConnection>(Reuse.Singleton);
             Container.Register<IExpenseTrackerService, ExpenseTrackerService>(Reuse.Singleton);

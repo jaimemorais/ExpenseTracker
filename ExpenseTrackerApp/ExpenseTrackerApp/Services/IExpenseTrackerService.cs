@@ -1,6 +1,5 @@
 ﻿using ExpenseTrackerApp.Model;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerApp.Service
@@ -14,8 +13,8 @@ namespace ExpenseTrackerApp.Service
 
         Task<List<PaymentType>> GetPaymentTypeListAsync();
 
-        Task<HttpResponseMessage> SaveExpenseAsync(Expense expense);
+        Task<bool> SaveExpenseAsync(Expense expense);
 
-        Task<HttpResponseMessage> DeleteExpenseAsync(Expense expense);
+        Task<bool> DeleteExpenseAsync(Expense expense);
     }
 }

@@ -3,7 +3,6 @@ using ExpenseTrackerApp.Models.Service;
 using ExpenseTrackerApp.Services;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerApp.Service
@@ -11,10 +10,12 @@ namespace ExpenseTrackerApp.Service
     public class ExpenseTrackerService : IExpenseTrackerService
     {
         private readonly IHttpConnection _httpConnection;
+        private readonly ITelemetry _telemetry;
 
-        public ExpenseTrackerService(IHttpConnection httpConnection)
+        public ExpenseTrackerService(IHttpConnection httpConnection, ITelemetry telemetry)
         {
             _httpConnection = httpConnection;
+            _telemetry = telemetry;
         }
         
 
@@ -49,18 +50,23 @@ namespace ExpenseTrackerApp.Service
         }
 
 
-        public async Task<HttpResponseMessage> SaveExpenseAsync(Expense expense)
+        public async Task<bool> SaveExpenseAsync(Expense expense)
         {
             var response = await _httpConnection.PostAsync<BaseResponse>(AppSettings.ExpenseEndpoint, expense);
 
-            // TODO
-            //if (response.)
-
-            return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.InternalServerError };
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                _telemetry.LogError($"Error calling SaveExpenseAsync. StatusCode = {response.StatusCode}");
+                return false;
+            }            
         }
 
 
-        public async Task<HttpResponseMessage> DeleteExpenseAsync(Expense expense)
+        public async Task<bool> DeleteExpenseAsync(Expense expense)
         {
             // TODO 
             // await _httpConnection.DeleteAsync()
@@ -70,7 +76,7 @@ namespace ExpenseTrackerApp.Service
 
             await Task.Delay(1);
 
-            return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.InternalServerError };
+            return false;
         }
     }
 }

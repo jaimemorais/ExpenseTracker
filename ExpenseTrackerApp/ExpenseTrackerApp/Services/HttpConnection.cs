@@ -19,8 +19,9 @@ namespace ExpenseTrackerApp.Services
 
         private readonly JsonSerializer _jsonSerializer;
         private readonly IUserSettings _userSettings;
+        private readonly ITelemetry _telemetry;
 
-        public HttpConnection(IUserSettings userSettings)
+        public HttpConnection(IUserSettings userSettings, ITelemetry telemetry)
         {
             _jsonSerializer = new JsonSerializer();
             _jsonSerializer.Converters.Add(new StringEnumConverter());
@@ -30,6 +31,8 @@ namespace ExpenseTrackerApp.Services
             _jsonSerializer.NullValueHandling = NullValueHandling.Ignore;
 
             _userSettings = userSettings;
+
+            _telemetry = telemetry;
         }
 
 
@@ -63,9 +66,9 @@ namespace ExpenseTrackerApp.Services
                     return await ProcessResponse<T>(null, response);
                 }
             }
-            catch 
-            {
-                // TODO crash/analytics
+            catch (Exception ex)
+            {                
+                _telemetry.LogError(string.Empty, ex);
 
                 return default(T);
             }
@@ -93,9 +96,9 @@ namespace ExpenseTrackerApp.Services
                     return await ProcessResponse<T>(content, response);
                 }
             }
-            catch 
+            catch (Exception ex)
             {
-                // TODO crash/analytics
+                _telemetry.LogError(string.Empty, ex);
 
                 return default(T);
             }

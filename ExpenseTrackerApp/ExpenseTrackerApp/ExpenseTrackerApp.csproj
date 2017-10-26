@@ -50,6 +50,8 @@
     <Compile Include="Services\HttpConnection.cs" />
     <Compile Include="Services\IExpenseTrackerService.cs" />
     <Compile Include="Services\IHttpConnection.cs" />
+    <Compile Include="Services\ITelemetry.cs" />
+    <Compile Include="Services\Telemetry.cs" />
     <Compile Include="Settings\IUserSettings.cs" />
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Utils\CryptoUtils.cs" />

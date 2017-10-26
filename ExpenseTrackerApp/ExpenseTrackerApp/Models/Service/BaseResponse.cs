@@ -1,6 +1,8 @@
-﻿namespace ExpenseTrackerApp.Models.Service
+﻿using System.Net.Http;
+
+namespace ExpenseTrackerApp.Models.Service
 {
-    public class BaseResponse
+    public class BaseResponse : HttpResponseMessage
     {
     }
 }
