@@ -22,14 +22,16 @@ namespace ExpenseTrackerApp
             Container.Register<IExpenseTrackerService, ExpenseTrackerService>(Reuse.Singleton);
 
 
-            NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+            NavigationService.NavigateAsync($"{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");
         }
 
         protected override void RegisterTypes()
         {
-            Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<NavigationPage>();            
             Container.RegisterTypeForNavigation<MenuPage>();
+
+            Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<ExpenseListPage>();
         }
     }
 }
