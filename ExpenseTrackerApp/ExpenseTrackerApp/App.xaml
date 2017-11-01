@@ -4,4 +4,19 @@
                         xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
                         x:Class="ExpenseTrackerApp.App">
 
+
+  
+    <Application.Resources>
+      <ResourceDictionary>
+        
+        <!-- NavigationPage Style -->
+        <Style TargetType="NavigationPage" ApplyToDerivedTypes="true">
+          <Setter Property="BarBackgroundColor" Value="Navy" />
+          <Setter Property="BarTextColor" Value="White" />
+        </Style>
+        
+      </ResourceDictionary>
+    </Application.Resources>
+  
+    
 </prism:PrismApplication>

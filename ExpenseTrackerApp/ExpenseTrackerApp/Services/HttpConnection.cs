@@ -111,8 +111,8 @@ namespace ExpenseTrackerApp.Services
             {
                 #if DEBUG
                 Debug.WriteLine("** JSON RESPONSE: ");
-                var jsonRetorno = response.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(JObject.Parse(jsonRetorno).ToString());
+                var outputJson = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(JObject.Parse(outputJson).ToString());
                 #endif
                 
                 T retorno;

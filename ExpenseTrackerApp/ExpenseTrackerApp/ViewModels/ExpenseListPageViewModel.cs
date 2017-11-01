@@ -35,7 +35,7 @@ namespace ExpenseTrackerApp.ViewModels
             try
             {
                 ExpenseList.Clear();
-
+                
                 IList<Expense> list = await _expenseTrackerService.GetExpenseListAsync();
 
                 foreach (Expense e in list)
