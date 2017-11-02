@@ -115,19 +115,19 @@ namespace ExpenseTrackerApp.Services
                 Debug.WriteLine(JObject.Parse(outputJson).ToString());
                 #endif
                 
-                T retorno;
+                T obj;
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 using (var reader = new StreamReader(stream))
                 using (var json = new JsonTextReader(reader))
                 {
-                    retorno = _jsonSerializer.Deserialize<T>(json);
+                    obj = _jsonSerializer.Deserialize<T>(json);
                 }
 
-                return retorno;
+                return obj;
             }
             else
             {
-                // TODO process HTTP <> 200
+                // TODO 
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
