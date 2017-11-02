@@ -7,16 +7,14 @@ namespace ExpenseTrackerApi.Controllers
     public static class UtilApi
     {
         public static string GetHeaderValue(HttpRequestMessage request, string headerName)
-        {
-            string currentUserName = null;
+        {            
             if (request.Headers.Contains(headerName))
             {
                 IEnumerable<string> headerValues = request.Headers.GetValues(headerName);
-                currentUserName = headerValues.FirstOrDefault();
+                return headerValues.FirstOrDefault();
             }
 
-
-            return currentUserName;
+            return null;
         }
     }
 }

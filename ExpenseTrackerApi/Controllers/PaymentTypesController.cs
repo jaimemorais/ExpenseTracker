@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace ExpenseTrackerApi.Controllers.RestApi
+namespace ExpenseTrackerApi.Controllers
 {
 
     public class PaymentTypesController : ApiController

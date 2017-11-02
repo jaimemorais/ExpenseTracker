@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace ExpenseTrackerApi.Controllers.RestApi
+namespace ExpenseTrackerApi.Controllers
 {
 
     public class ExpensesController : ApiController
@@ -31,7 +31,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
             CheckAuth();
 
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
-            
+                        
             IList<string> returnList = new List<string>();
             await expenseHelper.Collection.Find(e => e.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
                 .ForEachAsync(expenseDocument => 
@@ -41,7 +41,7 @@ namespace ExpenseTrackerApi.Controllers.RestApi
                 }
             );                    
 
-            return returnList.ToArray();
+            return returnList.ToArray();            
         }
 
         // GET api/Expenses/5

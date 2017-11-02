@@ -46,7 +46,7 @@ namespace ExpenseTrackerWeb.Controllers
             try
             {
                 string url = this.GetApiServiceURL(api);
-                string content = await GetJsonResult(url);
+                string content = await GetJsonResultAsync(url);
 
                 JArray json = JArray.Parse(content);
 
@@ -77,7 +77,7 @@ namespace ExpenseTrackerWeb.Controllers
             try
             {
                 string url = this.GetApiServiceURL(api) + "/" + id;
-                string content = await GetJsonResult(url);
+                string content = await GetJsonResultAsync(url);
                                 
                 JToken item = JToken.Parse(content);
                 BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(item.ToString());
@@ -94,7 +94,7 @@ namespace ExpenseTrackerWeb.Controllers
         }
 
 
-        private async Task<string> GetJsonResult(string url)
+        private async Task<string> GetJsonResultAsync(string url)
         {
             Trace.TraceInformation("Api Service Url : " + url);
             
