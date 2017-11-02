@@ -79,58 +79,58 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Firebase.Xamarin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\Firebase.Xamarin.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\Firebase.Xamarin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JWT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\JWT.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\JWT.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v7.0\Mono.Android.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Linq.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.PlatformServices.dll</HintPath>
+      <HintPath>..\..\..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -195,16 +195,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
+  <Import Project="..\..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
 </Project>
