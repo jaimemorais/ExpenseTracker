@@ -129,6 +129,11 @@ namespace ExpenseTrackerApp.Services
             {
                 // TODO process HTTP <> 200
 
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new Exception("Invalid api token");
+                }
+
                 return default(T);
             }
         }
