@@ -27,16 +27,16 @@ namespace ExpenseTrackerWebApi.Controllers
         // GET api/Expenses
         public async Task<IEnumerable<Expense>> GetAsync()
         {
-            //CheckAuth();
+            CheckAuth();
 
             MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
-            /*
+            
             List<Expense> expenseList =
                 await expenseHelper.Collection.Find(e => e.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
                 .ToListAsync();
-                */
-
+                
+            /*
             List<Expense> expenseList = new List<Expense>()
             {
                 new Expense()
@@ -45,7 +45,7 @@ namespace ExpenseTrackerWebApi.Controllers
                     UserName = "jaime",
                     Description = "web test"
                 }
-            };
+            };*/
 
             return expenseList;
         }
