@@ -4,6 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:converters="clr-namespace:ExpenseTrackerApp.Converters" 
              prism:ViewModelLocator.AutowireViewModel="True"
+             x:Name="ExpenseListPage"
              x:Class="ExpenseTrackerApp.Views.ExpenseListPage">
     
     
@@ -23,7 +24,7 @@
 
         <StackLayout>
 
-            <ListView ItemsSource="{Binding ExpenseCollection}" RowHeight="80" 
+            <ListView ItemsSource="{Binding ExpenseList}" RowHeight="80" 
                           IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" 
                           IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
                           CachingStrategy="RecycleElement" x:Name="lvExpenses">
@@ -36,7 +37,7 @@
                                 <MenuItem Text="Delete Expense" IsDestructive="True" 
                                               CommandParameter="{Binding .}"  
                                               Command="{Binding Path=BindingContext.DeleteItemCommand, 
-                                                                Source={x:Reference Name=ExpensePageName } }" />
+                                                                Source={x:Reference Name=ExpenseListPage } }" />
                             </ViewCell.ContextActions>
 
                             <Grid Margin="10,0,0,5">

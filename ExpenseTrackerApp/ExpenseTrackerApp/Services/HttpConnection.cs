@@ -42,7 +42,7 @@ namespace ExpenseTrackerApp.Services
 
             httpClient.Timeout = new TimeSpan(0, 0, 0, 0, AppSettings.CONNECTION_TIMEOUT);
 
-            httpClient.DefaultRequestHeaders.Add("CurrentUserName", _userSettings.GetEmail());
+            httpClient.DefaultRequestHeaders.Add("CurrentUserName", "patricia@exptracker.com");// _userSettings.GetEmail());
 
             httpClient.DefaultRequestHeaders.Add("expensetracker-api-token", AppSettings.API_TOKEN);
 
@@ -75,7 +75,7 @@ namespace ExpenseTrackerApp.Services
         }
 
 
-        public async Task<T> PostAsync<T>(string uri, object objPost)
+        public async Task<bool> PostAsync<T>(string uri, object objPost)
         {
             try
             {
@@ -93,14 +93,14 @@ namespace ExpenseTrackerApp.Services
 
                     HttpResponseMessage response = await httpClient.PostAsync(uri, content);
 
-                    return await ProcessResponse<T>(content, response);
+                    return response.IsSuccessStatusCode;
                 }
             }
             catch (Exception ex)
             {
                 _telemetry.LogError(string.Empty, ex);
 
-                return default(T);
+                return false;
             }
         }
 
@@ -111,8 +111,8 @@ namespace ExpenseTrackerApp.Services
             {
                 #if DEBUG
                 Debug.WriteLine("** JSON RESPONSE: ");
-                var outputJson = response.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(JObject.Parse(outputJson).ToString());
+                var outputJson = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine(JArray.Parse(outputJson).ToString());
                 #endif
                 
                 T obj;

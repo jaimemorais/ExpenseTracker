@@ -40,13 +40,9 @@
     <Compile Include="Converters\ExpenseTrackerJsonDateConverter.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Models\MenuItem.cs" />
-    <Compile Include="Models\Service\BaseResponse.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\PaymentType.cs" />
-    <Compile Include="Models\Service\PaymentTypeResponse.cs" />
-    <Compile Include="Models\Service\ExpenseResponse.cs" />
-    <Compile Include="Models\Service\CategoryResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ExpenseTrackerService.cs" />
     <Compile Include="Services\HttpConnection.cs" />
