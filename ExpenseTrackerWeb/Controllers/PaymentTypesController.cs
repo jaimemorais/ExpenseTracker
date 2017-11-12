@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerWebApi.Controllers
@@ -12,22 +11,18 @@ namespace ExpenseTrackerWebApi.Controllers
     public class PaymentTypesController : BaseApiController
     {
         // GET api/PaymentTypes
-        public async Task<IEnumerable<string>> GetAsync()
+        public async Task<IEnumerable<PaymentType>> GetAsync()
         {
             CheckAuth();
 
             MongoHelper<PaymentType> paymentTypeHelper = new MongoHelper<PaymentType>();
 
-            IList<string> returnList = new List<string>();
-            await paymentTypeHelper.Collection.Find(p => p.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
-                .ForEachAsync(paymentTypeDocument =>
-                {
-                    string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(paymentTypeDocument);
-                    returnList.Add(docJson);
-                }
-            );
+            List<PaymentType> paymentTypeList =
+                await paymentTypeHelper.Collection.Find(e => e.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
+                .ToListAsync();
 
-            return returnList.ToArray();
+            
+            return paymentTypeList;
         }
 
         // GET api/PaymentTypes/5

@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerWebApi.Controllers
@@ -13,28 +12,26 @@ namespace ExpenseTrackerWebApi.Controllers
     {
 
         // GET api/Categories
-        public async Task<IEnumerable<string>> GetAsync()
+        public async Task<IEnumerable<Category>> GetAsync()
         {
             CheckAuth();
 
             MongoHelper<Category> categoryHelper = new MongoHelper<Category>();
 
-            IList<string> returnList = new List<string>();
-
-            await categoryHelper.Collection.Find(c => c.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
-                .ForEachAsync(categoryDocument =>
-                {
-                    string docJson = Newtonsoft.Json.JsonConvert.SerializeObject(categoryDocument);
-                    returnList.Add(docJson);
-                }
-            );
+            List<Category> categoryList =
+                await categoryHelper.Collection.Find(e => e.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
+                .ToListAsync();
 
 
-            return returnList.ToArray();
+            // test
+            // List<Expense> expenseList = new List<Expense>() { new Expense() { Date = DateTime.Now, UserName = "jaime", Description = "web test" } };
+
+
+            return categoryList;            
         }
 
         // GET api/Categories/5
-        public async Task<string> GetAsync(string id)
+        public async Task<Category> GetAsync(string id)
         {
             CheckAuth();
 
@@ -44,8 +41,7 @@ namespace ExpenseTrackerWebApi.Controllers
                 .Find(c => c.Id.Equals(id))
                 .FirstAsync();
 
-            return Newtonsoft.Json.JsonConvert.SerializeObject(cat);
-
+            return cat;
         }
 
         // POST api/Categories
