@@ -8,5 +8,6 @@ namespace ExpenseTrackerApp.Services
 
         Task<bool> PostAsync<T>(string uri, object objPost);
 
+        Task<bool> DeleteAsync(string uri);
     }
 }

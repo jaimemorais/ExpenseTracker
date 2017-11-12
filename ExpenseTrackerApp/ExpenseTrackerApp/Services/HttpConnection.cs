@@ -105,6 +105,29 @@ namespace ExpenseTrackerApp.Services
         }
 
 
+
+        public async Task<bool> DeleteAsync(string uri)
+        {
+            try
+            {
+                Uri serviceUri = new Uri(uri);
+                using (var handler = new ModernHttpClient.NativeMessageHandler())
+                using (HttpClient httpClient = CreateHttpClient(serviceUri, handler))
+                {
+                    HttpResponseMessage response = await httpClient.DeleteAsync(uri);
+
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                _telemetry.LogError(string.Empty, ex);
+
+                return false;
+            }
+        }
+
+
         private async Task<T> ProcessResponse<T>(StringContent content, HttpResponseMessage response)
         {
             if (response.StatusCode == HttpStatusCode.OK)

@@ -35,7 +35,7 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Delete Expense" IsDestructive="True" 
                                               CommandParameter="{Binding .}"  
-                                              Command="{Binding Path=BindingContext.DeleteItemCommand, 
+                                              Command="{Binding Path=BindingContext.DeleteExpenseCommand, 
                                                                 Source={x:Reference Name=ExpenseListPage } }" />
                             </ViewCell.ContextActions>
 

@@ -18,6 +18,8 @@ namespace ExpenseTrackerApp.ViewModels
 
         public DelegateCommand AddExpenseCommand => new DelegateCommand(async () => await AddExpenseAsync());
 
+        public DelegateCommand<Expense> DeleteExpenseCommand => new DelegateCommand<Expense>(async (exp) => await DeleteExpenseAsync(exp));
+        
 
         private readonly IExpenseTrackerService _expenseTrackerService;
         private readonly INavigationService _navigationService;
@@ -74,5 +76,18 @@ namespace ExpenseTrackerApp.ViewModels
         {
             await _navigationService.NavigateAsync(nameof(ExpenseCreatePage), null, true);
         }
+
+        private async Task DeleteExpenseAsync(Expense exp)
+        {
+            if (await _expenseTrackerService.DeleteExpenseAsync(exp))
+            {
+                await ExecuteLoadExpensesAsync();
+            }
+            else
+            {
+                await base.ShowErrorMessage("Error deleting Expense on server.");
+            }
+        }
+        
     }
 }

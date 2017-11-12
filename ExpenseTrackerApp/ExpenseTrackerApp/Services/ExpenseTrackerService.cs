@@ -51,15 +51,7 @@ namespace ExpenseTrackerApp.Service
 
         public async Task<bool> DeleteExpenseAsync(Expense expense)
         {
-            // TODO 
-            // await _httpConnection.DeleteAsync()
-
-            //HttpResponseMessage httpResponse = 
-            //  await GetHttpClient().DeleteAsync(GetApiServiceURL("Expenses") + "/" + expense.Id);
-
-            await Task.Delay(1);
-
-            return false;
+            return await _httpConnection.DeleteAsync(AppSettings.ExpenseEndpoint + "/" + expense.Id);            
         }
     }
 }

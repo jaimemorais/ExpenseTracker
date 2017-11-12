@@ -76,6 +76,7 @@ namespace ExpenseTrackerApp.ViewModels
             this.Description = string.Empty;
 
             await ExecuteLoadCategoriesAsync();
+            await ExecuteLoadPaymentTypesAsync();
 
         }
 
@@ -108,7 +109,7 @@ namespace ExpenseTrackerApp.ViewModels
 
         }
 
-        public async void ExecuteLoadPaymentTypes()
+        public async Task ExecuteLoadPaymentTypesAsync()
         {
 
             try
