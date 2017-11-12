@@ -31,7 +31,10 @@ namespace ExpenseTrackerApp
             Container.RegisterTypeForNavigation<MenuPage>();
 
             Container.RegisterTypeForNavigation<MainPage>();
+
             Container.RegisterTypeForNavigation<ExpenseListPage>();
+            Container.RegisterTypeForNavigation<ExpenseCreatePage>();
+            Container.RegisterTypeForNavigation<ShowGifPage>();
         }
     }
 }

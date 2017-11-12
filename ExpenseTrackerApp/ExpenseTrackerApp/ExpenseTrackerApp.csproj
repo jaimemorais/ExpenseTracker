@@ -54,14 +54,22 @@
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Utils\CryptoUtils.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ExpenseCreatePageViewModel.cs" />
     <Compile Include="ViewModels\ExpenseListPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MenuPageViewModel.cs" />
+    <Compile Include="ViewModels\ShowGifPageViewModel.cs" />
+    <Compile Include="Views\ExpenseCreatePage.xaml.cs">
+      <DependentUpon>ExpenseCreatePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExpenseListPage.xaml.cs">
       <DependentUpon>ExpenseListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShowGifPage.xaml.cs">
+      <DependentUpon>ShowGifPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +146,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ExpenseListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ExpenseCreatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ShowGifPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

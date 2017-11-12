@@ -3,26 +3,15 @@ using ExpenseTrackerWebApi.Helpers;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace ExpenseTrackerWebApi.Controllers
 {
 
-    public class ExpensesController : ApiController
+    public class ExpensesController : BaseApiController
     {
-        private void CheckAuth()
-        {
-            // TODO auth - meanwhile I use this
-            if (UtilApi.GetHeaderValue(Request, "expensetracker-api-token") == null ||
-                UtilApi.GetHeaderValue(Request, "expensetracker-api-token") != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
-            {
-                throw new HttpResponseException(HttpStatusCode.Unauthorized);
-            }
-        }
+
 
         // GET api/Expenses
         public async Task<IEnumerable<Expense>> GetAsync()

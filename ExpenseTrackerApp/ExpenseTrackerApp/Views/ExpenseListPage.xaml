@@ -24,10 +24,9 @@
 
         <StackLayout>
 
-            <ListView ItemsSource="{Binding ExpenseList}" RowHeight="80" 
-                          IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadExpensesCommand}" 
-                          IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
-                          CachingStrategy="RecycleElement" x:Name="lvExpenses">
+            <ListView ItemsSource="{Binding ExpenseList}" 
+                      RowHeight="80"                           
+                      CachingStrategy="RecycleElement" >
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -67,7 +66,7 @@
             </ListView>
 
 
-            <Button Command="{Binding CreateCommand}" Text="Add Expense"></Button>
+            <Button Command="{Binding AddExpenseCommand}" Text="Add Expense"></Button>
 
         </StackLayout>
 

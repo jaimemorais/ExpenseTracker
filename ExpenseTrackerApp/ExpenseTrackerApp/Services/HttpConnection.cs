@@ -42,7 +42,7 @@ namespace ExpenseTrackerApp.Services
 
             httpClient.Timeout = new TimeSpan(0, 0, 0, 0, AppSettings.CONNECTION_TIMEOUT);
 
-            httpClient.DefaultRequestHeaders.Add("CurrentUserName", "patricia@exptracker.com");// _userSettings.GetEmail());
+            httpClient.DefaultRequestHeaders.Add("CurrentUserName", _userSettings.GetEmail());
 
             httpClient.DefaultRequestHeaders.Add("expensetracker-api-token", AppSettings.API_TOKEN);
 

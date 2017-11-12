@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerApp.Model;
 using ExpenseTrackerApp.Service;
+using ExpenseTrackerApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -13,14 +14,18 @@ namespace ExpenseTrackerApp.ViewModels
 
         public ObservableCollection<Expense> ExpenseList { get; set; }
 
-        protected DelegateCommand LoadExpensesCommand => new DelegateCommand(async () => await ExecuteLoadExpensesAsync());
+        public DelegateCommand LoadExpensesCommand => new DelegateCommand(async () => await ExecuteLoadExpensesAsync());
+
+        public DelegateCommand AddExpenseCommand => new DelegateCommand(async () => await AddExpenseAsync());
 
 
         private readonly IExpenseTrackerService _expenseTrackerService;
+        private readonly INavigationService _navigationService;
 
-        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService)
+        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService)
         {
             _expenseTrackerService = expenseTrackerService;
+            _navigationService = navigationService;
 
             ExpenseList = new ObservableCollection<Expense>();
         }
@@ -62,6 +67,12 @@ namespace ExpenseTrackerApp.ViewModels
             {
                 ExpenseList.Add(e);
             }
+        }
+
+
+        private async Task AddExpenseAsync()
+        {
+            await _navigationService.NavigateAsync(nameof(ExpenseCreatePage), null, true);
         }
     }
 }
