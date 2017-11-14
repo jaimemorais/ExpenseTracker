@@ -103,6 +103,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
+    <Compile Include="Controllers\ExpensesTxtReportController.cs" />
     <Compile Include="Controllers\PaymentTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

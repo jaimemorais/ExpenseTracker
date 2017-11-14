@@ -196,3 +196,5 @@ ModelManifest.xml
 .vs/ExpenseTracker/v15/sqlite3/storage.ide
 /ExpenseTrackerMvp/ExpenseTrackerMvp/config.xml
 /ExpenseTrackerApp/ExpenseTrackerApp/AppSettings.cs
+
+sqlite*/
