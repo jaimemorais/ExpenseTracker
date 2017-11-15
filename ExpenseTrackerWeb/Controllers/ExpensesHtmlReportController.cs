@@ -16,12 +16,12 @@ using System.Web.Http;
 
 namespace ExpenseTrackerWebApi.Controllers
 {
-    public class ExpensesTxtReportController : BaseApiController
+    public class ExpensesHtmlReportController : BaseApiController
     {
 
 
         [HttpGet]
-        public async Task<HttpResponseMessage> ExpensesTxt(string apiToken)
+        public async Task<HttpResponseMessage> ExpensesReport(string apiToken, string username)
         {            
             if (apiToken != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
             {
@@ -34,7 +34,7 @@ namespace ExpenseTrackerWebApi.Controllers
                 MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
                 List<Expense> expenseList =
-                    await expenseHelper.Collection.Find(e => e.UserName == UtilApi.GetHeaderValue(Request, "CurrentUserName"))
+                    await expenseHelper.Collection.Find(e => e.UserName == username)
                     .ToListAsync();                
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
@@ -66,15 +66,20 @@ namespace ExpenseTrackerWebApi.Controllers
 
                     sb.AppendLine("</tr>");
                 }
-                
 
-                var resp = new HttpResponseMessage(HttpStatusCode.OK);
-                resp.Content = new StringContent(sb.ToString(), System.Text.Encoding.UTF8, "text/plain");
+                sb.AppendLine("</table>");
+
+
+                var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(sb.ToString(), System.Text.Encoding.UTF8, "text/html")
+                };
+
                 return resp;
             }
             catch (Exception e)
             {
-                Trace.TraceError("ExpensesTxtReportController Error : " + e.Message);                
+                Trace.TraceError($"{nameof(ExpensesHtmlReportController)} Error : " + e.Message);                
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
