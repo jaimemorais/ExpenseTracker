@@ -11,6 +11,12 @@ namespace ExpenseTrackerApp.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+
+            // TODO 
+            // set theme splash or splash 3
+            // SetTheme(Theme. "Theme.Splash");
+
+
             base.OnCreate(bundle);
             
             System.Threading.Thread.Sleep(300); 
