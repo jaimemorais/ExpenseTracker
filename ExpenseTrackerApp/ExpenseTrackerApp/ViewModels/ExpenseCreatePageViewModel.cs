@@ -13,11 +13,25 @@ namespace ExpenseTrackerApp.ViewModels
 {
     public class ExpenseCreatePageViewModel : BaseViewModel, INavigatedAware
     {
-        public DateTime Date { get; set; }
-        public String Description { get; set; }
-        public Double Value { get; set; }
-        public String Category { get; set; }
-        public String PaymentType { get; set; }
+
+        private DateTime _date;
+        public DateTime Date
+        {
+            get { return _date; }
+            set { SetProperty(ref _date, value); }
+        }
+
+        private string _description;
+        public string Description 
+        {
+            get { return _description; }
+            set { SetProperty(ref _description, value); }
+        }
+                
+        public double Value { get; set; }
+        public string Category { get; set; }
+        public string PaymentType { get; set; }
+
 
         public ObservableCollection<string> CategoryList { get; }
 

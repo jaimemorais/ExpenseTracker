@@ -38,9 +38,10 @@ namespace ExpenseTrackerApp.Services
 
         private HttpClient CreateHttpClient(Uri uri, ModernHttpClient.NativeMessageHandler handler)
         {
-            HttpClient httpClient = new HttpClient(handler);
-
-            httpClient.Timeout = new TimeSpan(0, 0, 0, 0, AppSettings.CONNECTION_TIMEOUT);
+            HttpClient httpClient = new HttpClient(handler)
+            {
+                Timeout = new TimeSpan(0, 0, 0, 0, AppSettings.CONNECTION_TIMEOUT)
+            };
 
             httpClient.DefaultRequestHeaders.Add("CurrentUserName", _userSettings.GetEmail());
 
