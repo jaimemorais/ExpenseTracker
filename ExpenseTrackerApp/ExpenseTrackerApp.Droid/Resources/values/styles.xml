@@ -8,8 +8,13 @@
     <item name="android:windowBackground">@color/window_background</item>
   </style>
 
-  <style name="Theme.Splash" parent="android:Theme">
-    <item name="android:windowBackground">@drawable/splash</item>
+  <style name="Theme.SplashCat" parent="android:Theme">
+    <item name="android:windowBackground">@drawable/splashcat</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+  <style name="Theme.SplashDog" parent="android:Theme">
+    <item name="android:windowBackground">@drawable/splashdog</item>
     <item name="android:windowNoTitle">true</item>
   </style>
   

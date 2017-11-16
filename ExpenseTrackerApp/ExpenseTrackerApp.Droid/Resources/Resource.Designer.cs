@@ -2266,10 +2266,10 @@ namespace ExpenseTrackerApp.Droid
 			public const int refresh_icon = 2130837680;
 			
 			// aapt resource value: 0x7f0200b1
-			public const int splash = 2130837681;
+			public const int splashcat = 2130837681;
 			
 			// aapt resource value: 0x7f0200b2
-			public const int splash3 = 2130837682;
+			public const int splashdog = 2130837682;
 			
 			static Drawable()
 			{
@@ -3943,7 +3943,10 @@ namespace ExpenseTrackerApp.Droid
 			public const int Theme_MediaRouter_LightControlPanel = 2131361795;
 			
 			// aapt resource value: 0x7f0a0174
-			public const int Theme_Splash = 2131362164;
+			public const int Theme_SplashCat = 2131362164;
+			
+			// aapt resource value: 0x7f0a0175
+			public const int Theme_SplashDog = 2131362165;
 			
 			// aapt resource value: 0x7f0a010e
 			public const int ThemeOverlay_AppCompat = 2131362062;
