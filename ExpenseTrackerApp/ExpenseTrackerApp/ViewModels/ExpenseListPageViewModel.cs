@@ -1,11 +1,13 @@
 ﻿using ExpenseTrackerApp.Model;
 using ExpenseTrackerApp.Service;
+using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ExpenseTrackerApp.ViewModels
 {
@@ -19,15 +21,19 @@ namespace ExpenseTrackerApp.ViewModels
         public DelegateCommand AddExpenseCommand => new DelegateCommand(async () => await AddExpenseAsync());
 
         public DelegateCommand<Expense> DeleteExpenseCommand => new DelegateCommand<Expense>(async (exp) => await DeleteExpenseAsync(exp));
+
+        public DelegateCommand LogoffCommand => new DelegateCommand(async () => await ExecuteLogoffAsync());
         
 
         private readonly IExpenseTrackerService _expenseTrackerService;
         private readonly INavigationService _navigationService;
+        private readonly IFirebaseService _firebaseService;
 
-        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService)
+        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService, IFirebaseService firebaseService)
         {
             _expenseTrackerService = expenseTrackerService;
             _navigationService = navigationService;
+            _firebaseService = firebaseService;
 
             ExpenseList = new ObservableCollection<Expense>();
         }
@@ -85,9 +91,17 @@ namespace ExpenseTrackerApp.ViewModels
             }
             else
             {
-                await base.ShowErrorMessage("Error deleting Expense on server.");
+                await base.ShowErrorMessageAsync("Error deleting Expense on server.");
             }
         }
+
         
+
+        private async Task ExecuteLogoffAsync()
+        {
+            _firebaseService.Logout();
+
+            await _navigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(LoginPage)}");
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace ExpenseTrackerApp.ViewModels
 
 
 
-        protected async Task ShowErrorMessage(string msg)
+        protected async Task ShowErrorMessageAsync(string msg)
         {
             await App.Current.MainPage.DisplayAlert("ExpenseTracker Error", msg, "OK");
         }

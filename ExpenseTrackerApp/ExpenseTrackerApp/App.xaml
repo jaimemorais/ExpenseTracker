@@ -11,7 +11,7 @@
         
         <!-- NavigationPage Style -->
         <Style TargetType="NavigationPage" ApplyToDerivedTypes="true">
-          <Setter Property="BarBackgroundColor" Value="Navy" />
+          <Setter Property="BarBackgroundColor" Value="#3c70c4" />
           <Setter Property="BarTextColor" Value="White" />
         </Style>
         

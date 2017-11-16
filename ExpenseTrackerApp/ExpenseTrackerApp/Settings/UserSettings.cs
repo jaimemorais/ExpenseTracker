@@ -36,7 +36,7 @@ namespace ExpenseTrackerApp.Settings
 
         public string GetEmail()
         {
-            return Settings.GetValueOrDefault(EMAIL, "patricia@exptracker.com"); // TODO string.Empty);
+            return Settings.GetValueOrDefault(EMAIL, string.Empty);
         }
 
         public string GetPassword()

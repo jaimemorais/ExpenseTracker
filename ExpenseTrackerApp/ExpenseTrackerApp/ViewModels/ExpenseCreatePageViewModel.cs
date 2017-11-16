@@ -114,7 +114,7 @@ namespace ExpenseTrackerApp.ViewModels
             }
             catch (Exception ex)
             {
-                await base.ShowErrorMessage("Error getting category list : " + ex.Message);
+                await base.ShowErrorMessageAsync("Error getting category list : " + ex.Message);
             }
             finally
             {
@@ -142,7 +142,7 @@ namespace ExpenseTrackerApp.ViewModels
             }
             catch (Exception ex)
             {
-                await base.ShowErrorMessage("Error getting payment type list : " + ex.Message);
+                await base.ShowErrorMessageAsync("Error getting payment type list : " + ex.Message);
             }
             finally
             {
@@ -171,21 +171,21 @@ namespace ExpenseTrackerApp.ViewModels
 
             if (this.CategorySelectedItem == null)
             {
-                await base.ShowErrorMessage("Select a category.");
+                await base.ShowErrorMessageAsync("Select a category.");
                 return;
             }
             exp.Category = this.CategorySelectedItem;
 
             if (this.Value == 0)
             {
-                await base.ShowErrorMessage("Inform a value.");
+                await base.ShowErrorMessageAsync("Inform a value.");
                 return;
             }
             exp.Value = this.Value;
 
             if (this.PaymentTypeSelectedItem == null)
             {
-                await base.ShowErrorMessage("Select a payment type.");
+                await base.ShowErrorMessageAsync("Select a payment type.");
                 return;
             }
             exp.PaymentType = this.PaymentTypeSelectedItem;
@@ -211,7 +211,7 @@ namespace ExpenseTrackerApp.ViewModels
             }
             else
             {
-                await base.ShowErrorMessage("Error creating Expense on server.");
+                await base.ShowErrorMessageAsync("Error creating Expense on server.");
             }
         }
 

@@ -5,7 +5,8 @@
              xmlns:converters="clr-namespace:ExpenseTrackerApp.Converters" 
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Name="ExpenseListPage"
-             x:Class="ExpenseTrackerApp.Views.ExpenseListPage">
+             x:Class="ExpenseTrackerApp.Views.ExpenseListPage"
+             Title="Expenses">
     
     
     <ContentPage.Resources>
