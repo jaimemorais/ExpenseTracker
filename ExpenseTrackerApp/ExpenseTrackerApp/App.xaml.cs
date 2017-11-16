@@ -20,8 +20,7 @@ namespace ExpenseTrackerApp
             Container.Register<IUserSettings, UserSettings>(Reuse.Singleton);
             Container.Register<IHttpConnection, HttpConnection>(Reuse.Singleton);
             Container.Register<IExpenseTrackerService, ExpenseTrackerService>(Reuse.Singleton);
-
-
+            
             NavigationService.NavigateAsync($"{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");
         }
 
