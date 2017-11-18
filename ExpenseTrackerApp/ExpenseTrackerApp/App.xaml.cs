@@ -3,6 +3,9 @@ using ExpenseTrackerApp.Service;
 using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Settings;
 using ExpenseTrackerApp.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Prism.DryIoc;
 using Xamarin.Forms;
 
@@ -22,7 +25,10 @@ namespace ExpenseTrackerApp
             Container.Register<IExpenseTrackerService, ExpenseTrackerService>(Reuse.Singleton);
             Container.Register<IFirebaseService, FirebaseService>(Reuse.Singleton);
 
-            Navigate();
+
+            AppCenter.Start($"android={AppSettings.MOBILE_CENTER_KEY};", typeof(Analytics), typeof(Crashes));
+
+            DoInitialNavigate();
         }
 
         protected override void RegisterTypes()
@@ -37,7 +43,7 @@ namespace ExpenseTrackerApp
         }
 
 
-        private void Navigate()
+        private void DoInitialNavigate()
         {
             IUserSettings userSettings = Container.Resolve<IUserSettings>();
             IFirebaseService firebaseService = Container.Resolve<IFirebaseService>();

@@ -69,7 +69,7 @@ namespace ExpenseTrackerApp.Services
             }
             catch (Exception ex)
             {                
-                _telemetry.LogError(string.Empty, ex);
+                _telemetry.LogError("HttpConnection.GetAsync Error", ex);
 
                 return default(T);
             }
@@ -99,7 +99,7 @@ namespace ExpenseTrackerApp.Services
             }
             catch (Exception ex)
             {
-                _telemetry.LogError(string.Empty, ex);
+                _telemetry.LogError("HttpConnection.PostAsync Error", ex);
 
                 return false;
             }
@@ -122,7 +122,7 @@ namespace ExpenseTrackerApp.Services
             }
             catch (Exception ex)
             {
-                _telemetry.LogError(string.Empty, ex);
+                _telemetry.LogError("HttpConnection.DeleteAsync Error", ex);
 
                 return false;
             }

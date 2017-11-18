@@ -27,7 +27,7 @@ namespace ExpenseTrackerApp.ViewModels
 
         private readonly IExpenseTrackerService _expenseTrackerService;
         private readonly INavigationService _navigationService;
-        private readonly IFirebaseService _firebaseService;
+        private readonly IFirebaseService _firebaseService;        
 
         public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService, IFirebaseService firebaseService)
         {
