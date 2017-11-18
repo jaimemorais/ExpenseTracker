@@ -20,7 +20,7 @@ namespace ExpenseTrackerApp.Services
                 { "Exception Log", logEx }
             };
 
-            Analytics.TrackEvent("ERROR " + errorMessage, props);
+            Analytics.TrackEvent("ERROR - " + errorMessage, props);
         }
 
         public void LogEvent(string eventMessage, IDictionary<string, string> props = null)

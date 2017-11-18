@@ -44,15 +44,15 @@
                                 </ViewCell.ContextActions>
 
 
-                                <Frame Margin="5,2,5,2" CornerRadius="0" HasShadow="False" OutlineColor="Silver"
+                                <Frame Margin="5,5,5,5" Padding="2,2,2,2" CornerRadius="0" OutlineColor="Silver" HasShadow="False"
                                        HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-                                    <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Margin="0,0,0,0">
+                                    <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Margin="0,0,0,0" HorizontalOptions="FillAndExpand">
 
                                         <BoxView WidthRequest="3" BackgroundColor="Red" Margin="0,0,0,0" />
 
-                                        <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" >                                    
-                                            <Grid>
+                                        <StackLayout Padding="0,0,0,0" Margin="0,0,10,0" HorizontalOptions="FillAndExpand">
+                                            <Grid HorizontalOptions="FillAndExpand">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="Auto" />
@@ -60,17 +60,32 @@
                                                 </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="3*" />
-                                                    <ColumnDefinition Width="0" />
+                                                    <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="1*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <Label Grid.Row="0" Grid.Column="0" FontSize="12" FontAttributes="Bold" TextColor="Navy" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
+                                                
+                                                <Label Grid.Row="0" Grid.Column="0" 
+                                                       FontSize="13" FontAttributes="Bold" TextColor="Navy" 
+                                                       Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
 
-                                                <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" TextColor="Black" Text="{Binding Description}" />
-                                                <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" TextColor="Black" Text="{Binding Value, StringFormat='{0:N}'}" />
+                                                <Label Grid.Row="1" Grid.Column="0" 
+                                                       Margin="10,0,0,0" FontSize="16" 
+                                                       TextColor="Black" Text="{Binding Description}" />
+                                                
+                                                <Label Grid.Row="1" Grid.Column="2" 
+                                                       FontSize="17" FontAttributes="Bold" TextColor="Black" 
+                                                       Text="{Binding Value, StringFormat='{0:N}'}"  
+                                                       HorizontalTextAlignment="End"  HorizontalOptions="EndAndExpand" />
 
-                                                <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
-                                                <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
+                                                <Label Grid.Row="2" Grid.Column="0" 
+                                                       Margin="10,0,0,0" FontSize="10" FontAttributes="Italic" 
+                                                       Text="{Binding Category}" />
+                                                
+                                                <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" 
+                                                       Text="{Binding PaymentType}" 
+                                                       HorizontalTextAlignment="End"  HorizontalOptions="EndAndExpand" />
+                                                
                                             </Grid>
                                         </StackLayout>
                                     
