@@ -6,22 +6,29 @@
              x:Class="ExpenseTrackerApp.Views.ExpenseCreatePage">
 
 
-
     <StackLayout Spacing="10" Padding="10">
 
+        
         <Label Text="Date"  />
         <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
 
+        
         <Label Text="Category"  />
+        <Picker x:Name="pckCategory" Title="Select a category..." 
+                ItemsSource="{Binding CategoryList}" 
+                SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}"
+                SelectedIndexChanged="pckCategory_SelectedIndexChanged"/>
 
-        <!-- Not used anymore. Xamarin Forms now has a bindable picker <expTrackerControls:BindablePicker  x:Name="pckCategory" Title="Select a category..." ItemsSource="{Binding CategoryList}" SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}" />-->
-        <Picker x:Name="pckCategory" Title="Select a category..." ItemsSource="{Binding CategoryList}" SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}" />
-
+        
         <Label Text="Value"  />
         <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
 
+        
         <Label Text="Payment Type"  />
-        <Picker x:Name="pckPaymentType" Title="Select a payment type..." ItemsSource="{Binding PaymentTypeList}" SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" />
+        <Picker x:Name="pckPaymentType" Title="Select a payment type..." 
+                ItemsSource="{Binding PaymentTypeList}" 
+                SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" 
+                SelectedIndexChanged="pckPaymentType_SelectedIndexChanged"/>
 
 
         <Label Text="Description"  />
@@ -32,9 +39,10 @@
 
         <Button Command="{Binding SaveCommand}" Text="Save"></Button>
 
-        <!-- On a modal page, you have to put a back command, due to iOS way to treat modal pages -->
-        <Button Command="{Binding BackCommand}" Text="Back"></Button>
+        <!-- On a modal page, its recommended to put a back command, due to iOS way to treat modal pages -->
+        <Button Command="{Binding BackCommand}" Text="Back" />
 
     </StackLayout>
-    
+
+
 </ContentPage>

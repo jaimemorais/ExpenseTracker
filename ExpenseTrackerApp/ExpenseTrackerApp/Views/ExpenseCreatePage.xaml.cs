@@ -8,5 +8,15 @@ namespace ExpenseTrackerApp.Views
         {
             InitializeComponent();
         }
+
+        private void pckCategory_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            EntryValue.Focus();
+        }
+
+        private void pckPaymentType_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            EntryDescription.Focus();
+        }
     }
 }

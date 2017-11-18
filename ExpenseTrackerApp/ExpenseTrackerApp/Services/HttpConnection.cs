@@ -61,7 +61,7 @@ namespace ExpenseTrackerApp.Services
         public async Task<T> GetAsync<T>(string uri)
         {
             try
-            {                
+            {
                 using (HttpClient httpClient = CreateHttpClient())
                 {
                     HttpResponseMessage response = await httpClient.GetAsync(uri);

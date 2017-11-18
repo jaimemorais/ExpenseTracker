@@ -23,67 +23,80 @@
 
     <ContentPage.Content>
 
-        <StackLayout>
+        <Grid>
 
-            <ListView ItemsSource="{Binding ExpenseList}"       
-                      HasUnevenRows="true"   
-                      SeparatorVisibility="None"                      
-                      CachingStrategy="RecycleElement" >
+            <StackLayout>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
+                <ListView ItemsSource="{Binding ExpenseList}"       
+                          HasUnevenRows="true"   
+                          SeparatorVisibility="None"                      
+                          CachingStrategy="RecycleElement" >
 
-                            <ViewCell.ContextActions>
-                                <MenuItem Text="Delete Expense" IsDestructive="True" 
-                                              CommandParameter="{Binding .}"  
-                                              Command="{Binding Path=BindingContext.DeleteExpenseCommand, 
-                                                                Source={x:Reference Name=ExpenseListPage } }" />
-                            </ViewCell.ContextActions>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Delete Expense" IsDestructive="True" 
+                                                  CommandParameter="{Binding .}"  
+                                                  Command="{Binding Path=BindingContext.DeleteExpenseCommand, 
+                                                                    Source={x:Reference Name=ExpenseListPage } }" />
+                                </ViewCell.ContextActions>
 
 
-                            <Frame Margin="5,2,5,2" CornerRadius="0" HasShadow="False" OutlineColor="Silver"
-                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Frame Margin="5,2,5,2" CornerRadius="0" HasShadow="False" OutlineColor="Silver"
+                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-                                <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Margin="0,0,0,0">
+                                    <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Margin="0,0,0,0">
 
-                                    <BoxView WidthRequest="3" BackgroundColor="Red" Margin="0,0,0,0" />
+                                        <BoxView WidthRequest="3" BackgroundColor="Red" Margin="0,0,0,0" />
 
-                                    <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" >                                    
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*" />
-                                                <ColumnDefinition Width="0" />
-                                                <ColumnDefinition Width="1*" />
-                                            </Grid.ColumnDefinitions>
+                                        <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" >                                    
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*" />
+                                                    <ColumnDefinition Width="0" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
 
-                                            <Label Grid.Row="0" Grid.Column="0" FontSize="12" FontAttributes="Bold" TextColor="Navy" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
+                                                <Label Grid.Row="0" Grid.Column="0" FontSize="12" FontAttributes="Bold" TextColor="Navy" Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
 
-                                            <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" TextColor="Black" Text="{Binding Description}" />
-                                            <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" TextColor="Black" Text="{Binding Value, StringFormat='{0:N}'}" />
+                                                <Label Grid.Row="1" Grid.Column="0" Margin="5,0,0,0" FontSize="16" TextColor="Black" Text="{Binding Description}" />
+                                                <Label Grid.Row="1" Grid.Column="2" FontSize="15" FontAttributes="Bold" TextColor="Black" Text="{Binding Value, StringFormat='{0:N}'}" />
 
-                                            <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
-                                            <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
-                                        </Grid>
-                                    </StackLayout>
+                                                <Label Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" FontSize="10" FontAttributes="Italic" Text="{Binding Category}" />
+                                                <Label Grid.Row="2" Grid.Column="2" FontSize="10" FontAttributes="Italic" Text="{Binding PaymentType}" />
+                                            </Grid>
+                                        </StackLayout>
                                     
-                                </StackLayout>
-                            </Frame>
+                                    </StackLayout>
+                                </Frame>
                             
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
 
-            <Button Command="{Binding AddExpenseCommand}" Text="Add Expense"></Button>
+                <Button Command="{Binding AddExpenseCommand}" Text="Add Expense"></Button>
 
-        </StackLayout>
+            </StackLayout>
+
+
+
+            <ContentView Grid.Row="0" IsVisible="{Binding IsBusy}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"  
+                            AbsoluteLayout.LayoutFlags="All" BackgroundColor="#80EEEEEE" Padding="10, 0">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                   Color="#3c70c4" WidthRequest="50" HeightRequest="50" 
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </ContentView>
+
+        </Grid>
 
     </ContentPage.Content>
 

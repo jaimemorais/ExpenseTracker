@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerApp.Model;
 using ExpenseTrackerApp.Service;
+using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Settings;
 using ExpenseTrackerApp.Views;
 using Prism.Commands;
@@ -63,14 +64,17 @@ namespace ExpenseTrackerApp.ViewModels
         private readonly IExpenseTrackerService _expenseTrackerService;
         private readonly INavigationService _navigationService;
         private readonly IUserSettings _userSettings;
+        private readonly ITelemetry _telemetry;
+
 
         public ExpenseCreatePageViewModel(IExpenseTrackerService expenseTrackerService, 
             INavigationService navigationService,
-            IUserSettings userSettings)
+            IUserSettings userSettings, ITelemetry telemetry)
         {
             _expenseTrackerService = expenseTrackerService;
             _navigationService = navigationService;
             _userSettings = userSettings;
+            _telemetry = telemetry;
 
             PaymentTypeList = new ObservableCollection<string>();
 
@@ -165,54 +169,70 @@ namespace ExpenseTrackerApp.ViewModels
                 _tapCount = 0;
                 return;
             }
-
-            Expense exp = new Expense();
-            exp.Date = this.Date;
-
-            if (this.CategorySelectedItem == null)
-            {
-                await base.ShowErrorMessageAsync("Select a category.");
-                return;
-            }
-            exp.Category = this.CategorySelectedItem;
-
-            if (this.Value == 0)
-            {
-                await base.ShowErrorMessageAsync("Inform a value.");
-                return;
-            }
-            exp.Value = this.Value;
-
-            if (this.PaymentTypeSelectedItem == null)
-            {
-                await base.ShowErrorMessageAsync("Select a payment type.");
-                return;
-            }
-            exp.PaymentType = this.PaymentTypeSelectedItem;
-
-
-            if (string.IsNullOrEmpty(this.Description))
-            {
-                exp.Description = exp.Category;
-            }
-            else
-            {
-                exp.Description = this.Description;
-            }
-
-
-            exp.UserName = _userSettings.GetEmail();
-
             
-            if (await _expenseTrackerService.SaveExpenseAsync(exp))
+
+            IsBusy = true;
+
+            try
             {
-                string imageToShow = GetImageToShow(exp);
-                await NavigateBackShowingImageAsync(imageToShow);
+                Expense exp = new Expense();
+                exp.Date = this.Date;
+
+                if (this.CategorySelectedItem == null)
+                {
+                    await base.ShowErrorMessageAsync("Select a category.");
+                    return;
+                }
+                exp.Category = this.CategorySelectedItem;
+
+                if (this.Value == 0)
+                {
+                    await base.ShowErrorMessageAsync("Inform a value.");
+                    return;
+                }
+                exp.Value = this.Value;
+
+                if (this.PaymentTypeSelectedItem == null)
+                {
+                    await base.ShowErrorMessageAsync("Select a payment type.");
+                    return;
+                }
+                exp.PaymentType = this.PaymentTypeSelectedItem;
+
+
+                if (string.IsNullOrEmpty(this.Description))
+                {
+                    exp.Description = exp.Category;
+                }
+                else
+                {
+                    exp.Description = this.Description;
+                }
+
+
+                exp.UserName = _userSettings.GetEmail();
+
+
+                if (await _expenseTrackerService.SaveExpenseAsync(exp))
+                {
+                    string imageToShow = GetImageToShow(exp);
+                    await NavigateBackShowingImageAsync(imageToShow);
+                }
+                else
+                {
+                    await base.ShowErrorMessageAsync("Error creating Expense on server.");
+                }
             }
-            else
+            catch (Exception ex)
             {
+                _telemetry.LogError("ExecuteLoadExpensesAsync error", ex);
                 await base.ShowErrorMessageAsync("Error creating Expense on server.");
             }
+            finally
+            {
+                IsBusy = false;
+            }
+            
         }
 
         private string GetImageToShow(Expense exp)

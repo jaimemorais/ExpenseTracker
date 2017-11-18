@@ -4,6 +4,7 @@ using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -27,13 +28,16 @@ namespace ExpenseTrackerApp.ViewModels
 
         private readonly IExpenseTrackerService _expenseTrackerService;
         private readonly INavigationService _navigationService;
-        private readonly IFirebaseService _firebaseService;        
+        private readonly IFirebaseService _firebaseService;
+        private readonly ITelemetry _telemetry;
 
-        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService, IFirebaseService firebaseService)
+        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService, 
+            IFirebaseService firebaseService, ITelemetry telemetry)
         {
             _expenseTrackerService = expenseTrackerService;
             _navigationService = navigationService;
             _firebaseService = firebaseService;
+            _telemetry = telemetry;
 
             ExpenseList = new ObservableCollection<Expense>();
         }
@@ -45,36 +49,33 @@ namespace ExpenseTrackerApp.ViewModels
 
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
+            await ExecuteLoadExpensesAsync();
+        }
 
+        private async Task ExecuteLoadExpensesAsync()
+        {
             IsBusy = true;
-
 
             try
             {
-                await ExecuteLoadExpensesAsync();                
+                ExpenseList.Clear();
+
+                IList<Expense> list = await _expenseTrackerService.GetExpenseListAsync();
+
+                foreach (Expense e in list)
+                {
+                    ExpenseList.Add(e);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO telemetry
+                _telemetry.LogError("ExecuteLoadExpensesAsync error", ex);
             }
             finally
             {
                 IsBusy = false;
             }
 
-
-        }
-
-        private async Task ExecuteLoadExpensesAsync()
-        {
-            ExpenseList.Clear();
-
-            IList<Expense> list = await _expenseTrackerService.GetExpenseListAsync();
-
-            foreach (Expense e in list)
-            {
-                ExpenseList.Add(e);
-            }
         }
 
 
