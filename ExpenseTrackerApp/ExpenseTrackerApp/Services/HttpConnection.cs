@@ -36,9 +36,13 @@ namespace ExpenseTrackerApp.Services
         }
 
 
-        private HttpClient CreateHttpClient(Uri uri, ModernHttpClient.NativeMessageHandler handler)
+        private HttpClient CreateHttpClient()
         {
-            HttpClient httpClient = new HttpClient(handler)
+            // Using android handler, config in ExpenseTrackerApp.Droid.csproj (Properties / Android Options / Advanced)
+            // <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+            // <AndroidTlsProvider>btls</AndroidTlsProvider>             
+
+            HttpClient httpClient = new HttpClient()
             {
                 Timeout = new TimeSpan(0, 0, 0, 0, AppSettings.CONNECTION_TIMEOUT)
             };
@@ -58,9 +62,7 @@ namespace ExpenseTrackerApp.Services
         {
             try
             {                
-                Uri serviceUri = new Uri(uri);
-                using (var handler = new ModernHttpClient.NativeMessageHandler())
-                using (HttpClient httpClient = CreateHttpClient(serviceUri, handler))
+                using (HttpClient httpClient = CreateHttpClient())
                 {
                     HttpResponseMessage response = await httpClient.GetAsync(uri);
 
@@ -80,9 +82,7 @@ namespace ExpenseTrackerApp.Services
         {
             try
             {
-                Uri serviceUri = new Uri(uri);
-                using (var handler = new ModernHttpClient.NativeMessageHandler())
-                using (HttpClient httpClient = CreateHttpClient(serviceUri, handler))
+                using (HttpClient httpClient = CreateHttpClient())
                 {   
                     #if DEBUG
                     Debug.WriteLine("** JSON POST " + uri);
@@ -111,9 +111,7 @@ namespace ExpenseTrackerApp.Services
         {
             try
             {
-                Uri serviceUri = new Uri(uri);
-                using (var handler = new ModernHttpClient.NativeMessageHandler())
-                using (HttpClient httpClient = CreateHttpClient(serviceUri, handler))
+                using (HttpClient httpClient = CreateHttpClient())
                 {
                     HttpResponseMessage response = await httpClient.DeleteAsync(uri);
 
