@@ -255,7 +255,7 @@ namespace ExpenseTrackerApp.ViewModels
             }
             else
             {
-                int r = rnd.Next(1, 8);
+                int r = rnd.Next(1, 9);
                 return string.Format(img_h, r);
             }
 
