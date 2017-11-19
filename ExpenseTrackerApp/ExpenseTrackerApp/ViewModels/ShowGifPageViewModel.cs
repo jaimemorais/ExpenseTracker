@@ -2,7 +2,7 @@
 
 namespace ExpenseTrackerApp.ViewModels
 {
-    public class ShowGifPageViewModel : BaseViewModel, INavigatingAware
+    public class ShowGifPageViewModel : BaseViewModel, INavigatingAware, INavigatedAware
     {
 
         private string _imageToShow;
@@ -12,15 +12,24 @@ namespace ExpenseTrackerApp.ViewModels
             set { SetProperty(ref _imageToShow, value); }
         }
 
+        private readonly INavigationService _navigationService;
 
-        public ShowGifPageViewModel()
+        public ShowGifPageViewModel(INavigationService navigationService)
         {
-
+            _navigationService = navigationService;
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
             ImageToShow = (string)parameters["imageToShow"];
+        }
+
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
         }
     }
 }

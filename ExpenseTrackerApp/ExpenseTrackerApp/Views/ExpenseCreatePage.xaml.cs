@@ -16,7 +16,12 @@ namespace ExpenseTrackerApp.Views
 
         private void pckPaymentType_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            EntryDescription.Focus();
+            //EntryDescription.Focus();
+        }
+
+        private void ContentPage_Appearing(object sender, System.EventArgs e)
+        {
+            this.EntryValue.Text = string.Empty;
         }
     }
 }

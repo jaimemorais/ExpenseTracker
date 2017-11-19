@@ -38,7 +38,7 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\ExpenseTrackerJsonDateConverter.cs" />
-    <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Helpers\IKeyboardHelper.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Expense.cs" />

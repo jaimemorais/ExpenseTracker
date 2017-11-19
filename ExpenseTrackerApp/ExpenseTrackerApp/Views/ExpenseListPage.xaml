@@ -25,7 +25,7 @@
 
         <Grid>
 
-            <StackLayout>
+            <StackLayout x:Name="mainStack">
 
                 <ListView ItemsSource="{Binding ExpenseList}"       
                           HasUnevenRows="true"   

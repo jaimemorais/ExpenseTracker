@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ExpenseTrackerApp.ViewModels
 {
@@ -91,7 +92,7 @@ namespace ExpenseTrackerApp.ViewModels
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
             this.Date = DateTime.Now.Date;
-            this.Description = string.Empty;
+            this.Description = string.Empty;            
 
             await ExecuteLoadCategoriesAsync();
             await ExecuteLoadPaymentTypesAsync();
@@ -215,8 +216,7 @@ namespace ExpenseTrackerApp.ViewModels
 
                 if (await _expenseTrackerService.SaveExpenseAsync(exp))
                 {
-                    string imageToShow = GetImageToShow(exp);
-                    await NavigateBackShowingImageAsync(imageToShow);
+                    await NavigateToExpenseList(exp);
                 }
                 else
                 {
@@ -261,21 +261,22 @@ namespace ExpenseTrackerApp.ViewModels
 
         }
 
-        private async Task NavigateBackShowingImageAsync(string imageToShow)
+        private async Task NavigateToExpenseList(Expense exp)
         {
-            // Show image after save expense
-            if (_userSettings.GetShowPuppyPref() && imageToShow != null)
+            
+            if (_userSettings.GetShowPuppyPref())
             {
+                // Show image before navigating back to list
+                string imageToShow = GetImageToShow(exp);
                 NavigationParameters navParameters = new NavigationParameters();
                 navParameters.Add("imageToShow", imageToShow);
-                await _navigationService.NavigateAsync(nameof(ShowGifPage), navParameters, true, true);
+                await _navigationService.NavigateAsync(nameof(ShowGifPage), navParameters, null, true);
                 await Task.Delay(1500);
-                await _navigationService.GoBackAsync();
             }
-
-            await _navigationService.GoBackAsync();
+            
+            await _navigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");
         }
-
+        
 
         private async Task ExecuteBackAsync()
         {

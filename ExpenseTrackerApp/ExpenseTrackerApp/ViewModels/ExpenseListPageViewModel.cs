@@ -1,4 +1,5 @@
-﻿using ExpenseTrackerApp.Model;
+﻿using ExpenseTrackerApp.Helpers;
+using ExpenseTrackerApp.Model;
 using ExpenseTrackerApp.Service;
 using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Views;
@@ -50,6 +51,8 @@ namespace ExpenseTrackerApp.ViewModels
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
             await ExecuteLoadExpensesAsync();
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+
         }
 
         private async Task ExecuteLoadExpensesAsync()
@@ -81,7 +84,7 @@ namespace ExpenseTrackerApp.ViewModels
 
         private async Task AddExpenseAsync()
         {
-            await _navigationService.NavigateAsync(nameof(ExpenseCreatePage), null, true);
+            await _navigationService.NavigateAsync(nameof(ExpenseCreatePage));
         }
 
         private async Task DeleteExpenseAsync(Expense exp)

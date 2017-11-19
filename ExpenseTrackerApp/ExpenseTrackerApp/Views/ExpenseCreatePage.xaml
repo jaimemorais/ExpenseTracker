@@ -3,46 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="ExpenseTrackerApp.Views.ExpenseCreatePage">
+             x:Class="ExpenseTrackerApp.Views.ExpenseCreatePage"
+             Title="New Expense"
+             Appearing="ContentPage_Appearing">
 
-
-    <StackLayout Spacing="10" Padding="10">
-
-        
-        <Label Text="Date"  />
-        <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="10">
 
         
-        <Label Text="Category"  />
-        <Picker x:Name="pckCategory" Title="Select a category..." 
-                ItemsSource="{Binding CategoryList}" 
-                SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}"
-                SelectedIndexChanged="pckCategory_SelectedIndexChanged"/>
+            <Label Text="Date"  />
+            <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
 
         
-        <Label Text="Value"  />
-        <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
+            <Label Text="Category"  />
+            <Picker x:Name="pckCategory" Title="Select a category..." 
+                    ItemsSource="{Binding CategoryList}" 
+                    SelectedItem="{Binding CategorySelectedItem, Mode=TwoWay}"
+                    SelectedIndexChanged="pckCategory_SelectedIndexChanged"/>
 
         
-        <Label Text="Payment Type"  />
-        <Picker x:Name="pckPaymentType" Title="Select a payment type..." 
-                ItemsSource="{Binding PaymentTypeList}" 
-                SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" 
-                SelectedIndexChanged="pckPaymentType_SelectedIndexChanged"/>
+            <Label Text="Value"  />
+            <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
+
+        
+            <Label Text="Payment Type"  />
+            <Picker x:Name="pckPaymentType" Title="Select a payment type..." 
+                    ItemsSource="{Binding PaymentTypeList}" 
+                    SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" 
+                    SelectedIndexChanged="pckPaymentType_SelectedIndexChanged"/>
 
 
-        <Label Text="Description"  />
-        <Entry x:Name="EntryDescription" Text="{Binding Description}" />
+            <Label Text="Description"  />
+            <Entry x:Name="EntryDescription" Text="{Binding Description}" />
 
 
 
 
-        <Button Command="{Binding SaveCommand}" Text="Save"></Button>
+            <Button Command="{Binding SaveCommand}" Text="Save"></Button>
 
-        <!-- On a modal page, its recommended to put a back command, due to iOS way to treat modal pages -->
-        <Button Command="{Binding BackCommand}" Text="Back" />
+            <!-- On a modal page, its recommended to put a back command, due to iOS way to treat modal pages -->
+            <Button Command="{Binding BackCommand}" Text="Back" />
 
-    </StackLayout>
-
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

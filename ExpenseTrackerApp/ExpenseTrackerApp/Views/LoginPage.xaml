@@ -5,18 +5,19 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ExpenseTrackerApp.Views.LoginPage">
 
+    <ScrollView>
+        <StackLayout VerticalOptions="CenterAndExpand">
 
-    <StackLayout VerticalOptions="CenterAndExpand">
-
-        <Label Text="Expense Tracker" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" />
+            <Label Text="Expense Tracker" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" />
         
-        <BoxView HeightRequest="50" />
+            <BoxView HeightRequest="50" />
 
-        <Entry Placeholder="Email" Text="{Binding Email}"  />
-        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="true" />
+            <Entry Placeholder="Email" Text="{Binding Email}"  />
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="true" />
 
-        <Button Text="Login" Command="{Binding ExecuteLoginCommand}" />
+            <Button Text="Login" Command="{Binding ExecuteLoginCommand}" />
 
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
     
 </ContentPage>
