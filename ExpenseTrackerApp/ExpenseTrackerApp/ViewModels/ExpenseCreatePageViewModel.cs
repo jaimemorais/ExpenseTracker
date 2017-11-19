@@ -30,7 +30,7 @@ namespace ExpenseTrackerApp.ViewModels
             set { SetProperty(ref _description, value); }
         }
                 
-        public double Value { get; set; }
+        public decimal Value { get; set; }
         public string Category { get; set; }
         public string PaymentType { get; set; }
 

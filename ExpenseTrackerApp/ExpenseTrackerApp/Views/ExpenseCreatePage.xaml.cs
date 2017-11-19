@@ -21,7 +21,7 @@ namespace ExpenseTrackerApp.Views
 
         private void ContentPage_Appearing(object sender, System.EventArgs e)
         {
-            this.EntryValue.Text = string.Empty;
+            this.EntryValue.Text = string.Empty;            
         }
     }
 }

@@ -23,7 +23,7 @@
 
         
             <Label Text="Value"  />
-            <Entry x:Name="EntryValue" Keyboard="Numeric" Text="{Binding Value}"/>
+            <Entry x:Name="EntryValue" Text="{Binding Value}"/>
 
         
             <Label Text="Payment Type"  />
@@ -39,7 +39,7 @@
 
 
 
-            <Button Command="{Binding SaveCommand}" Text="Save"></Button>
+            <Button Command="{Binding SaveCommand}" Text="Save" />
 
             <!-- On a modal page, its recommended to put a back command, due to iOS way to treat modal pages -->
             <Button Command="{Binding BackCommand}" Text="Back" />
