@@ -161,7 +161,7 @@ namespace ExpenseTrackerApp.ViewModels
 
         int _tapCount = 0;
 
-        private async Task ExecuteSaveAsync()
+        public async Task ExecuteSaveAsync()
         {
             // Prevent multiple tap on save button
             _tapCount += 1;
