@@ -59,7 +59,7 @@ namespace ExpenseTrackerWebApi.Controllers
                                   GetTD(name) +
                                   GetTD(exp.Category) +
                                   GetTD(exp.Description) +
-                                  GetTD((exp.PaymentType == "Cartao Credito" ? "Itau CC" + GetTD("Cartao de Credito") + GetTD(name) : exp.PaymentType))
+                                  GetTD(SetPaymentType(exp, name))
                                  );
 
 
@@ -82,6 +82,22 @@ namespace ExpenseTrackerWebApi.Controllers
                 Trace.TraceError($"{nameof(ExpensesHtmlReportController)} Error : " + e.Message);                
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private string SetPaymentType(Expense exp, string name)
+        {
+            string customPaymentType = exp.PaymentType;
+
+            if (exp.PaymentType == "Cartao Credito")
+                 customPaymentType = "Itau CC" + GetTD("Cartao de Credito") + GetTD(name);
+            else if (exp.PaymentType == "Ticket Supermercado")
+                customPaymentType = "Ticket Alim" + GetTD("Sodexo");
+            else if (exp.PaymentType == "Ticket Alim")
+                customPaymentType = "Ticket Alim" + GetTD("Sodexo");
+            else if (exp.PaymentType == "Ticket Rest")
+                customPaymentType = "Ticket Rest" + GetTD("Sodexo");
+
+            return customPaymentType;
         }
 
         private string GetTD(string str)
