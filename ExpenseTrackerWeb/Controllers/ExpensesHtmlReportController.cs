@@ -35,44 +35,14 @@ namespace ExpenseTrackerWebApi.Controllers
 
                 List<Expense> expenseList =
                     await expenseHelper.Collection.Find(e => e.UserName == username)
-                    .ToListAsync();                
+                    .ToListAsync();
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
-
-                StringBuilder sb = new StringBuilder();
-
-                sb.AppendLine("<table>");
-
-
-                foreach (Expense exp in expenseList)
-                {
-                    sb.AppendLine("<tr>");
-
-                    string month = System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(exp.Date.Month);
-                    month = month.Substring(0, 1).ToUpper() + month.Substring(1);
-
-                    string name = (exp.UserName.Split('@')[0] == "patricia" ? "Patrícia" : "Jaime");
-
-                    sb.AppendLine(GetTD(month) +
-                                  GetTD(exp.Date.Day.ToString()) +
-                                  GetTD(exp.Value.ToString()) +
-                                  GetTD(name) +
-                                  GetTD(exp.Category) +
-                                  GetTD(exp.Description) +
-                                  GetTD(SetPaymentType(exp, name))
-                                 );
-
-
-
-                    sb.AppendLine("</tr>");
-                }
-
-                sb.AppendLine("</table>");
-
-
+                
+                
                 var resp = new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content = new StringContent(sb.ToString(), System.Text.Encoding.UTF8, "text/html")
+                    Content = new StringContent(CreateHtmlTable(expenseList), System.Text.Encoding.UTF8, "text/html")
                 };
 
                 return resp;
@@ -82,6 +52,41 @@ namespace ExpenseTrackerWebApi.Controllers
                 Trace.TraceError($"{nameof(ExpensesHtmlReportController)} Error : " + e.Message);                
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private string CreateHtmlTable(List<Expense> expenseList)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("<table>");
+
+
+            foreach (Expense exp in expenseList)
+            {
+                sb.AppendLine("<tr>");
+
+                string month = System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(exp.Date.Month);
+                month = month.Substring(0, 1).ToUpper() + month.Substring(1);
+
+                string name = (exp.UserName.Split('@')[0] == "patricia" ? "Patrícia" : "Jaime");
+
+                sb.AppendLine(GetTD(month) +
+                              GetTD(exp.Date.Day.ToString()) +
+                              GetTD(exp.Value.ToString()) +
+                              GetTD(name) +
+                              GetTD(exp.Category) +
+                              GetTD(exp.Description) +
+                              GetTD(SetPaymentType(exp, name))
+                             );
+
+
+
+                sb.AppendLine("</tr>");
+            }
+
+            sb.AppendLine("</table>");
+
+            return sb.ToString();
         }
 
         private string SetPaymentType(Expense exp, string name)
