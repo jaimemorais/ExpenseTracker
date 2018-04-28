@@ -1,6 +1,6 @@
 ﻿using ExpenseTrackerApp.Settings;
-using Firebase.Xamarin.Auth;
-using Firebase.Xamarin.Database;
+using Firebase.Auth;
+using Firebase.Auth.Payloads;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerApp.Services
@@ -14,48 +14,57 @@ namespace ExpenseTrackerApp.Services
 
 
         private readonly IUserSettings _userSettings;
+        private readonly ITelemetry _telemetry;
 
-        public FirebaseService(IUserSettings userSettings)
+        public FirebaseService(IUserSettings userSettings, ITelemetry telemetry)
         {
             _userSettings = userSettings;
+            _telemetry = telemetry;
         }
 
 
         public async Task LoginAsync(string email, string pwd)
         {
-            _currentUser = null;
-
-            FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AppSettings.FIREBASE_API_KEY));
-            FirebaseAuthLink authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, pwd);
-            
-            _currentUser = authLink.User;
+             await InternalLoginAsync(email, pwd);
 
             _userSettings.SaveEmail(email);
-            _userSettings.SavePassword(pwd);          
+            _userSettings.SavePassword(pwd);
         }
 
-        public FirebaseClient GetFirebaseExpenseTrackerClient()
+        public async Task LoginWithUserSettingsAsync(string email, string pwd)
         {
-            return new FirebaseClient(AppSettings.FIREBASE_URL);
+            await InternalLoginAsync(email, pwd);
         }
 
-
-        public bool LoginWithUserSettings(string email, string pwd)
+        private async Task InternalLoginAsync(string email, string pwd)
         {
+            var authOptions = new FirebaseAuthOptions(AppSettings.FIREBASE_API_KEY);
+            var firebase = new FirebaseAuthService(authOptions);
+
+            var request = new VerifyPasswordRequest()
+            {
+                Email = email,
+                Password = pwd
+            };
+
             try
             {
-                FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AppSettings.FIREBASE_API_KEY));
-                FirebaseAuthLink authLink = authProvider.SignInWithEmailAndPasswordAsync(email, pwd).Result;
+                VerifyPasswordResponse response = await firebase.VerifyPassword(request);
 
-                _currentUser = authLink.User;
+                _currentUser = new User
+                {
+                    Email = response.Email,
+                    Token = response.IdToken
+                };
 
-                return true;
             }
-            catch
+            catch (FirebaseAuthException e)
             {
-                return false;
+                _telemetry.LogError("Error in firebase login", e);                
             }
         }
+
+        
 
         public void Logout()
         {

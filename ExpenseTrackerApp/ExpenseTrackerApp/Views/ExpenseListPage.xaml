@@ -23,7 +23,7 @@
 
     <ContentPage.Content>
 
-        <Grid>
+        <Grid> 
 
             <StackLayout x:Name="mainStack">
 

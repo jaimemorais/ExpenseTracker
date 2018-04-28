@@ -10,5 +10,5 @@
         <Image Source="{Binding ImageToShow}" />
 
     </ContentPage.Content>
-    
+     
 </ContentPage>

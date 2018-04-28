@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ExpenseTrackerApp.Views
 {
+    [XamlCompilation (XamlCompilationOptions.Compile)]
     public partial class ExpenseCreatePage : ContentPage
     {
         public ExpenseCreatePage()
@@ -11,7 +13,7 @@ namespace ExpenseTrackerApp.Views
         }
 
         private void pckCategory_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
+        {            
             EntryValue.Focus();
         }
 

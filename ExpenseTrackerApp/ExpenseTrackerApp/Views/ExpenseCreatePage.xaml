@@ -10,11 +10,10 @@
     <ScrollView>
         <StackLayout Spacing="10" Padding="10">
 
-        
             <Label Text="Date"  />
             <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
 
-        
+         
             <Label Text="Category"  />
             <Picker x:Name="pckCategory" Title="Select a category..." 
                     ItemsSource="{Binding CategoryList}" 

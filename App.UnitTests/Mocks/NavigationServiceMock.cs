@@ -12,6 +12,16 @@ namespace App.UnitTests
             return true;
         }
 
+        public Task<bool> GoBackAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> GoBackAsync(NavigationParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task NavigateAsync(Uri uri, NavigationParameters parameters = null, bool? useModalNavigation = null, bool animated = true)
         {
             // TODO
@@ -22,6 +32,26 @@ namespace App.UnitTests
         {
             // TODO
             await Task.Delay(0);
+        }
+
+        public Task NavigateAsync(Uri uri)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task NavigateAsync(Uri uri, NavigationParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task NavigateAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task NavigateAsync(string name, NavigationParameters parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

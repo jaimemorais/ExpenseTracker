@@ -10,10 +10,10 @@
 
         <ContentPage Title="Menu">
 
-            <StackLayout Padding="20">
+            <StackLayout Padding="20"> 
 
             <ListView x:Name="ListViewMenu" ItemsSource="{Binding MenuItems}">
-
+ 
                 <ListView.Behaviors>
                     <b:EventToCommandBehavior EventName="ItemTapped"
                                                   Command="{Binding SelectMenuItemCommand}" />

@@ -1,5 +1,4 @@
-﻿using Firebase.Xamarin.Auth;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ExpenseTrackerApp.Services
 {
@@ -7,7 +6,7 @@ namespace ExpenseTrackerApp.Services
     {
         Task LoginAsync(string email, string pwd);
 
-        bool LoginWithUserSettings(string email, string pwd);
+        Task LoginWithUserSettingsAsync(string email, string pwd);
 
         User GetCurrentUser();
         

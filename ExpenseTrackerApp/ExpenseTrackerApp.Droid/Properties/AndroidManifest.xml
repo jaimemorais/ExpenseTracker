@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" android:versionCode="2" android:versionName="2.0.0" package="com.jaime.ExpenseTracker">
-	<uses-sdk android:minSdkVersion="21" />
-	<application android:label="Expense Tracker" android:theme="@style/MyTheme" android:icon="@drawable/icon"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.jaime.ExpenseTracker" android:versionCode="2" android:versionName="2.0.0">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
+	<application android:label="Expense Tracker" android:icon="@drawable/icon" android:theme="@style/MyTheme"></application>
 </manifest>

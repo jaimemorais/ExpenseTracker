@@ -1,8 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using DryIoc;
-using Prism.DryIoc;
+using Prism;
+using Prism.Ioc;
 
 namespace ExpenseTrackerApp.Droid
 {
@@ -23,9 +23,10 @@ namespace ExpenseTrackerApp.Droid
 
     public class AndroidInitializer : IPlatformInitializer
     {
-        public void RegisterTypes(IContainer container)
+        
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+        
         }
     }
 }
