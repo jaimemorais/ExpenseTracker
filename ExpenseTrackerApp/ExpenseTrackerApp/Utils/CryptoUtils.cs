@@ -1,5 +1,6 @@
-﻿using PCLCrypto;
-using System;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace ExpenseTrackerApp.Utils
@@ -7,30 +8,62 @@ namespace ExpenseTrackerApp.Utils
     public static class CryptoUtils
     {
 
-        readonly static byte[] SALT = new byte[] { 1, 6, 9, 8, 1, 0, 7, 8 };        
-
-        public static string EncryptStr(string str)
+        public static string EncryptStr(string input)
         {
-            byte[] key = NetFxCrypto.DeriveBytes.GetBytes(AppSettings.CRYPTO_PASSWORD, SALT, 1000, 32);
+            var aes = new RijndaelManaged
+            {
+                KeySize = 256,
+                BlockSize = 256,
+                Padding = PaddingMode.PKCS7,
+                Key = Convert.FromBase64String(AppSettings.CRYPTO_KEY),
+                IV = Convert.FromBase64String(AppSettings.CRYPTO_IV)
+            };
 
-            ISymmetricKeyAlgorithmProvider aes = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
-            ICryptographicKey symmKey = aes.CreateSymmetricKey(key);
-            var encryptedBytes = WinRTCrypto.CryptographicEngine.Encrypt(symmKey, Encoding.UTF8.GetBytes(str));
+            var encrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+                using (var cs = new CryptoStream(ms, encrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Encoding.UTF8.GetBytes(input);
+                    cs.Write(xXml, 0, xXml.Length);
+                }
 
-            return Convert.ToBase64String(encryptedBytes);
+                xBuff = ms.ToArray();
+            }
+
+            return Convert.ToBase64String(xBuff);            
         }
 
-        public static string DecryptStr(string str)
+
+        public static string DecryptStr(string input)
         {
-            byte[] key = NetFxCrypto.DeriveBytes.GetBytes(AppSettings.CRYPTO_PASSWORD, SALT, 1000, 32);
+            RijndaelManaged aes = new RijndaelManaged
+            {
+                KeySize = 256,
+                BlockSize = 256,
+                Mode = CipherMode.CBC,
+                Padding = PaddingMode.PKCS7,
+                Key = Convert.FromBase64String(AppSettings.CRYPTO_KEY),
+                IV = Convert.FromBase64String(AppSettings.CRYPTO_IV)
+            };
 
-            byte[] bytesToDecrypt = Convert.FromBase64String(str);
+            var decrypt = aes.CreateDecryptor();
+            byte[] xBuff = null;
+            using (var ms = new MemoryStream())
+            {
+                using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
+                {
+                    byte[] xXml = Convert.FromBase64String(input);
+                    cs.Write(xXml, 0, xXml.Length);
+                }
 
-            ISymmetricKeyAlgorithmProvider aes = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
-            ICryptographicKey symmKey = aes.CreateSymmetricKey(key);
-            var bytes = WinRTCrypto.CryptographicEngine.Decrypt(symmKey, bytesToDecrypt);
+                xBuff = ms.ToArray();
+            }
 
-            return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            return Encoding.UTF8.GetString(xBuff);            
         }
+
+
     }
 }

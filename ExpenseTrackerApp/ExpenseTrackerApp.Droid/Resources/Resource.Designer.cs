@@ -26,8 +26,6 @@ namespace ExpenseTrackerApp.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::PCLCrypto.Resource.String.ApplicationName = global::ExpenseTrackerApp.Droid.Resource.String.ApplicationName;
-			global::PCLCrypto.Resource.String.Hello = global::ExpenseTrackerApp.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::ExpenseTrackerApp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3980,12 +3978,6 @@ namespace ExpenseTrackerApp.Droid
 		
 		public partial class String
 		{
-			
-			// aapt resource value: 0x7f09003d
-			public const int ApplicationName = 2131296317;
-			
-			// aapt resource value: 0x7f09003c
-			public const int Hello = 2131296316;
 			
 			// aapt resource value: 0x7f090015
 			public const int abc_action_bar_home_description = 2131296277;

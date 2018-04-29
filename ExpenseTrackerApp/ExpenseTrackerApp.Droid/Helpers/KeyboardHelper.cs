@@ -11,10 +11,10 @@ namespace ExpenseTrackerApp.Droid.Helpers
     public class KeyboardHelper : IKeyboardHelper
     {
         public void HideKeyboard()
-        {
-            var context = Forms.Context;
-            var inputMethodManager = context.GetSystemService(Context.InputMethodService) as InputMethodManager;
-            if (inputMethodManager != null && context is Activity)
+        {                        
+            var context = MainActivity.Instance;
+
+            if (context.GetSystemService(Context.InputMethodService) is InputMethodManager inputMethodManager)
             {
                 var activity = context as Activity;
                 var token = activity.CurrentFocus?.WindowToken;
