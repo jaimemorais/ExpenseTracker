@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customrenderers="clr-namespace:ExpenseTrackerApp.CustomRenderers"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:converters="clr-namespace:ExpenseTrackerApp.Converters" 
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Name="ExpenseListPage"
              x:Class="ExpenseTrackerApp.Views.ExpenseListPage"
@@ -98,7 +100,17 @@
                 </ListView>
 
 
-                <Button Command="{Binding AddExpenseCommand}" Text="Add Expense"></Button>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Button Command="{Binding AddExpenseCommand}" Text="Add Expense" HorizontalOptions="FillAndExpand" />                    
+                    <customrenderers:VoiceButton x:Name="voiceButton" Text="Talk New Expense" IsVisible="true"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="" x:Name="LabelVoiceText" HorizontalOptions="FillAndExpand"/>
+                    <Button Command="{Binding AddExpenseVoiceCommand}" CommandParameter="{Binding Source={x:Reference LabelVoiceText}, Path=Text}" 
+                            Text=" Ok " />
+                </StackLayout>
+                
 
             </StackLayout>
 

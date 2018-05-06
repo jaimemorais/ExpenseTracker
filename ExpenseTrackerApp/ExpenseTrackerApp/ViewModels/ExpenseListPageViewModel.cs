@@ -5,6 +5,7 @@ using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,27 +22,39 @@ namespace ExpenseTrackerApp.ViewModels
         public DelegateCommand LoadExpensesCommand => new DelegateCommand(async () => await ExecuteLoadExpensesAsync());
 
         public DelegateCommand AddExpenseCommand => new DelegateCommand(async () => await AddExpenseAsync());
-
+        
         public DelegateCommand<Expense> DeleteExpenseCommand => new DelegateCommand<Expense>(async (exp) => await DeleteExpenseAsync(exp));
 
         public DelegateCommand LogoffCommand => new DelegateCommand(async () => await ExecuteLogoffAsync());
-        
+
+
+        public DelegateCommand<string> AddExpenseVoiceCommand => new DelegateCommand<string>(AddExpenseVoice);
+
+
+
+
 
         private readonly IExpenseTrackerService _expenseTrackerService;
         private readonly INavigationService _navigationService;
+        private readonly IPageDialogService _pageDialogService;
         private readonly IFirebaseService _firebaseService;
         private readonly ITelemetry _telemetry;
 
-        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService, 
+        public ExpenseListPageViewModel(IExpenseTrackerService expenseTrackerService, INavigationService navigationService, IPageDialogService pageDialogService,
             IFirebaseService firebaseService, ITelemetry telemetry)
         {
             _expenseTrackerService = expenseTrackerService;
+            _pageDialogService = pageDialogService;
             _navigationService = navigationService;
             _firebaseService = firebaseService;
             _telemetry = telemetry;
 
             ExpenseList = new ObservableCollection<Expense>();
+
         }
+
+
+
 
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
@@ -51,7 +64,7 @@ namespace ExpenseTrackerApp.ViewModels
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
             await ExecuteLoadExpensesAsync();
-            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            Xamarin.Forms.DependencyService.Get<IKeyboardHelper>().HideKeyboard();
 
         }
 
@@ -106,6 +119,17 @@ namespace ExpenseTrackerApp.ViewModels
             _firebaseService.Logout();
 
             await _navigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(LoginPage)}");
+        }
+
+
+        private void AddExpenseVoice(string text)
+        {
+
+
+            string TODO = text;
+            
+
+
         }
     }
 }
