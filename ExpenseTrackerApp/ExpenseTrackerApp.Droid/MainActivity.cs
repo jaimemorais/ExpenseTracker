@@ -17,7 +17,7 @@ namespace ExpenseTrackerApp.Droid
 
 
 
-        public event EventHandler<ActivityResultEventArgs> ActivityResult = delegate { };
+        public event EventHandler<VoiceActivityResultEventArgs> VoiceActivityResult = delegate { };
 
 
         protected override void OnCreate(Bundle bundle)
@@ -36,7 +36,7 @@ namespace ExpenseTrackerApp.Droid
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
-            ActivityResult(this, new ActivityResultEventArgs
+            VoiceActivityResult(this, new VoiceActivityResultEventArgs
             {
                 RequestCode = requestCode,
                 ResultCode = resultCode,

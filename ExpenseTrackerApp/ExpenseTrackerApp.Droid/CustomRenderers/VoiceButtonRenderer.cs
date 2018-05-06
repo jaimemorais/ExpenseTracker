@@ -42,12 +42,12 @@ namespace ExpenseTrackerApp.Droid.CustomRenderers
 
             if (e.OldElement != null)
             {
-                activity.ActivityResult -= HandleActivityResult;
+                activity.VoiceActivityResult -= HandleActivityResult;
             }
 
             if (e.NewElement != null)
             {
-                activity.ActivityResult += HandleActivityResult;
+                activity.VoiceActivityResult += HandleActivityResult;
                 sharedButton = e.NewElement as VoiceButton;
             }
         }
@@ -113,7 +113,7 @@ namespace ExpenseTrackerApp.Droid.CustomRenderers
             }
         }
 
-        private void HandleActivityResult(object sender, ActivityResultEventArgs e)
+        private void HandleActivityResult(object sender, VoiceActivityResultEventArgs e)
         {
             if (e.RequestCode == VOICE)
             {

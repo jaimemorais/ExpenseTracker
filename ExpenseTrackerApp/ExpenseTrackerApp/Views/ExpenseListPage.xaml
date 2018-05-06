@@ -106,7 +106,7 @@
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label Text="" x:Name="LabelVoiceText" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="" x:Name="LabelVoiceText" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                     <Button Command="{Binding AddExpenseVoiceCommand}" CommandParameter="{Binding Source={x:Reference LabelVoiceText}, Path=Text}" 
                             Text=" Ok " />
                 </StackLayout>
