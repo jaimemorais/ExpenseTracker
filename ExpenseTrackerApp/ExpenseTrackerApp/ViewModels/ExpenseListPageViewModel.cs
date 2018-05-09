@@ -72,8 +72,19 @@ namespace ExpenseTrackerApp.ViewModels
 
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
-            categories = await _expenseTrackerService.GetCategoryListAsync();
-            paymentTypes = await _expenseTrackerService.GetPaymentTypeListAsync();
+            categories = _userSettings.GetCategoriesLocal();
+            if (categories == null)
+            {
+                categories = await _expenseTrackerService.GetCategoryListAsync();
+                _userSettings.SetCategoriesLocal(categories);
+            }
+
+            paymentTypes = _userSettings.GetPaymentTypesLocal();
+            if (paymentTypes == null)
+            {
+                paymentTypes = await _expenseTrackerService.GetPaymentTypeListAsync();
+                _userSettings.SetPaymentTypesLocal(paymentTypes);
+            }
 
             await ExecuteLoadExpensesAsync();
             Xamarin.Forms.DependencyService.Get<IKeyboardHelper>().HideKeyboard();

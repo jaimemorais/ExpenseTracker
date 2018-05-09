@@ -1,5 +1,8 @@
+using System;
+
 namespace ExpenseTrackerApp.Model
 {
+    [Serializable]
     public class Category 
     {
         public string Id { get; set; }

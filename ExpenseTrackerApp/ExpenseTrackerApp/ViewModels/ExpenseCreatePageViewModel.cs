@@ -109,7 +109,10 @@ namespace ExpenseTrackerApp.ViewModels
 
                 CategoryList.Clear();
 
-                List<Category> listCat = await _expenseTrackerService.GetCategoryListAsync();
+                List<Category> listCat = _userSettings.GetCategoriesLocal();
+
+                if (listCat == null)
+                    listCat = await _expenseTrackerService.GetCategoryListAsync();
 
                 foreach (Category cat in listCat)
                 {
@@ -137,7 +140,9 @@ namespace ExpenseTrackerApp.ViewModels
 
                 PaymentTypeList.Clear();
 
-                List<PaymentType> listPaymentType = await _expenseTrackerService.GetPaymentTypeListAsync();
+                List<PaymentType> listPaymentType = _userSettings.GetPaymentTypesLocal();
+                if (listPaymentType == null)
+                    listPaymentType = await _expenseTrackerService.GetPaymentTypeListAsync();
 
                 foreach (PaymentType pt in listPaymentType)
                 {

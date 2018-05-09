@@ -1,4 +1,7 @@
-﻿namespace ExpenseTrackerApp.Settings
+﻿using ExpenseTrackerApp.Model;
+using System.Collections.Generic;
+
+namespace ExpenseTrackerApp.Settings
 {
     public interface IUserSettings
     {
@@ -9,6 +12,11 @@
         string GetPassword();
         void SaveShowPuppyPref(bool value);
         bool GetShowPuppyPref();
+
+        List<Category> GetCategoriesLocal();
+        void SetCategoriesLocal(List<Category> categories);
+        List<PaymentType> GetPaymentTypesLocal();
+        void SetPaymentTypesLocal(List<PaymentType> paymentTypes);
 
     }
 }

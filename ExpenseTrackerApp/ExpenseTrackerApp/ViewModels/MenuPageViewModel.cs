@@ -17,7 +17,8 @@ namespace ExpenseTrackerApp.ViewModels
         public void OnNavigatingTo(NavigationParameters parameters)
         {
             MenuItems.Add(new MenuItem { MenuTitle = "Expenses", Page = "ExpenseListPage" /*, Icon ="expenses.png" */});
-            MenuItems.Add(new MenuItem { MenuTitle = "Preferences", Page = "PreferencesPage" /*, Icon ="prefs.png" */});
+            
+            //MenuItems.Add(new MenuItem { MenuTitle = "Preferences", Page = "PreferencesPage" /*, Icon ="prefs.png" */});
         }
     }
 }
