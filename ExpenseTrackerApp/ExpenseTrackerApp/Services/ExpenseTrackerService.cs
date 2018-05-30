@@ -1,4 +1,5 @@
-﻿using ExpenseTrackerApp.Model;
+﻿using ExpenseTrackerApp.Helpers;
+using ExpenseTrackerApp.Model;
 using ExpenseTrackerApp.Services;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,9 @@ namespace ExpenseTrackerApp.Service
 
         public async Task<List<Category>> GetCategoryListAsync()
         {
-            List<Category> categoryList = await _httpConnection.GetAsync< List<Category>>(AppSettings.CategoryEndpoint);
+            string uri = Secrets.BASE_API_ENDPOINT + "Categories";
+
+            List<Category> categoryList = await _httpConnection.GetAsync< List<Category>>(uri);
            
             return categoryList.OrderBy(c => c.Name).ToList();
         }
@@ -28,7 +31,9 @@ namespace ExpenseTrackerApp.Service
 
         public async Task<List<PaymentType>> GetPaymentTypeListAsync()
         {
-            List<PaymentType> paymentTypeList = await _httpConnection.GetAsync< List<PaymentType>>(AppSettings.PaymentTypeEndpoint);
+            string uri = Secrets.BASE_API_ENDPOINT + "PaymentTypes";
+
+            List<PaymentType> paymentTypeList = await _httpConnection.GetAsync< List<PaymentType>>(uri);
 
             return paymentTypeList.OrderBy(p => p.Name).ToList();            
         }
@@ -37,7 +42,9 @@ namespace ExpenseTrackerApp.Service
 
         public async Task<List<Expense>> GetExpenseListAsync()
         {
-            List<Expense> expenseList = await _httpConnection.GetAsync<List<Expense>>(AppSettings.ExpenseEndpoint);
+            string uri = Secrets.BASE_API_ENDPOINT + "Expenses";
+
+            List<Expense> expenseList = await _httpConnection.GetAsync<List<Expense>>(uri);
             
             return expenseList.OrderByDescending(e => e.Date).ToList();
         }
@@ -45,13 +52,17 @@ namespace ExpenseTrackerApp.Service
 
         public async Task<bool> SaveExpenseAsync(Expense expense)
         {
-            return await _httpConnection.PostAsync<Expense>(AppSettings.ExpenseEndpoint, expense);            
+            string uri = Secrets.BASE_API_ENDPOINT + "Expenses";
+
+            return await _httpConnection.PostAsync<Expense>(uri, expense);            
         }
 
 
         public async Task<bool> DeleteExpenseAsync(Expense expense)
         {
-            return await _httpConnection.DeleteAsync(AppSettings.ExpenseEndpoint + "/" + expense.Id);            
+            string uri = Secrets.BASE_API_ENDPOINT + "Expenses";
+
+            return await _httpConnection.DeleteAsync(uri + "/" + expense.Id);            
         }
     }
 }

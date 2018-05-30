@@ -201,3 +201,4 @@ sqlite*/
 /ExpenseTrackerWeb/Properties/PublishProfiles/expensetrackerweb - Web Deploy.pubxml
 /OldMvp
 /.vs/ExpenseTracker/DesignTimeBuild/.dtbcache
+/ExpenseTrackerApp/ExpenseTrackerApp/Secrets.json

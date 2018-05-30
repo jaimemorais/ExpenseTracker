@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTrackerApp.Helpers;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,8 +16,8 @@ namespace ExpenseTrackerApp.Utils
                 KeySize = 256,
                 BlockSize = 256,
                 Padding = PaddingMode.PKCS7,
-                Key = Convert.FromBase64String(AppSettings.CRYPTO_KEY),
-                IV = Convert.FromBase64String(AppSettings.CRYPTO_IV)
+                Key = Convert.FromBase64String(Secrets.CRYPTO_KEY),
+                IV = Convert.FromBase64String(Secrets.CRYPTO_IV)
             };
 
             var encrypt = aes.CreateEncryptor(aes.Key, aes.IV);
@@ -44,8 +45,8 @@ namespace ExpenseTrackerApp.Utils
                 BlockSize = 256,
                 Mode = CipherMode.CBC,
                 Padding = PaddingMode.PKCS7,
-                Key = Convert.FromBase64String(AppSettings.CRYPTO_KEY),
-                IV = Convert.FromBase64String(AppSettings.CRYPTO_IV)
+                Key = Convert.FromBase64String(Secrets.CRYPTO_KEY),
+                IV = Convert.FromBase64String(Secrets.CRYPTO_IV)
             };
 
             var decrypt = aes.CreateDecryptor();

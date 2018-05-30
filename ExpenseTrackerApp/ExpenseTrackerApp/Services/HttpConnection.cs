@@ -1,4 +1,5 @@
 ﻿using ExpenseTrackerApp.Converters;
+using ExpenseTrackerApp.Helpers;
 using ExpenseTrackerApp.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -44,12 +45,12 @@ namespace ExpenseTrackerApp.Services
 
             HttpClient httpClient = new HttpClient()
             {
-                Timeout = new TimeSpan(0, 0, 0, 0, AppSettings.CONNECTION_TIMEOUT)
+                Timeout = new TimeSpan(0, 0, 0, 0, 10000)
             };
 
             httpClient.DefaultRequestHeaders.Add("CurrentUserName", _userSettings.GetEmail());
 
-            httpClient.DefaultRequestHeaders.Add("expensetracker-api-token", AppSettings.API_TOKEN);
+            httpClient.DefaultRequestHeaders.Add("expensetracker-api-token", Secrets.API_TOKEN);
 
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

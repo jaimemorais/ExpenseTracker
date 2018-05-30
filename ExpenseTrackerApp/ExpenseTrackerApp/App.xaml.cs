@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using ExpenseTrackerApp.Helpers;
 using ExpenseTrackerApp.Service;
 using ExpenseTrackerApp.Services;
 using ExpenseTrackerApp.Settings;
@@ -26,7 +27,7 @@ namespace ExpenseTrackerApp
         {
             InitializeComponent();
 
-            AppCenter.Start($"android={AppSettings.MOBILE_CENTER_KEY};", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start($"android={Secrets.MOBILE_CENTER_KEY};", typeof(Analytics), typeof(Crashes));
 
             DoInitialNavigate();
         }
@@ -65,14 +66,14 @@ namespace ExpenseTrackerApp
             IUserSettings userSettings = Container.Resolve<IUserSettings>();
             IFirebaseService firebaseService = Container.Resolve<IFirebaseService>();
 
-            Task.Run(async () =>
-            {
-                await firebaseService.LoginWithUserSettingsAsync(userSettings.GetEmail(), userSettings.GetPassword());
-            }).Wait();
-
-
+            
             if (firebaseService.GetCurrentUser() != null)
             {
+                Task.Run(async () =>
+                {
+                    await firebaseService.LoginWithUserSettingsAsync(userSettings.GetEmail(), userSettings.GetPassword());
+                }).Wait();
+
                 NavigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");
             }
             else

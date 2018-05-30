@@ -1,4 +1,5 @@
-﻿using ExpenseTrackerApp.Settings;
+﻿using ExpenseTrackerApp.Helpers;
+using ExpenseTrackerApp.Settings;
 using Firebase.Auth;
 using Firebase.Auth.Payloads;
 using System.Threading.Tasks;
@@ -38,9 +39,9 @@ namespace ExpenseTrackerApp.Services
 
         private async Task InternalLoginAsync(string email, string pwd)
         {
-            var authOptions = new FirebaseAuthOptions(AppSettings.FIREBASE_API_KEY);
-            var firebase = new FirebaseAuthService(authOptions);
-
+            var authOptions = new FirebaseAuthOptions(Secrets.FIREBASE_API_KEY);
+            var firebaseAuthService = new FirebaseAuthService(authOptions);
+            
             var request = new VerifyPasswordRequest()
             {
                 Email = email,
@@ -49,7 +50,7 @@ namespace ExpenseTrackerApp.Services
 
             try
             {
-                VerifyPasswordResponse response = await firebase.VerifyPassword(request);
+                VerifyPasswordResponse response = await firebaseAuthService.VerifyPassword(request);
 
                 _currentUser = new User
                 {
