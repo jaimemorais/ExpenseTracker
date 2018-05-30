@@ -71,7 +71,7 @@ namespace ExpenseTrackerApp
             {
                 Task.Run(async () =>
                 {
-                    await firebaseService.LoginWithUserSettingsAsync(userSettings.GetEmail(), userSettings.GetPassword());
+                    await firebaseService.LoginWithUserSettingsAsync(userSettings.GetEmail(), await userSettings.GetPasswordAsync());
                 }).Wait();
 
                 NavigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");

@@ -26,6 +26,9 @@ namespace ExpenseTrackerApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::ExpenseTrackerApp.Droid.Resource.Id.agentWebView;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::ExpenseTrackerApp.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::ExpenseTrackerApp.Droid.Resource.String.ApplicationName;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::ExpenseTrackerApp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3150,6 +3153,9 @@ namespace ExpenseTrackerApp.Droid
 			// aapt resource value: 0x7f080027
 			public const int add = 2131230759;
 			
+			// aapt resource value: 0x7f0800c9
+			public const int agentWebView = 2131230921;
+			
 			// aapt resource value: 0x7f080070
 			public const int alertTitle = 2131230832;
 			
@@ -3330,8 +3336,8 @@ namespace ExpenseTrackerApp.Droid
 			// aapt resource value: 0x7f080061
 			public const int list_item = 2131230817;
 			
-			// aapt resource value: 0x7f0800ca
-			public const int masked = 2131230922;
+			// aapt resource value: 0x7f0800cb
+			public const int masked = 2131230923;
 			
 			// aapt resource value: 0x7f0800b9
 			public const int media_actions = 2131230905;
@@ -3666,8 +3672,8 @@ namespace ExpenseTrackerApp.Droid
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-			// aapt resource value: 0x7f0800c9
-			public const int visible = 2131230921;
+			// aapt resource value: 0x7f0800ca
+			public const int visible = 2131230922;
 			
 			// aapt resource value: 0x7f0800ab
 			public const int volume_item_container = 2131230891;
@@ -3966,6 +3972,9 @@ namespace ExpenseTrackerApp.Droid
 			// aapt resource value: 0x7f030043
 			public const int tooltip = 2130903107;
 			
+			// aapt resource value: 0x7f030044
+			public const int WebAuthenticationBroker = 2130903108;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3978,6 +3987,9 @@ namespace ExpenseTrackerApp.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f09003c
+			public const int ApplicationName = 2131296316;
 			
 			// aapt resource value: 0x7f090015
 			public const int abc_action_bar_home_description = 2131296277;

@@ -29,7 +29,7 @@ namespace ExpenseTrackerApp.Services
              await InternalLoginAsync(email, pwd);
 
             _userSettings.SaveEmail(email);
-            _userSettings.SavePassword(pwd);
+            await _userSettings.SavePasswordAsync(pwd);
         }
 
         public async Task LoginWithUserSettingsAsync(string email, string pwd)
@@ -70,7 +70,7 @@ namespace ExpenseTrackerApp.Services
         public void Logout()
         {
             _userSettings.SaveEmail(string.Empty);
-            _userSettings.SavePassword(string.Empty);
+            _userSettings.SavePasswordAsync(string.Empty);
             _currentUser = null;
         }
     }

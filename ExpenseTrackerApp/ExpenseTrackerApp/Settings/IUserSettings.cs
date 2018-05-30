@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerApp.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ExpenseTrackerApp.Settings
 {
@@ -7,9 +8,9 @@ namespace ExpenseTrackerApp.Settings
     {
 
         void SaveEmail(string email);
-        void SavePassword(string pwd);
+        Task SavePasswordAsync(string pwd);
         string GetEmail();
-        string GetPassword();
+        Task<string> GetPasswordAsync();
         void SaveShowPuppyPref(bool value);
         bool GetShowPuppyPref();
 
