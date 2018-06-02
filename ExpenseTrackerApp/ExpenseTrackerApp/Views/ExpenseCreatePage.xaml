@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:customrenderers="clr-namespace:ExpenseTrackerApp.CustomRenderers"
              x:Class="ExpenseTrackerApp.Views.ExpenseCreatePage"
              Title="New Expense"
              Appearing="ContentPage_Appearing">
@@ -22,9 +23,9 @@
 
         
             <Label Text="Value"  />
-            <Entry x:Name="EntryValue" Text="{Binding Value}" Keyboard="Numeric" Completed="EntryValue_Completed" />
-
-        
+            <customrenderers:DecimalEntry x:Name="EntryValue" Text="{Binding Value}" Keyboard="Numeric" Completed="EntryValue_Completed" />
+            
+            
             <Label Text="Payment Type"  />
             <Picker x:Name="pckPaymentType" Title="Select a payment type..." 
                     ItemsSource="{Binding PaymentTypeList}" 

@@ -222,6 +222,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderers\DecimalEntryRenderer.cs" />
     <Compile Include="CustomRenderers\VoiceActivityResultEventArgs.cs" />
     <Compile Include="CustomRenderers\VoiceButtonRenderer.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
