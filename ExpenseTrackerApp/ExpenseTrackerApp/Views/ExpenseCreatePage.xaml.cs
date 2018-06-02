@@ -14,7 +14,15 @@ namespace ExpenseTrackerApp.Views
 
         private void pckCategory_SelectedIndexChanged(object sender, System.EventArgs e)
         {            
-            EntryValue.Focus();
+            if (pckCategory != null && pckCategory.SelectedItem != null &&
+                ((string)pckCategory.SelectedItem).Equals("Onibus"))
+            {
+                EntryValue.Text = "4.05";
+
+                string carteira = "Carteira";
+                if (this.pckPaymentType.Items.Any(p => p == carteira))
+                    this.pckPaymentType.SelectedItem = carteira;
+            }
         }
 
         private void pckPaymentType_SelectedIndexChanged(object sender, System.EventArgs e)

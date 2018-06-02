@@ -66,14 +66,15 @@ namespace ExpenseTrackerApp
             IUserSettings userSettings = Container.Resolve<IUserSettings>();
             IFirebaseService firebaseService = Container.Resolve<IFirebaseService>();
 
-            
+
+            Task.Run(async () =>
+            {
+                await firebaseService.LoginWithUserSettingsAsync(userSettings.GetEmail(), await userSettings.GetPasswordAsync());
+            }).Wait();
+
+
             if (firebaseService.GetCurrentUser() != null)
             {
-                Task.Run(async () =>
-                {
-                    await firebaseService.LoginWithUserSettingsAsync(userSettings.GetEmail(), await userSettings.GetPasswordAsync());
-                }).Wait();
-
                 NavigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");
             }
             else

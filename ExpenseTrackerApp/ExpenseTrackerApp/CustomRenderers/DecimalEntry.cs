@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Xamarin.Forms;
 
 namespace ExpenseTrackerApp.CustomRenderers
@@ -41,14 +42,11 @@ namespace ExpenseTrackerApp.CustomRenderers
 
         public static string ConvertNumber(int value)
         {
-            string number = String.Empty;
-
-            number = value.ToString().Replace(",", "").Replace(".", "");
-
-            if (number.Equals("")) number = "000";
+            string number = value.ToString().Replace(",", "").Replace(".", "");
+            if (number.Equals(""))
+                number = "000";
 
             number = number.PadLeft(3, '0');
-
             if (number.Length > 3 && number.Substring(0, 1).Equals("0"))
             {
                 number = number.Substring(1, number.Length - 1);
@@ -56,7 +54,7 @@ namespace ExpenseTrackerApp.CustomRenderers
 
             double finalValue = Convert.ToDouble(number) / 100;
 
-            return finalValue.ToString();
+            return string.Format(new CultureInfo("en-US"), "{0:N}", finalValue);
         }
 
     }
