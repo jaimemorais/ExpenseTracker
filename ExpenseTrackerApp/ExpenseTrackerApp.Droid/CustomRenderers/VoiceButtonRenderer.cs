@@ -12,7 +12,6 @@ namespace ExpenseTrackerApp.Droid.CustomRenderers
 {
     public class VoiceButtonRenderer : ButtonRenderer, Android.Views.View.IOnClickListener
     {
-        private bool isRecording;
         private readonly int VOICE = 10;
         private MainActivity activity;
         private global::Android.Widget.Button nativeButton;
@@ -20,7 +19,6 @@ namespace ExpenseTrackerApp.Droid.CustomRenderers
 
         public VoiceButtonRenderer()
         {
-            isRecording = false;
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e)

@@ -22,7 +22,7 @@
 
         
             <Label Text="Value"  />
-            <Entry x:Name="EntryValue" Text="{Binding Value}" Completed="EntryValue_Completed" />
+            <Entry x:Name="EntryValue" Text="{Binding Value}" Keyboard="Numeric" Completed="EntryValue_Completed" />
 
         
             <Label Text="Payment Type"  />
