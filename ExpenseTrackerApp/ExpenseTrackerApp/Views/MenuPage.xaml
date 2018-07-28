@@ -6,24 +6,27 @@
                   xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
                   x:Class="ExpenseTrackerApp.Views.MenuPage">
 
+    
     <MasterDetailPage.Master>
 
         <ContentPage Title="Menu">
 
+            
             <StackLayout Padding="20"> 
 
             <ListView x:Name="ListViewMenu" ItemsSource="{Binding MenuItems}">
  
                 <ListView.Behaviors>
                     <b:EventToCommandBehavior EventName="ItemTapped"
-                                                  Command="{Binding SelectMenuItemCommand}" />
+                                                  Command="{Binding SelectMenuItemCommand}" 
+                                              EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"/>
                 </ListView.Behaviors>
 
                 <ListView.Header>
-                        <StackLayout Padding="0,0,0,20">
-                            <Label Text="Expense Tracker"
+                        <StackLayout Padding="0,0,0,30">
+                            <Label Text="Menu"
                                    TextColor="Navy"
-                                   FontSize="Medium"
+                                   FontSize="Large"
                                    HorizontalTextAlignment="Center"
                                />
                         </StackLayout>
@@ -32,19 +35,24 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" 
-                                         Margin="0,0,0,0"
+                            <StackLayout Padding="10"
+                                         Margin="0,0,0,3"                                         
                                          Spacing="15"
-                                         BackgroundColor="Beige"
+                                         BackgroundColor="LightGray"
                                          Orientation="Horizontal">                                
                                 <Label Text="{Binding MenuTitle}" 
-                                       FontSize="14" VerticalOptions="Center" />
+                                       FontSize="14" 
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                                    
                             </StackLayout>
+                            
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
                 
-            </ListView>
+                </ListView>
 
             </StackLayout>
 

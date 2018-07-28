@@ -1,24 +1,42 @@
-﻿using ExpenseTrackerApp.Models;
-using Prism.Navigation;
+﻿using Prism.Navigation;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ExpenseTrackerApp.ViewModels
 {
     public class MenuPageViewModel : BaseViewModel, INavigatingAware
     {
-        public ObservableCollection<MenuItem> MenuItems { get; set; }
+        public ObservableCollection<Models.MenuItem> MenuItems { get; set; }
+
+        public Command<object> SelectMenuItemCommand => new Command<object>(async (obj) => await ExecuteSelectMenuItemAsync(obj));
 
 
-        public MenuPageViewModel()
+
+        private readonly INavigationService _navigationService;
+
+        public MenuPageViewModel(INavigationService navigationService)
         {
-            MenuItems = new ObservableCollection<MenuItem>();
+            _navigationService = navigationService;
+
+            MenuItems = new ObservableCollection<Models.MenuItem>();
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
-            MenuItems.Add(new MenuItem { MenuTitle = "Expenses", Page = "ExpenseListPage" /*, Icon ="expenses.png" */});
+            MenuItems.Clear();
+
+            MenuItems.Add(new Models.MenuItem { MenuTitle = "Expenses", Page = "ExpenseListPage" /*, Icon ="expenses.png" */});
             
-            MenuItems.Add(new MenuItem { MenuTitle = "Settings", Page = "SettingsPage" /*, Icon ="prefs.png" */});
+            MenuItems.Add(new Models.MenuItem { MenuTitle = "Settings", Page = "SettingsPage" /*, Icon ="prefs.png" */});
+        }
+
+
+
+        private async Task ExecuteSelectMenuItemAsync(object selectedMenuItem)
+        {
+            Models.MenuItem menuItem = selectedMenuItem as Models.MenuItem;
+            await _navigationService.NavigateAsync(nameof(NavigationPage) + "/" + menuItem.Page);
         }
     }
 }

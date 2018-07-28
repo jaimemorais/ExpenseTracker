@@ -62,6 +62,7 @@ namespace ExpenseTrackerApp
             containerRegistry.RegisterForNavigation<ExpenseCreatePage>();
             containerRegistry.RegisterForNavigation<ShowGifPage>();
             containerRegistry.RegisterForNavigation<LoginPage>();
+            containerRegistry.RegisterForNavigation<SettingsPage>();
         }
 
 

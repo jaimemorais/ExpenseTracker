@@ -3,6 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="ExpenseTrackerApp.Views.SettingsPage">
-  
+             x:Class="ExpenseTrackerApp.Views.SettingsPage"
+             Title="Settings">
+
+    <StackLayout>
+
+        <StackLayout Padding="0,0,0,20"></StackLayout>
+
+        <Button Command="{Binding RefreshCachedListsCommand}" Text="Refresh Cached Lists" 
+                HorizontalOptions="Center"/>
+
+
+    </StackLayout>
 </ContentPage>

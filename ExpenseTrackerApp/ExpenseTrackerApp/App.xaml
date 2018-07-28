@@ -2,6 +2,7 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+                        xmlns:converters="clr-namespace:ExpenseTrackerApp.Converters" 
                         x:Class="ExpenseTrackerApp.App">
 
 
@@ -14,8 +15,10 @@
           <Setter Property="BarBackgroundColor" Value="#3c70c4" />
           <Setter Property="BarTextColor" Value="White" />
         </Style>
-        
-      </ResourceDictionary>
+
+        <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+
+        </ResourceDictionary>
     </Application.Resources>
   
     
