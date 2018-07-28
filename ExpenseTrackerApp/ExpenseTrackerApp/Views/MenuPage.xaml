@@ -20,17 +20,30 @@
                 </ListView.Behaviors>
 
                 <ListView.Header>
-                    <Label Text="Expense Tracker" HorizontalTextAlignment="Center"></Label>
+                        <StackLayout Padding="0,0,0,20">
+                            <Label Text="Expense Tracker"
+                                   TextColor="Navy"
+                                   FontSize="Medium"
+                                   HorizontalTextAlignment="Center"
+                               />
+                        </StackLayout>
                 </ListView.Header>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" Spacing="15" Orientation="Horizontal">
-                                <Label Text="{Binding MenuTitle}" FontSize="12" VerticalOptions="Center" />
+                            <StackLayout Padding="10" 
+                                         Margin="0,0,0,0"
+                                         Spacing="15"
+                                         BackgroundColor="Beige"
+                                         Orientation="Horizontal">                                
+                                <Label Text="{Binding MenuTitle}" 
+                                       FontSize="14" VerticalOptions="Center" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                
             </ListView>
 
             </StackLayout>

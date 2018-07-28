@@ -25,6 +25,10 @@ namespace ExpenseTrackerApp
 
         protected override void OnInitialized()
         {
+#if DEBUG
+            LiveReload.Init();
+#endif
+
             InitializeComponent();
 
             AppCenter.Start($"android={Secrets.MOBILE_CENTER_KEY};", typeof(Analytics), typeof(Crashes));

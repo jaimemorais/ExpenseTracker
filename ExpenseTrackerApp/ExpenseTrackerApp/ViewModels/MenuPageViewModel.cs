@@ -18,7 +18,7 @@ namespace ExpenseTrackerApp.ViewModels
         {
             MenuItems.Add(new MenuItem { MenuTitle = "Expenses", Page = "ExpenseListPage" /*, Icon ="expenses.png" */});
             
-            //MenuItems.Add(new MenuItem { MenuTitle = "Preferences", Page = "PreferencesPage" /*, Icon ="prefs.png" */});
+            MenuItems.Add(new MenuItem { MenuTitle = "Settings", Page = "SettingsPage" /*, Icon ="prefs.png" */});
         }
     }
 }
