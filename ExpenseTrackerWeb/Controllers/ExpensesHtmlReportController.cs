@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -21,7 +22,7 @@ namespace ExpenseTrackerWebApi.Controllers
 
 
         [HttpGet]
-        public async Task<HttpResponseMessage> ExpensesReport(string apiToken, string username)
+        public async Task<HttpResponseMessage> ExpensesReport(string apiToken, string username, string category = null)
         {            
             if (apiToken != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
             {
@@ -37,8 +38,14 @@ namespace ExpenseTrackerWebApi.Controllers
                     await expenseHelper.Collection.Find(e => e.UserName == username)
                     .ToListAsync();
 
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
-                
+                if (!string.IsNullOrEmpty(category))
+                {
+                    expenseList = expenseList.Where(e => e.Category == category).ToList();
+                }
+
+
+
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");                
                 
                 var resp = new HttpResponseMessage(HttpStatusCode.OK)
                 {
