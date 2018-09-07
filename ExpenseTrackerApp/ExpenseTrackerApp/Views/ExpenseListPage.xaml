@@ -46,14 +46,14 @@
                                 </ViewCell.ContextActions>
 
 
-                                <Frame Margin="5,5,5,5" Padding="2,2,2,2" CornerRadius="0" OutlineColor="Silver" HasShadow="False"
+                                <Frame Margin="5,5,5,3" Padding="2,2,2,2" CornerRadius="0" OutlineColor="LightGray" HasShadow="False"
                                        HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
                                     <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Margin="0,0,0,0" HorizontalOptions="FillAndExpand">
 
-                                        <BoxView WidthRequest="3" BackgroundColor="Red" Margin="0,0,0,0" />
+                                        <BoxView WidthRequest="3" BackgroundColor="OrangeRed" Margin="0,0,0,0" />
 
-                                        <StackLayout Padding="0,0,0,0" Margin="0,0,10,0" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Padding="0,0,0,0" Margin="0,0,5,0" HorizontalOptions="FillAndExpand">
                                             <Grid HorizontalOptions="FillAndExpand">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
@@ -72,11 +72,11 @@
                                                        Text="{Binding Date , Converter={StaticResource ExpenseTrackerDateTimeConverter} } "  />
 
                                                 <Label Grid.Row="1" Grid.Column="0" 
-                                                       Margin="10,0,0,0" FontSize="16" 
+                                                       Margin="15,0,0,0" FontSize="17"  
                                                        TextColor="Black" Text="{Binding Description}" />
                                                 
-                                                <Label Grid.Row="1" Grid.Column="2" 
-                                                       FontSize="17" FontAttributes="Bold" TextColor="Black" 
+                                                <Label Grid.Row="1" Grid.Column="2"  Margin="0,0,10,0"
+                                                       FontSize="18" FontAttributes="Bold" TextColor="Black" 
                                                        Text="{Binding Value, StringFormat='{0:N}'}"  
                                                        HorizontalTextAlignment="End"  HorizontalOptions="EndAndExpand" />
 

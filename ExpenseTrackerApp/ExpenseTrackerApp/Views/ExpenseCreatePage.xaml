@@ -9,7 +9,7 @@
              Appearing="ContentPage_Appearing">
 
     <ScrollView>
-        <StackLayout Spacing="10" Padding="10">
+        <StackLayout Spacing="5" Padding="20" BackgroundColor="White">
 
             <Label Text="Date"  />
             <DatePicker x:Name="EntryDate" Date="{Binding Date}" />
@@ -23,14 +23,13 @@
 
         
             <Label Text="Value"  />
-            <customrenderers:DecimalEntry x:Name="EntryValue" Text="{Binding Value}" Keyboard="Numeric" Completed="EntryValue_Completed" />
+            <customrenderers:DecimalEntry x:Name="EntryValue" Text="{Binding Value}" Keyboard="Numeric" />
             
             
             <Label Text="Payment Type"  />
             <Picker x:Name="pckPaymentType" Title="Select a payment type..." 
                     ItemsSource="{Binding PaymentTypeList}" 
-                    SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" 
-                    SelectedIndexChanged="pckPaymentType_SelectedIndexChanged"/>
+                    SelectedItem="{Binding PaymentTypeSelectedItem, Mode=TwoWay}" />
 
 
             <Label Text="Description"  />
