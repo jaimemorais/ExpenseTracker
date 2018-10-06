@@ -120,10 +120,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ExpenseTrackerDomain\ExpenseTrackerDomain.csproj">
       <Project>{89ff69eb-3420-43b6-8925-e21f5db538b2}</Project>
