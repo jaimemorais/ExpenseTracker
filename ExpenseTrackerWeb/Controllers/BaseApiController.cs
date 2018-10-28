@@ -9,7 +9,7 @@ namespace ExpenseTrackerWebApi.Controllers
     {
         protected void CheckAuth()
         {
-            // TODO auth - meanwhile I use this
+            // TODO auth
             if (UtilApi.GetHeaderValue(Request, "expensetracker-api-token") == null ||
                 UtilApi.GetHeaderValue(Request, "expensetracker-api-token") != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
             {
