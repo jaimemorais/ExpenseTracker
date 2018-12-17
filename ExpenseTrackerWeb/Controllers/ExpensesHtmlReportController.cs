@@ -22,7 +22,7 @@ namespace ExpenseTrackerWebApi.Controllers
 
 
         [HttpGet]
-        public async Task<HttpResponseMessage> ExpensesReport(string apiToken, string username, string category = null)
+        public async Task<HttpResponseMessage> ExpensesReport(string apiToken, string username, string category = null, long? year = null)
         {            
             if (apiToken != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
             {
@@ -43,14 +43,26 @@ namespace ExpenseTrackerWebApi.Controllers
                     expenseList = expenseList.Where(e => e.Category == category).ToList();
                 }
 
+                               
+                if (year != null)
+                {
+                    expenseList = expenseList.Where(e => e.Date.Year == year).ToList();
+                }
+                else
+                {
+                    expenseList = expenseList.Where(e => e.Date.Year == DateTime.Now.Year).ToList();
+                }
 
 
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");                
-                
+
+                expenseList.OrderBy(e => e.Date.Year).OrderBy(e => e.Date.Month);
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
+
                 var resp = new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(CreateHtmlTable(expenseList), System.Text.Encoding.UTF8, "text/html")
                 };
+
 
                 return resp;
             }
@@ -77,7 +89,8 @@ namespace ExpenseTrackerWebApi.Controllers
 
                 string name = (exp.UserName.Split('@')[0] == "patricia" ? "Patrícia" : "Jaime");
 
-                sb.AppendLine(GetTD(month) +
+                sb.AppendLine(//GetTD(exp.Date.Year.ToString()) +
+                              GetTD(month) +
                               GetTD(exp.Date.Day.ToString()) +
                               GetTD(exp.Value.ToString()) +
                               GetTD(name) +
@@ -85,8 +98,6 @@ namespace ExpenseTrackerWebApi.Controllers
                               GetTD(exp.Description) +
                               GetTD(SetPaymentType(exp, name))
                              );
-
-
 
                 sb.AppendLine("</tr>");
             }
