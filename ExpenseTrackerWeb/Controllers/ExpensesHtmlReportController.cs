@@ -29,48 +29,60 @@ namespace ExpenseTrackerWebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
 
-
-            try
+            using (Sentry.SentrySdk.Init(ConfigurationManager.AppSettings.Get("SENTRY_URI")))
             {
-                MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
-
-                List<Expense> expenseList =
-                    await expenseHelper.Collection.Find(e => e.UserName == username)
-                    .ToListAsync();
-
-                if (!string.IsNullOrEmpty(category))
+                try
                 {
-                    expenseList = expenseList.Where(e => e.Category == category).ToList();
+
+                    int i = 0;
+                    if (i == 0)
+                        throw new Exception("teste sentry");
+                    else
+                        i = 1;
+
+
+                    MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
+
+                    List<Expense> expenseList =
+                        await expenseHelper.Collection.Find(e => e.UserName == username)
+                        .ToListAsync();
+
+                    if (!string.IsNullOrEmpty(category))
+                    {
+                        expenseList = expenseList.Where(e => e.Category == category).ToList();
+                    }
+
+
+                    if (year != null)
+                    {
+                        expenseList = expenseList.Where(e => e.Date.Year == year).ToList();
+                    }
+                    else
+                    {
+                        expenseList = expenseList.Where(e => e.Date.Year == DateTime.Now.Year).ToList();
+                    }
+
+
+
+                    expenseList.OrderBy(e => e.Date.Year).OrderBy(e => e.Date.Month);
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
+
+                    var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(CreateHtmlTable(expenseList), System.Text.Encoding.UTF8, "text/html")
+                    };
+
+
+                    return resp;
                 }
-
-                               
-                if (year != null)
+                catch (Exception e)
                 {
-                    expenseList = expenseList.Where(e => e.Date.Year == year).ToList();
+                    Trace.TraceError($"{nameof(ExpensesHtmlReportController)} Error : " + e.Message);
+                    //return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                    throw;
                 }
-                else
-                {
-                    expenseList = expenseList.Where(e => e.Date.Year == DateTime.Now.Year).ToList();
-                }
-
-
-
-                expenseList.OrderBy(e => e.Date.Year).OrderBy(e => e.Date.Month);
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
-
-                var resp = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(CreateHtmlTable(expenseList), System.Text.Encoding.UTF8, "text/html")
-                };
-
-
-                return resp;
             }
-            catch (Exception e)
-            {
-                Trace.TraceError($"{nameof(ExpensesHtmlReportController)} Error : " + e.Message);                
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
-            }
+
         }
 
         private string CreateHtmlTable(List<Expense> expenseList)
