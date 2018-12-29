@@ -33,14 +33,6 @@ namespace ExpenseTrackerWebApi.Controllers
             {
                 try
                 {
-
-                    int i = 0;
-                    if (i == 0)
-                        throw new Exception("teste sentry");
-                    else
-                        i = 1;
-
-
                     MongoHelper<Expense> expenseHelper = new MongoHelper<Expense>();
 
                     List<Expense> expenseList =
