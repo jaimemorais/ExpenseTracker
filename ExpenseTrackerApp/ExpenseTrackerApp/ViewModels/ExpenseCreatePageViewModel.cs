@@ -246,8 +246,7 @@ namespace ExpenseTrackerApp.ViewModels
             string img_h = "puppyh{0}.png";
 
             Random rnd = new Random();
-
-
+            
             if ((DateTime.Now.DayOfWeek.Equals(DayOfWeek.Monday) && exp.Value > 30) || exp.Value > 80)
             {
                 int r = rnd.Next(1, 7);
