@@ -88,7 +88,6 @@ namespace ExpenseTrackerWebApi.Controllers
                         return "Error sending Push. Firebase Cloud Messaging HttpStatusCode : " + (int)result.StatusCode;
                     }                    
                 }
-
                 
             }
             catch (Exception e)
