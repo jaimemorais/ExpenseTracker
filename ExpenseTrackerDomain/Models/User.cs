@@ -14,5 +14,8 @@ namespace ExpenseTrackerDomain.Models
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+
+
+        public string FirebaseCloudMessagingToken { get; set; }
     }
 }
