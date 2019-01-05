@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 GOOGLE_JSON_FILE=$APPCENTER_SOURCE_DIRECTORY/google-services.json
 
 if [ -e "$GOOGLE_JSON_FILE" ]  
