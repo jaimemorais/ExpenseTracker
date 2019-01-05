@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace ExpenseTrackerWebApi.Controllers
     {
                 
         [HttpPost]
-        public async Task UpdateUserFcmToken(string fcmToken)
+        public async Task<HttpResponseMessage> UpdateUserFcmToken()
         {
             CheckAuth();
             
@@ -24,24 +25,39 @@ namespace ExpenseTrackerWebApi.Controllers
             {
                 string userName = UtilApi.GetHeaderValue(Request, "CurrentUserName");
 
+                HttpContent requestContent = Request.Content;
+                string fcmTokenReceived = requestContent.ReadAsStringAsync().Result;
+
                 var filter = Builders<User>.Filter.Eq(u => u.UserName, userName);
-                var update = Builders<User>.Update.Set("FirebaseCloudMessagingToken", fcmToken);                                                      
+                var update = Builders<User>.Update.Set("FirebaseCloudMessagingToken", fcmTokenReceived);                                                      
 
                 MongoHelper<User> userHelper = new MongoHelper<User>();
-                await userHelper.Collection.UpdateOneAsync(filter, update);
+                UpdateResult updateResult = await userHelper.Collection.UpdateOneAsync(filter, update);
+
+                if (updateResult.IsAcknowledged)
+                {
+                    return new HttpResponseMessage() { StatusCode = HttpStatusCode.OK };
+                }
+                else
+                {
+                    return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound };
+                }
             }
             catch (Exception e)
             {
                 Trace.TraceError("UpdateUserFcmToken error : " + e.Message);
-                throw;
+                return new HttpResponseMessage() { StatusCode = HttpStatusCode.InternalServerError , Content = new StringContent(e.Message) };
             }
         }
 
         
         [HttpGet]
-        public async Task SendPushNotificationAsync(string userName, string title, string body)
+        public async Task<string> SendPushNotificationAsync(string apiToken, string userName, string title, string body)
         {
-            CheckAuth();
+            if (apiToken != ConfigurationManager.AppSettings.Get("expensetracker-api-token"))
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
 
             try
             {
@@ -62,7 +78,18 @@ namespace ExpenseTrackerWebApi.Controllers
                 using (var client = new HttpClient())
                 {
                     result = await client.SendAsync(request);
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return "Push sent OK.";
+                    }
+                    else
+                    {
+                        return "Error sending Push. Firebase Cloud Messaging HttpStatusCode : " + (int)result.StatusCode;
+                    }                    
                 }
+
+                
             }
             catch (Exception e)
             {
