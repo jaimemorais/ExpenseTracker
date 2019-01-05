@@ -16,5 +16,7 @@ namespace ExpenseTrackerApp.Service
         Task<bool> SaveExpenseAsync(Expense expense);
 
         Task<bool> DeleteExpenseAsync(Expense expense);
+
+        Task<bool> UpdateUserFCMToken(string token);
     }
 }

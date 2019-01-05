@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using ExpenseTrackerApp.Droid.CustomRenderers;
+using Plugin.FirebasePushNotification;
 using Prism;
 using Prism.Ioc;
 using System;
@@ -15,9 +16,7 @@ namespace ExpenseTrackerApp.Droid
     {
 
         internal static MainActivity Instance { get; private set; }
-
-
-
+               
         public event EventHandler<VoiceActivityResultEventArgs> VoiceActivityResult = delegate { };
 
 
@@ -38,6 +37,13 @@ namespace ExpenseTrackerApp.Droid
             LoadApplication(new App(new AndroidInitializer()));
 
 
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this, intent);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

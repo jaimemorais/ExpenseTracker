@@ -64,5 +64,16 @@ namespace ExpenseTrackerApp.Service
 
             return await _httpConnection.DeleteAsync(uri + "/" + expense.Id);            
         }
+
+
+
+        public async Task<bool> UpdateUserFCMToken(string token)
+        {
+            string uri = Secrets.BASE_API_ENDPOINT + "Push";
+
+            return await _httpConnection.PostAsync<string>(uri, token);
+        }
+
+
     }
 }

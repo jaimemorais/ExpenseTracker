@@ -2,6 +2,7 @@ using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
+using Plugin.FirebasePushNotification;
 using System;
 
 namespace ExpenseTrackerApp.Droid
@@ -18,7 +19,20 @@ namespace ExpenseTrackerApp.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            RegisterActivityLifecycleCallbacks(this);            
+            RegisterActivityLifecycleCallbacks(this);
+
+
+
+
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {                
+                FirebasePushNotificationManager.DefaultNotificationChannelId = "EspTrackerChannelId";                
+                FirebasePushNotificationManager.DefaultNotificationChannelName = "EspTrackerChannel";
+            }
+
+
+            FirebasePushNotificationManager.Initialize(this, false);
+
         }
 
         public override void OnTerminate()

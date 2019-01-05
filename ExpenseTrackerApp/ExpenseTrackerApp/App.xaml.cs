@@ -33,6 +33,10 @@ namespace ExpenseTrackerApp
 
             AppCenter.Start($"android={Secrets.MOBILE_CENTER_KEY};", typeof(Analytics), typeof(Crashes));
 
+
+            Container.GetContainer().Resolve<IPushService>().Initialize();
+
+
             DoInitialNavigate();
         }
 
@@ -44,16 +48,16 @@ namespace ExpenseTrackerApp
         static IHttpConnection httpConnection = new HttpConnection(userSettings, telemetry);
         static IExpenseTrackerService expenseTrackerService = new ExpenseTrackerService(httpConnection, telemetry);
         static IFirebaseService firebaseService = new FirebaseService(userSettings, telemetry);
+        static IPushService pushService = new PushService(telemetry, expenseTrackerService);
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {            
-
             containerRegistry.RegisterInstance<ITelemetry>(telemetry);
             containerRegistry.RegisterInstance<IUserSettings>(userSettings);
             containerRegistry.RegisterInstance<IHttpConnection>(httpConnection);
             containerRegistry.RegisterInstance<IExpenseTrackerService>(expenseTrackerService);
             containerRegistry.RegisterInstance<IFirebaseService>(firebaseService);
-
+            containerRegistry.RegisterInstance<IPushService>(pushService);
 
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
@@ -80,7 +84,7 @@ namespace ExpenseTrackerApp
 
             if (firebaseService.GetCurrentUser() != null)
             {
-                NavigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseListPage)}");
+                NavigationService.NavigateAsync($"ExpenseTrackerApp:///{nameof(MenuPage)}/{nameof(NavigationPage)}/{nameof(ExpenseCreatePage)}");
             }
             else
             {

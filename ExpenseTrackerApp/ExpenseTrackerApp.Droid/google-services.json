@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "582979818666",
+    "firebase_url": "https://expensetrackermvp.firebaseio.com",
+    "project_id": "expensetrackermvp",
+    "storage_bucket": "expensetrackermvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582979818666:android:5f8eeb6a5930f18b",
+        "android_client_info": {
+          "package_name": "com.jaime.ExpenseTracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582979818666-5s9il9mbf4s4ktsc27kj1bq1g7c2iglb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi0xOnh2X6aoGAX7e1DvOJGR56Qv7zivs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
