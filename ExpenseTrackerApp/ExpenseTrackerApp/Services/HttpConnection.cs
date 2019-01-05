@@ -79,7 +79,7 @@ namespace ExpenseTrackerApp.Services
         }
 
 
-        public async Task<bool> PostAsync<T>(string uri, object objPost)
+        public async Task<bool> PostJsonAsync<T>(string uri, object objPost)
         {
             try
             {
@@ -100,7 +100,27 @@ namespace ExpenseTrackerApp.Services
             }
             catch (Exception ex)
             {
-                _telemetry.LogError("HttpConnection.PostAsync Error", ex);
+                _telemetry.LogError("HttpConnection.PostJsonAsync Error", ex);
+
+                return false;
+            }
+        }
+
+
+        public async Task<bool> PostStringContentAsync<T>(string uri, string content)
+        {
+            try
+            {
+                using (HttpClient httpClient = CreateHttpClient())
+                {
+                    HttpResponseMessage response = await httpClient.PostAsync(uri, new StringContent(content));
+
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                _telemetry.LogError("HttpConnection.PostStringContentAsync Error", ex);
 
                 return false;
             }

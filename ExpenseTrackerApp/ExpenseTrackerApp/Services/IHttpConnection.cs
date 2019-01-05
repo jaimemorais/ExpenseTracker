@@ -6,7 +6,9 @@ namespace ExpenseTrackerApp.Services
     {
         Task<T> GetAsync<T>(string uri);
 
-        Task<bool> PostAsync<T>(string uri, object objPost);
+        Task<bool> PostJsonAsync<T>(string uri, object objPost);
+
+        Task<bool> PostStringContentAsync<T>(string uri, string content);
 
         Task<bool> DeleteAsync(string uri);
     }

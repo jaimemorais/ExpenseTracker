@@ -13,6 +13,9 @@
         <Button Command="{Binding RefreshCachedListsCommand}" Text="Refresh Cached Lists" 
                 HorizontalOptions="Center"/>
 
+        <Button Command="{Binding UpdatePushTokenCommand}" Text="Update Push Token" 
+                HorizontalOptions="Center"/>
+
 
     </StackLayout>
 </ContentPage>

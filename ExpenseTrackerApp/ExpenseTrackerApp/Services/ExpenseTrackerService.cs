@@ -1,8 +1,10 @@
 ﻿using ExpenseTrackerApp.Helpers;
 using ExpenseTrackerApp.Model;
 using ExpenseTrackerApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ExpenseTrackerApp.Service
@@ -54,7 +56,7 @@ namespace ExpenseTrackerApp.Service
         {
             string uri = Secrets.BASE_API_ENDPOINT + "Expenses";
 
-            return await _httpConnection.PostAsync<Expense>(uri, expense);            
+            return await _httpConnection.PostJsonAsync<Expense>(uri, expense);            
         }
 
 
@@ -70,8 +72,7 @@ namespace ExpenseTrackerApp.Service
         public async Task<bool> UpdateUserFCMToken(string token)
         {
             string uri = Secrets.BASE_API_ENDPOINT + "Push";
-
-            return await _httpConnection.PostAsync<string>(uri, token);
+            return await _httpConnection.PostStringContentAsync<string>(uri, token);                        
         }
 
 

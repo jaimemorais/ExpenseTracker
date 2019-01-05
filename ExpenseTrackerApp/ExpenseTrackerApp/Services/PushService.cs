@@ -21,13 +21,13 @@ namespace ExpenseTrackerApp.Services
 
 
         public void Initialize()
-        {
+        {            
             CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
             {
                 try
                 {
                     string newToken = CrossFirebasePushNotification.Current.Token;
-                    //_expenseTrackerService.UpdateUserFCMToken(newToken);
+                    _expenseTrackerService.UpdateUserFCMToken(newToken);
                 }
                 catch (Exception ex)
                 {
