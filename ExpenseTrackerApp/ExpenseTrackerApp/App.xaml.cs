@@ -14,13 +14,16 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace ExpenseTrackerApp
 {
-
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class App : PrismApplication
+        
+    public partial class App
     {
-        public App(IPlatformInitializer initializer = null) : base(initializer) { }
+
+        public App() : this(null) { }
+
+        public App(IPlatformInitializer initializer) : base(initializer) { }
 
 
         protected override void OnInitialized()
@@ -28,6 +31,11 @@ namespace ExpenseTrackerApp
 #if DEBUG
             LiveReload.Init();
 #endif
+
+
+            // ATENCAO: trabalhar no branch-dev
+            // Fazer distribuicao automatica pelo appcenter com push no master
+
 
             InitializeComponent();
 

@@ -22,7 +22,7 @@ namespace ExpenseTrackerApp.ViewModels
             MenuItems = new ObservableCollection<Models.MenuItem>();
         }
 
-        public void OnNavigatingTo(NavigationParameters parameters)
+        public void OnNavigatingTo(INavigationParameters parameters)
         {
             MenuItems.Clear();
 

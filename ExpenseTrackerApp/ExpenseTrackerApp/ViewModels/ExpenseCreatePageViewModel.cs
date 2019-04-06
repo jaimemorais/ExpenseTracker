@@ -85,11 +85,11 @@ namespace ExpenseTrackerApp.ViewModels
 
 
 
-        public void OnNavigatedFrom(NavigationParameters parameters)
+        public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(INavigationParameters parameters)
         {
             this.Date = DateTime.Now.Date;
             this.Description = string.Empty;            
@@ -286,5 +286,6 @@ namespace ExpenseTrackerApp.ViewModels
         {
             await _navigationService.GoBackAsync();
         }
+
     }
 }

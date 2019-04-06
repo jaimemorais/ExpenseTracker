@@ -65,12 +65,12 @@ namespace ExpenseTrackerApp.ViewModels
 
 
 
-        public void OnNavigatedFrom(NavigationParameters parameters)
+        public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
 
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(INavigationParameters parameters)
         {
             categories = _userSettings.GetCategoriesLocal();
             if (categories == null)
