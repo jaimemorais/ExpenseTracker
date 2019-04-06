@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Android.Text;
 using ExpenseTrackerApp.CustomRenderers;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Graphics.Drawables;
-using Android.Text;
-using Android.Views;
-using System;
-using System.ComponentModel;
 using ExpenseTrackerApp.Droid.CustomRenderers;
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -69,7 +56,7 @@ namespace ExpenseTrackerApp.Droid.CustomRenderers
         void Control_AfterTextChanged(object sender, AfterTextChangedEventArgs e)
         {
             var element = ((DecimalEntry)Element);
-            
+
             // 1. Stop listening for changes on our control Text property
             if (!element.ShouldReactToTextChanges) return;
             element.ShouldReactToTextChanges = false;
