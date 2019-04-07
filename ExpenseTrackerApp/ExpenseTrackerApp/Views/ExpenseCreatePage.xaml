@@ -5,7 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:customrenderers="clr-namespace:ExpenseTrackerApp.CustomRenderers"
              x:Class="ExpenseTrackerApp.Views.ExpenseCreatePage"
-             Title="New Expense"
+             Title="New Expense"             
              Appearing="ContentPage_Appearing">
 
     <ScrollView>
@@ -41,7 +41,7 @@
             <Button Command="{Binding SaveCommand}" Text="Save" x:Name="btnSave" />
 
             <!-- On a modal page, its recommended to put a back command, due to iOS way to treat modal pages -->
-            <Button Command="{Binding BackCommand}" Text="Back" />
+            <Button Command="{Binding BackCommand}" Text="Back" Visual= "Material" />
 
         </StackLayout>
     </ScrollView>
