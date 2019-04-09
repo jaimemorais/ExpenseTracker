@@ -29,7 +29,7 @@ namespace ExpenseTrackerApp
         protected override void OnInitialized()
         {
 #if DEBUG
-            LiveReload.Init();
+             HotReloader.Current.Start(this);
 #endif
 
 
