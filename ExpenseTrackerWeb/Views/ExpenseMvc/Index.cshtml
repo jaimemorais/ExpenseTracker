@@ -1,0 +1,25 @@
+﻿
+
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+
+    <table>
+        <tr style="font-weight:bold;">
+            <td>Date</td>
+            <td>Category</td>
+            <td>Description</td>
+            <td>Value</td>
+        </tr>
+        @foreach (ExpenseTrackerDomain.Models.Expense exp in Model)
+        {
+            <tr>
+                <td>@exp.Date.ToShortDateString()</td>
+                <td>@exp.Category</td>
+                <td>@exp.Description</td>
+                <td>@exp.Value</td>
+            </tr>
+        }
+    </table>

@@ -150,7 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\Mvc\NewExpenseMvcController.cs" />
+    <Compile Include="Controllers\Mvc\ExpenseMvcController.cs" />
     <Compile Include="Controllers\PushController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
@@ -176,7 +176,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\NewExpenseMvc\Index.cshtml" />
+    <Content Include="Views\ExpenseMvc\Index.cshtml" />
+    <Content Include="Views\ExpenseMvc\NewExpense.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -184,9 +185,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ExpenseTrackerDomain\ExpenseTrackerDomain.csproj">
       <Project>{89ff69eb-3420-43b6-8925-e21f5db538b2}</Project>
