@@ -33,8 +33,8 @@ namespace ExpenseTrackerApp
 #endif
 
 
-            // ATENCAO: trabalhar no branch-dev
-            // Fazer distribuicao automatica pelo appcenter com push no master
+             // ATENCAO: trabalhar no branch-dev
+             // Configurada distribuicao automatica pelo appcenter com push no master
 
 
             InitializeComponent();

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace ExpenseTrackerWebApi
@@ -13,6 +14,11 @@ namespace ExpenseTrackerWebApi
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+
+            // MVC
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

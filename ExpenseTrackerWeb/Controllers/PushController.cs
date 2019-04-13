@@ -50,7 +50,8 @@ namespace ExpenseTrackerWebApi.Controllers
             }
         }
 
-        
+
+        // TODO change to http POST (remember to change the cronjob also - https://cron-job.org)
         [HttpGet]
         public async Task<string> SendPushNotificationAsync(string apiToken, string userName, string title, string body)
         {
