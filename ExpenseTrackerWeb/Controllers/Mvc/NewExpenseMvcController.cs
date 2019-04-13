@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ExpenseTrackerWebApi.Controllers
+namespace ExpenseTrackerWebApi.Controllers.Mvc
 {
     public class NewExpenseMvcController : Controller
     {
