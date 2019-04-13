@@ -1,25 +1,25 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    @{
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+<br />
+@Html.ActionLink("Add Expense", "NewExpense", "ExpenseMvc")
+<br /><br />
 
-
-
-    <table>
-        <tr style="font-weight:bold;">
-            <td>Date</td>
-            <td>Category</td>
-            <td>Description</td>
-            <td>Value</td>
+<table>
+    <tr style="font-weight:bold;">
+        <td width="80px">Date</td>
+        <td>Category</td>
+        <td>Description</td>
+        <td style="text-align:right;">Value</td>
+    </tr>
+    @foreach (ExpenseTrackerDomain.Models.Expense exp in Model)
+    {
+        <tr>
+            <td >@exp.Date.ToShortDateString()</td>
+            <td>@exp.Category</td>
+            <td>@exp.Description</td>
+            <td style="text-align:right;">@exp.Value</td>
         </tr>
-        @foreach (ExpenseTrackerDomain.Models.Expense exp in Model)
-        {
-            <tr>
-                <td>@exp.Date.ToShortDateString()</td>
-                <td>@exp.Category</td>
-                <td>@exp.Description</td>
-                <td>@exp.Value</td>
-            </tr>
-        }
-    </table>
+    }
+</table>
