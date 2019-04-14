@@ -129,9 +129,6 @@ namespace ExpenseTrackerWebApi.Controllers.Mvc
 
                     expense.UserName = Session["username"].ToString();
 
-                    // TODO refactor
-                    expense.Value = decimal.Parse(expense.Value.Value.ToString().Replace(".", ","));
-
                     expenseHelper.Collection.InsertOneAsync(expense);
 
                     return Index(Session["token"].ToString(), Session["username"].ToString());

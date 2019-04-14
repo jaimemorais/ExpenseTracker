@@ -17,9 +17,9 @@ namespace ExpenseTrackerDomain.Models
         public DateTime Date { get; set; }
 
         [Display(Name = "Value")]
-//        [DataType(DataType.Currency)]
+        [DataType(DataType.Currency)]
         [Required(ErrorMessage = "Value is required")]
-        public decimal? Value { get; set; }
+        public double Value { get; set; }
                 
         [Display(Name = "Category")]
         [Required(ErrorMessage = "Select a category")]
