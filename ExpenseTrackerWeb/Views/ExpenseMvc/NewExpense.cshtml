@@ -70,19 +70,5 @@
     <script>
         $(function () {
             $("#Date").datepicker({ dateFormat: "dd/mm/yy" });
-
-            $("#Value").inputmask('decimal', {
-                radixPoint:",",
-      groupSeparator: ".",
-      autoGroup: true,
-      digits: 2,
-      digitsOptional: false,
-      placeholder: '0',
-      rightAlign: false,
-      onBeforeMask: function (value, opts) {
-        return value;
-      }
-            });
-        });
     </script>
 }

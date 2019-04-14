@@ -43,13 +43,6 @@ namespace ExpenseTrackerWebApi
               "~/Content/themes/base/progressbar.css",
               "~/Content/themes/base/theme.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(            
-            "~/Scripts/inputmask/inputmask.js",
-            "~/Scripts/inputmask/jquery.inputmask.js",
-            "~/Scripts/inputmask/inputmask.extensions.js",
-            "~/Scripts/inputmask/inputmask.date.extensions.js",
-            //and other extensions you want to include
-            "~/Scripts/inputmask/inputmask.numeric.extensions.js"));
 
 
         }
