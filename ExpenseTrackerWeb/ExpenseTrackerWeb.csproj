@@ -204,6 +204,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DecimalModelBinder.cs" />
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\UtilApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
