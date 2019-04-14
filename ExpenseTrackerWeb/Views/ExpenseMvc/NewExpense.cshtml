@@ -48,7 +48,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Value, new { Style = "text-align:right;width:80px;" })
+                @Html.TextBoxFor(model => model.Value, new { Style = "text-align:right;width:120px;" })
                 @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -72,16 +72,17 @@
             $("#Date").datepicker({ dateFormat: "dd/mm/yy" });
 
             $("#Value").inputmask('decimal', {
-                'alias': 'numeric',
-                'groupSeparator': ',',
-                'autoGroup': true,
-                'digits': 2,
-                'radixPoint': ".",
-                'digitsOptional': false,
-                'allowMinus': false,
-                'prefix': 'R$ ',
-                'placeholder': ''
-    });
+                radixPoint:",",
+      groupSeparator: ".",
+      autoGroup: true,
+      digits: 2,
+      digitsOptional: false,
+      placeholder: '0',
+      rightAlign: false,
+      onBeforeMask: function (value, opts) {
+        return value;
+      }
+            });
         });
     </script>
 }
