@@ -11,7 +11,8 @@
         <td width="80px">Date</td>
         <td>Category</td>
         <td>Description</td>
-        <td style="text-align:right;">Value</td>
+        <td style="text-align:right;width:60px;">Value</td>
+        <td></td>
     </tr>
     @foreach (ExpenseTrackerDomain.Models.Expense exp in Model)
     {
@@ -20,6 +21,7 @@
             <td>@exp.Category</td>
             <td>@exp.Description</td>
             <td style="text-align:right;">@exp.Value</td>
+            <td style="text-align:right;width:60px;">@Html.ActionLink("Delete", "DeleteExpense", new { idExpenseToDelete = exp.Id })</td>
         </tr>
     }
 </table>

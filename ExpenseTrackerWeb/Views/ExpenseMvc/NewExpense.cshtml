@@ -1,6 +1,7 @@
 ﻿@model ExpenseTrackerDomain.Models.Expense
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "New Expense";
 }
 
@@ -15,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Date, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.TextBoxFor(model => model.Date, new { htmlAttributes = new { @class = "form-control ui-datepicker" } })
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -23,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Category, (IEnumerable<SelectListItem>)@ViewBag.CategoryDropDownList, "-- Select Category --")
                 @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -31,22 +32,30 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Description, new { Style = "width:300px;" })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PaymentType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PaymentType, (IEnumerable<SelectListItem>)@ViewBag.PaymentTypeDropDownList, "-- Select Payment Type --")
+                @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Value, new { Style = "text-align:right;width:80px;" })
                 @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-info" style="width:200px;" />
             </div>
         </div>
     </div>
@@ -56,3 +65,23 @@
     @Html.ActionLink("Back to List", "Index", "ExpenseMvc")
 </div>
 
+
+@section scripts {
+    <script>
+        $(function () {
+            $("#Date").datepicker({ dateFormat: "dd/mm/yy" });
+
+            $("#Value").inputmask('decimal', {
+                'alias': 'numeric',
+                'groupSeparator': ',',
+                'autoGroup': true,
+                'digits': 2,
+                'radixPoint': ".",
+                'digitsOptional': false,
+                'allowMinus': false,
+                'prefix': 'R$ ',
+                'placeholder': ''
+    });
+        });
+    </script>
+}

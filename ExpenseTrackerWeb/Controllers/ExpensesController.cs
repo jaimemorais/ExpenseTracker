@@ -37,9 +37,9 @@ namespace ExpenseTrackerWebApi.Controllers
         {
             CheckAuth();
 
-            MongoHelper<Expense> categoryHelper = new MongoHelper<Expense>();            
+            MongoHelper<Expense> expHelper = new MongoHelper<Expense>();            
 
-            Expense exp = await categoryHelper.Collection
+            Expense exp = await expHelper.Collection
                 .Find(c => c.Id.Equals(id)) 
                 .FirstAsync();
 
