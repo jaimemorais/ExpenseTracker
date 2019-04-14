@@ -65,11 +65,8 @@ namespace ExpenseTrackerWebApi.Controllers.Mvc
         public ActionResult NewExpense()
         {
             LoadDropDownLists();
-
-            Expense exp = new Expense();
-            exp.Date = DateTime.Today;
-
-            return View("NewExpense", exp);
+            
+            return View("NewExpense");
         }
 
         private void LoadDropDownLists()
