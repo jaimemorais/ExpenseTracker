@@ -16,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Date, new { htmlAttributes = new { @class = "form-control ui-datepicker" } })
+                @Html.TextBoxFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Category, (IEnumerable<SelectListItem>)@ViewBag.CategoryDropDownList, "-- Select Category --")
+                @Html.DropDownListFor(model => model.Category, (IEnumerable<SelectListItem>)@ViewBag.CategoryDropDownList, "-- Select Category --", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Description, new { Style = "width:300px;" })
+                @Html.TextBoxFor(model => model.Description, new { Style = "width:300px;" , @class="form-control"})
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PaymentType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.PaymentType, (IEnumerable<SelectListItem>)@ViewBag.PaymentTypeDropDownList, "-- Select Payment Type --")
+                @Html.DropDownListFor(model => model.PaymentType, (IEnumerable<SelectListItem>)@ViewBag.PaymentTypeDropDownList, "-- Select Payment Type --", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Value, new { Style = "text-align:right;width:120px;" })
+                @Html.TextBoxFor(model => model.Value, new { @class = "form-control" , Style = "text-align:right;width:120px;" })
                 @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
             </div>
         </div>
