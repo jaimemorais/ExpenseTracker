@@ -10,7 +10,7 @@ namespace ExpenseTrackerDomain.Models
     {        
 
         [Display(Name = "Date")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Required(ErrorMessage="Date is required")]
 //        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [BsonDateTimeOptions(DateOnly = false)]
