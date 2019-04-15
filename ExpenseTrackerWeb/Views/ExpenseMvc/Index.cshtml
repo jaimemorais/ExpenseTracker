@@ -11,6 +11,7 @@
         <td width="80px">Date</td>
         <td>Category</td>
         <td>Description</td>
+        <td>Payment Type</td>
         <td style="text-align:right;width:60px;">Value</td>
         <td></td>
     </tr>
@@ -20,6 +21,7 @@
             <td >@exp.Date.ToShortDateString()</td>
             <td>@exp.Category</td>
             <td>@exp.Description</td>
+            <td>@exp.PaymentType</td>
             <td style="text-align:right;">@exp.Value</td>
             <td style="text-align:right;width:60px;">@Html.ActionLink("Delete", "DeleteExpense", new { idExpenseToDelete = exp.Id })</td>
         </tr>
