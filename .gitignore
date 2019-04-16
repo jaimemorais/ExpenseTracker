@@ -203,3 +203,4 @@ sqlite*/
 /.vs/ExpenseTracker/DesignTimeBuild/.dtbcache
 /ExpenseTrackerApp/ExpenseTrackerApp/Secrets.json
 /.vs/ExpenseTracker/config/applicationhost.config
+/.vs/ExpenseTrackerWeb/config/applicationhost.config
