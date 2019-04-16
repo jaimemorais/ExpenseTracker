@@ -48,7 +48,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Value, new { type = "number", @class = "form-control", Style = "text-align:right;width:120px;" })
+                @Html.TextBoxFor(model => model.Value, new { type = "number", step="any", @class = "form-control", Style = "text-align:right;width:120px;" })
                 @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
             </div>
         </div>
