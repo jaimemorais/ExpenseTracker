@@ -1,6 +1,6 @@
-A simple expense tracker
+Personal expense tracker
 
-C# / asp.net (webapi/mvc) / Xamarin Forms / MongoDB / Firebase Authentication / Firebase Cloud Messaging
+C# / asp.net rest api / asp.net mvc / Xamarin Forms / MongoDB / Firebase Authentication / Firebase Cloud Messaging
 
 
 
