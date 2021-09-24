@@ -1,6 +1,6 @@
-Personal expense tracker
+Personal expense tracker App (Web/Mobile)
 
-C# / asp.net rest api / asp.net mvc / Xamarin Forms / MongoDB / Firebase Authentication / Firebase Cloud Messaging
+C# / asp.net mvc / Xamarin Forms / MongoDB / Firebase Authentication / Firebase Cloud Messaging
 
 
 
