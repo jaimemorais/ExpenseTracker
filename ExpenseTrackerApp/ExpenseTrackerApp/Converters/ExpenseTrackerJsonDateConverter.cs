@@ -7,6 +7,7 @@ namespace ExpenseTrackerApp.Converters
         public ExpenseTrackerJsonDateConverter()
         {
             base.DateTimeFormat = "yyyy-MM-dd";
+            
         }
     }
 }
