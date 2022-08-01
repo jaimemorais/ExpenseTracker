@@ -27,10 +27,6 @@ namespace ExpenseTrackerApp
 
         protected override void OnInitialized()
         {
-            // ATENCAO: trabalhar no branch-dev
-            // Configurada distribuicao automatica pelo appcenter com push no master
-
-
             InitializeComponent();
 
             AppCenter.Start($"android={Secrets.MOBILE_CENTER_KEY};", typeof(Analytics), typeof(Crashes));
