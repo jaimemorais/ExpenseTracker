@@ -348,7 +348,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-/src/api/BreadApi/appsettings.Development.json
-ExpenseTrackerApp/ExpenseTrackerApp/Secrets.json
-ExpenseTrackerWeb/Web.Release.config
-ExpenseTrackerWeb/Web.Debug.config
+
+#ExpensTracker
+/src/ExpenseTrackerApp/ExpenseTrackerApp/Secrets.json
+/src/ExpenseTrackerWeb/Web.Release.config
+/src/ExpenseTrackerWeb/Web.Debug.config
+/src/ExpenseTrackerApp/ExpenseTrackerApp.Droid/google-services.json
