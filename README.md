@@ -9,5 +9,6 @@ Personal Expense Tracker App
 
 
 
-[![Build status](https://ci.appveyor.com/api/projects/status/7wj0iugfyy7ct3aj?svg=true)](https://ci.appveyor.com/project/jaimemorais/expensetracker)
+[![Build status](https://ci.appveyor.com/api/projects/status/bs0ek9y13nfncwhb?svg=true)](https://ci.appveyor.com/project/jaimemorais/expensetrackerweb)
+
 
